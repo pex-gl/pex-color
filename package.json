@@ -1,0 +1,27 @@
+{
+  "name": "pex-color",
+  "version": "0.0.1",
+  "description": "Color utilities for the pex library",
+  "homepage": "https://github.com/vorg/pex-color",
+  "keywords": [
+    "pex",
+    "color theory"
+  ],
+  "author": {
+    "name": "Marcin Ignac",
+    "email": "marcin.ignac@gmail.com",
+    "url": "http://marcinignac.com"
+  },
+  "main": "index.js",
+  "devDependencies": {
+  },
+  "dependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vorg/pex-color.git"
+  },
+  "bugs": "https://github.com/vorg/pex-color/issues",
+  "homepage": "https://github.com/vorg/pex-color.git",
+  "license": "MIT"
+}
