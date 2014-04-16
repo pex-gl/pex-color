@@ -5,19 +5,17 @@
     r: 0
     g: 0
     b: 0
-    a: 0
+    a: 1
 
-    constructor: (@r=0, @g=0, @b=0, @a=0) ->
+    constructor: (@r=0, @g=0, @b=0, @a=1) ->
 
-    @create: (r, g, b, a) ->
+    @create: (r, g, b, a=1) ->
       new Color(r, g, b, a)
 
-    @createHSV: (h, s, v) ->
+    @fromHSV: (h, s, v, a=1) ->
       c = new Color()
-      c.setHSV(h, s, v)
+      c.setHSV(h, s, v, a)
       c
-
-    @fromHSV = @createHSV
 
     set: (r, g, b, a) ->
       @r = r
@@ -32,7 +30,7 @@
 
     # We basically just make the ramp curves using builtins, see:
     #http://en.wikipedia.org/wiki/File:HSV-RGB-comparison.svg
-    setHSV: (h, s, v) ->
+    setHSV: (h, s, v, a=1) ->
       h6 = h * 6.0
       r = clamp(h6 - 4.0, 0.0, 1.0) - clamp(h6 - 1.0, 0.0, 1.0) + 1.0
       g = clamp(h6, 0.0, 1.0) - clamp(h6 - 3.0, 0.0, 1.0)
@@ -42,6 +40,7 @@
       @r = r * v * s + (v * (1.0 - s))
       @g = g * v * s + (v * (1.0 - s))
       @b = b * v * s + (v * (1.0 - s))
+      @a = a
       this
 
     copy: (c) ->
