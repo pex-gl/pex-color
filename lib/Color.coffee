@@ -17,6 +17,8 @@
       c.setHSV(h, s, v)
       c
 
+    @fromHSV = @createHSV
+
     set: (r, g, b, a) ->
       @r = r
       @g = g
