@@ -16,13 +16,12 @@
   "devDependencies": {
   },
   "dependencies": {
-    "pex-sys": "latest"
+    "pex-sys": "vorg/pex-sys"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/vorg/pex-color.git"
   },
   "bugs": "https://github.com/vorg/pex-color/issues",
-  "homepage": "https://github.com/vorg/pex-color.git",
   "license": "MIT"
 }
