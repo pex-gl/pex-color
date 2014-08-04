@@ -16,7 +16,6 @@
   "devDependencies": {
   },
   "dependencies": {
-    "pex-sys": "vorg/pex-sys"
   },
   "repository": {
     "type": "git",
