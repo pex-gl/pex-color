@@ -13,9 +13,9 @@
     "url": "http://marcinignac.com"
   },
   "main": "index.js",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
+    "lerp": "^1.0.0"
   },
   "repository": {
     "type": "git",
