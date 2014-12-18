@@ -1,6 +1,6 @@
 {
   "name": "pex-color",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Color utilities for the pex library",
   "homepage": "https://github.com/vorg/pex-color",
   "keywords": [
