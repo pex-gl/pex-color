@@ -1,1 +1,1 @@
-module.exports.Color = require('./lib/Color');
+module.exports = require('./Color');
