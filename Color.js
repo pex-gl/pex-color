@@ -461,25 +461,24 @@ Color.lerp = function(startColor, endColor, t, mode) {
     return startColor;
   }
 };
-
-//## Predefined colors ready to use
-
-Color.Transparent = new Color(0, 0, 0, 0);
-Color.None = new Color(0, 0, 0, 0);
-Color.Black = new Color(0, 0, 0, 1);
-Color.White = new Color(1, 1, 1, 1);
-Color.DarkGrey = new Color(0.25, 0.25, 0.25, 1);
-Color.Grey = new Color(0.5, 0.5, 0.5, 1);
-Color.LightGrey = new Color(0.75, 0.75, 0.75, 1);
-Color.Red = new Color(1, 0, 0, 1);
-Color.Green = new Color(0, 1, 0, 1);
-Color.Blue = new Color(0, 0, 1, 1);
-Color.Yellow = new Color(1, 1, 0, 1);
-Color.Pink = new Color(1, 0, 1, 1);
-Color.Cyan = new Color(0, 1, 1, 1);
-Color.Orange = new Color(1, 0.5, 0, 1);
-
 */
+
+//Predefined colors ready to use
+
+Color.Transparent   = [0, 0, 0, 0];
+Color.None          = [0, 0, 0, 0];
+Color.Black         = [0, 0, 0, 1];
+Color.White         = [1, 1, 1, 1];
+Color.DarkGrey      = [0.25, 0.25, 0.25, 1];
+Color.Grey          = [0.5, 0.5, 0.5, 1];
+Color.LightGrey     = [0.75, 0.75, 0.75, 1];
+Color.Red           = [1, 0, 0, 1];
+Color.Green         = [0, 1, 0, 1];
+Color.Blue          = [0, 0, 1, 1];
+Color.Yellow        = [1, 1, 0, 1];
+Color.Pink          = [1, 0, 1, 1];
+Color.Cyan          = [0, 1, 1, 1];
+Color.Orange        = [1, 0.5, 0, 1];
 
 var Color = {
     create  : create,
