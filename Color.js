@@ -463,30 +463,29 @@ Color.lerp = function(startColor, endColor, t, mode) {
 };
 */
 
-//Predefined colors ready to use
-
-Color.Transparent   = [0, 0, 0, 0];
-Color.None          = [0, 0, 0, 0];
-Color.Black         = [0, 0, 0, 1];
-Color.White         = [1, 1, 1, 1];
-Color.DarkGrey      = [0.25, 0.25, 0.25, 1];
-Color.Grey          = [0.5, 0.5, 0.5, 1];
-Color.LightGrey     = [0.75, 0.75, 0.75, 1];
-Color.Red           = [1, 0, 0, 1];
-Color.Green         = [0, 1, 0, 1];
-Color.Blue          = [0, 0, 1, 1];
-Color.Yellow        = [1, 1, 0, 1];
-Color.Pink          = [1, 0, 1, 1];
-Color.Cyan          = [0, 1, 1, 1];
-Color.Orange        = [1, 0.5, 0, 1];
-
 var Color = {
     create  : create,
     fromRGB : fromRGB,
     fromHSL : fromHSL,
     setHSL  : setHSL,
     fromHex : fromHex,
-    setHex  : setHex
+    setHex  : setHex,
+
+    //Predefined colors ready to use
+    Transparent : [0, 0, 0, 0],
+    None        : [0, 0, 0, 0],
+    Black       : [0, 0, 0, 1],
+    White       : [1, 1, 1, 1],
+    DarkGrey    : [0.25, 0.25, 0.25, 1],
+    Grey        : [0.5, 0.5, 0.5, 1],
+    LightGrey   : [0.75, 0.75, 0.75, 1],
+    Red         : [1, 0, 0, 1],
+    Green       : [0, 1, 0, 1],
+    Blue        : [0, 0, 1, 1],
+    Yellow      : [1, 1, 0, 1],
+    Pink        : [1, 0, 1, 1],
+    Cyan        : [0, 1, 1, 1],
+    Orange      : [1, 0.5, 0, 1]
 }
 
 
