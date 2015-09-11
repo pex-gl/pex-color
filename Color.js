@@ -78,9 +78,9 @@ function fromRGBBytes(bytes) {
 
 function getRGBBytes(color, out) {
     out = out || [0, 0, 0];
-    out[0] = Math.floor(color[0]*255);
-    out[1] = Math.floor(color[1]*255);
-    out[2] = Math.floor(color[2]*255);
+    out[0] = Math.round(color[0]*255);
+    out[1] = Math.round(color[1]*255);
+    out[2] = Math.round(color[2]*255);
     return out;
 }
 
@@ -173,30 +173,6 @@ function fromHex(hex) {
   setHex(color, hex);
   return color;
 }
-
-//### fromXYZ(x, y, z)
-//Creates new color from XYZ representation
-//x - *{ Number 0..1 }*
-//y - *{ Number 0..1 }*
-//z - *{ Number 0..1 }*
-function fromXYZ(x, y, z) {
-  var color = create();
-  setXYZ(color, x, y, z);
-  return color;
-}
-
-//### fromLab(l, a, b)
-//Creates new color from Lab representation
-//l - *{ Number 0..100 }*
-//a - *{ Number -128..127 }*
-//b - *{ Number -128..127 }*
-function fromLab(l, a, b) {
-  var color = create();
-  setLab(color, l, a, b);
-  return color;
-}
-
-
 
 //### setHSL(h, s, l, a)
 //Sets rgb color values from a hue, saturation, lightness and alpha
@@ -294,63 +270,117 @@ function getHex(color) {
     .toUpperCase();
 }
 
-/*
-//### setXYZ(x, y, z)
+
+//### fromXYZ(x, y, z)
+//Creates new color from XYZ representation
+//x - *{ Number 0..1 }*
+//y - *{ Number 0..1 }*
+//z - *{ Number 0..1 }*
+function fromXYZ(x, y, z) {
+  var color = create();
+  setXYZ(color, x, y, z);
+  return color;
+}
+
+function fromXYZValue(val) {
+    val /= 100;
+
+    if (val < 0) {
+        val = 0;
+    }
+
+    if (val > 0.0031308) {
+        val = 1.055 * Math.pow(val, (1 / 2.4)) - 0.055;
+    }
+    else {
+        val *= 12.92;
+    }
+
+    return val;
+}
+
+function toXYZValue(val) {
+    if (val > 0.04045) {
+        val = Math.pow(((val + 0.055) / 1.055), 2.4);
+    }
+    else {
+        val /= 12.92;
+    }
+
+    val *= 100;
+
+    return val;
+}
+
+//### setXYZ(color, x, y, z)
 //Sets rgb color values from XYZ
 //x - *{ Number 0..1 }*
 //y - *{ Number 0..1 }*
 //z - *{ Number 0..1 }*
-function setXYZ(colo,r x, y, z) {
-  var rgb = {
-    r: x *  3.2406 + y * -1.5372 + z * -0.4986,
-    g: x * -0.9689 + y *  1.8758 + z *  0.0415,
-    b: x *  0.0557 + y * -0.2040 + z *  1.0570
-  }
+function setXYZ(color, x, y, z) {
+    var r = x *  3.2406 + y * -1.5372 + z * -0.4986;
+    var g = x * -0.9689 + y *  1.8758 + z *  0.0415;
+    var b = x *  0.0557 + y * -0.2040 + z *  1.0570;
 
-  [ "r", "g", "b" ].forEach(function(key) {
-    rgb[key] /= 100;
+    color[0] = fromXYZValue(r);
+    color[1] = fromXYZValue(g);
+    color[2] = fromXYZValue(b);
+    color[3] = 1.0;
 
-    if (rgb[key] < 0) {
-      rgb[key] = 0;
-    }
-
-    if (rgb[key] > 0.0031308) {
-      rgb[key] = 1.055 * Math.pow(rgb[key], (1 / 2.4)) - 0.055;
-    }
-    else {
-      rgb[key] *= 12.92;
-    }
-  });
-
-  color[0] = rgb.r;
-  color[1] = rgb.g;
-  color[2] = rgb.b;
-  color[3] = 1.0;
-
-  return color;
+    return color;
 }
 
 //### getXYZ()
 //Returns xyz representation of this color as
 //*{ Object x:0..1, y:0..1, z:0..1 }*
 function getXYZ(color) {
-  var rgb = this.clone();
+    var r = toXYZValue(color[0]);
+    var g = toXYZValue(color[1]);
+    var b = toXYZValue(color[2]);
 
-  [ "r", "g", "b" ].forEach(function(key) {
-    if (rgb[key] > 0.04045) {
-      rgb[key] = Math.pow(((rgb[key] + 0.055) / 1.055), 2.4);
-    } else {
-      rgb[key] /= 12.92;
+    return [
+        r * 0.4124 + g * 0.3576 + b * 0.1805,
+        r * 0.2126 + g * 0.7152 + b * 0.0722,
+        r * 0.0193 + g * 0.1192 + b * 0.9505
+    ]
+}
+
+//### fromLab(l, a, b)
+//Creates new color from Lab representation
+//l - *{ Number 0..100 }*
+//a - *{ Number -128..127 }*
+//b - *{ Number -128..127 }*
+function fromLab(l, a, b) {
+  var color = create();
+  setLab(color, l, a, b);
+  return color;
+}
+
+function fromLabValueToXYZValue(val, white) {
+    var pow = Math.pow(val, 3);
+
+    if (pow > 0.008856) {
+        val = pow;
+    }
+    else {
+        val = (val - 16 / 116) / 7.787;
     }
 
-    rgb[key] = rgb[key] * 100;
-  });
+    val *= white;;
 
-  return {
-    x: rgb.r * 0.4124 + rgb.g * 0.3576 + rgb.b * 0.1805,
-    y: rgb.r * 0.2126 + rgb.g * 0.7152 + rgb.b * 0.0722,
-    z: rgb.r * 0.0193 + rgb.g * 0.1192 + rgb.b * 0.9505
-  }
+    return val;
+}
+
+function fromXYZValueToLabValue(val, white) {
+    val /= white;
+
+    if (val > 0.008856) {
+        val = Math.pow(val, 1 / 3);
+    }
+    else {
+        val = (7.787 * val) + (16 / 116);
+    }
+    return val;
 }
 
 //### setLab(l, a, b)
@@ -359,59 +389,39 @@ function getXYZ(color) {
 //a - *{ Number -128..127 }*
 //b - *{ Number -128..127 }*
 function setLab(color, l, a, b) {
-  var y = (l + 16) / 116;
-  var x = a / 500 + y;
-  var z = y - b / 200;
+    var white = [ 95.047, 100.000, 108.883 ]; //for X, Y, Z
 
-  var xyz = { x: x, y: y, z: z }
-  var pow;
+    var y = (l + 16) / 116;
+    var x = a / 500 + y;
+    var z = y - b / 200;
 
-  [ "x", "y", "z" ].forEach(function(key) {
-    pow = Math.pow(xyz[key], 3);
+    x = fromLabValueToXYZValue(x, white[0]);
+    y = fromLabValueToXYZValue(y, white[1]);
+    z = fromLabValueToXYZValue(z, white[2]);
 
-    if (pow > 0.008856) {
-      xyz[key] = pow;
-    }
-    else {
-      xyz[key] = (xyz[key] - 16 / 116) / 7.787;
-    }
-  });
-
-  var color = Color.fromXYZ(xyz.x, xyz.y, xyz.z);
-
-  color[0] = color.r;
-  color[1] = color.g;
-  color[2] = color.b;
-  color[3] = color.a;
-
-  return color;
+    return setXYZ(color, x, y, z);
 }
 
 //### getLab()
 //Returns Lab representation of this color as
 //*{ Object l: 0..100, a: -128..127, b: -128..127 }*
 function getLab(color) {
-  var white = { x: 95.047, y: 100.000, z: 108.883 }
-  var xyz = color[1]etXYZ();
+    var xyz = getXYZ(color);
 
-  [ "x", "y", "z" ].forEach(function(key) {
-    xyz[key] /= white[key];
+    var white = [ 95.047, 100.000, 108.883 ]; //for X, Y, Z
 
-    if (xyz[key] > 0.008856) {
-      xyz[key] = Math.pow(xyz[key], 1 / 3);
-    }
-    else {
-      xyz[key] = (7.787 * xyz[key]) + (16 / 116);
-    }
-  });
+    var x = fromXYZValueToLabValue(xyz[0], white[0]);
+    var y = fromXYZValueToLabValue(xyz[1], white[1]);
+    var z = fromXYZValueToLabValue(xyz[2], white[2]);
 
-  return {
-    l: 116 * xyz.y - 16,
-    a: 500 * (xyz.x - xyz.y),
-    b: 200 * (xyz.y - xyz.z)
-  }
+    return [
+        116 * y - 16,
+        500 * (x - y),
+        200 * (y - z)
+    ]
 }
 
+/*
 //### distance(color)
 //Returns distance (CIE76) between this and given color using Lab representation *{ Number }*
 //Based on [http://en.wikipedia.org/wiki/Color_difference](http://en.wikipedia.org/wiki/Color_difference)
@@ -425,7 +435,10 @@ function distance(color) {
 
   return Math.sqrt(dl * dl, da * da, db * db);
 }
+*/
 
+/*
+//TODO: add gamma correct interpolation
 //### lerp(startColor, endColor, t, mode)
 //Creates new color from linearly interpolated two colors
 //`startColor` - *{ Color }*
@@ -433,39 +446,39 @@ function distance(color) {
 //`t` - interpolation ratio *{ Number 0..1 }*
 //`mode` - interpolation mode : 'rgb', 'hsv', 'hsl' *{ String }* = 'rgb'
 function lerp(startColor, endColor, t, mode) {
-  mode = mode || 'rgb';
+    mode = mode || 'rgb';
 
-  if (mode === 'rgb') {
-    return Color.fromRGB(
-      lerp(startColor.r, endColor.r, t),
-      lerp(startColor.g, endColor.g, t),
-      lerp(startColor.b, endColor.b, t),
-      lerp(startColor.a, endColor.a, t)
-    );
-  }
-  else if (mode === 'hsv') {
-    var startHSV = startColor.getHSV();
-    var endHSV = endColor.getHSV();
-    return Color.fromHSV(
-      lerp(startHSV.h, endHSV.h, t),
-      lerp(startHSV.s, endHSV.s, t),
-      lerp(startHSV.v, endHSV.v, t),
-      lerp(startHSV.a, endHSV.a, t)
-    );
-  }
-  else if (mode === 'hsl') {
-    var startHSL = startColor.getHSL();
-    var endHSL = endColor.getHSL();
-    return Color.fromHSL(
-      lerp(startHSL.h, endHSL.h, t),
-      lerp(startHSL.s, endHSL.s, t),
-      lerp(startHSL.l, endHSL.l, t),
-      lerp(startHSL.a, endHSL.a, t)
-    );
-  }
-  else {
-    return startColor;
-  }
+    if (mode === 'rgb') {
+        return fromRGB(
+            lerp(startColor.r, endColor.r, t),
+            lerp(startColor.g, endColor.g, t),
+            lerp(startColor.b, endColor.b, t),
+            lerp(startColor.a, endColor.a, t)
+        );
+    }
+    else if (mode === 'hsv') {
+        var startHSV = startColor.getHSV();
+        var endHSV = endColor.getHSV();
+        return fromHSV(
+            lerp(startHSV.h, endHSV.h, t),
+            lerp(startHSV.s, endHSV.s, t),
+            lerp(startHSV.v, endHSV.v, t),
+            lerp(startHSV.a, endHSV.a, t)
+        );
+    }
+    else if (mode === 'hsl') {
+        var startHSL = startColor.getHSL();
+        var endHSL = endColor.getHSL();
+        return fromHSL(
+            lerp(startHSL.h, endHSL.h, t),
+            lerp(startHSL.s, endHSL.s, t),
+            lerp(startHSL.l, endHSL.l, t),
+            lerp(startHSL.a, endHSL.a, t)
+        );
+    }
+    else {
+        return startColor;
+    }
 }
 */
 
@@ -491,6 +504,14 @@ var Color = {
     fromHex  : fromHex,
     setHex   : setHex,
     getHex   : getHex,
+
+    fromXYZ  : fromXYZ,
+    setXYZ   : setXYZ,
+    getXYZ   : getXYZ,
+
+    fromLab  : fromLab,
+    setLab   : setLab,
+    getLab   : getLab,
 
     //Predefined colors ready to use
     Transparent : [0, 0, 0, 0],

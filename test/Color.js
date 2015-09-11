@@ -1,7 +1,7 @@
 var assert = require('assert');
 var Color = require('../Color');
 
-var EPSILON = 0.0000001;
+var EPSILON = 0.001;
 
 function assertDeepAlmostEqual(a, b) {
     if (a.length != b.length) {
@@ -9,7 +9,7 @@ function assertDeepAlmostEqual(a, b) {
     }
     for(var i=0; i<a.length; i++) {
         if (Math.abs(a[i] - b[i]) > EPSILON) {
-            throw new Error(a + ' ' + 'assertDeepAlmostEqual' + ' ' + b);
+            throw new Error(a + ' ' + 'assertDeepAlmostEqual' + ' ' + b + '(diff=' + Math.abs(a[i] - b[i]) + ')');
         }
     }
     return true;
@@ -17,6 +17,8 @@ function assertDeepAlmostEqual(a, b) {
 
 assert.deepEqual(Color.create(0.1, 0.2, 0.3, 0.4), [0.1, 0.2, 0.3, 0.4]);
 assert.deepEqual(Color.create(0.1, 0.2, 0.3), [0.1, 0.2, 0.3, 1.0]);
+
+assert.deepEqual(Color.copy([0.1, 0.2, 0.3, 0.4]), [0.1, 0.2, 0.3, 0.4]);
 
 assert.deepEqual(Color.fromRGB(0.1, 0.2, 0.3), [0.1, 0.2, 0.3, 1.0]);
 assert.deepEqual(Color.fromRGB(0.1, 0.2, 0.3, 0.4), [0.1, 0.2, 0.3, 0.4]);
@@ -53,6 +55,8 @@ assert.deepEqual(Color.fromHex("#FF0066"), [1, 0, 0.4, 1]);
 assert.deepEqual(Color.setHex([0, 0, 0, 1], "#FF00FF"), [1, 0, 1, 1]);
 assert.deepEqual(Color.getHex([1, 0, 0.4, 1]), "#FF0066");
 
-assert.deepEqual(Color.copy([0.1, 0.2, 0.3, 0.4]), [0.1, 0.2, 0.3, 0.4]);
+assertDeepAlmostEqual(Color.fromLab(97.13824698129729, -21.555908334832285, 94.48248544644461), [1, 1, 0, 1])
+assertDeepAlmostEqual(Color.setLab([0, 0, 0, 1], 97.13824698129729, -21.555908334832285, 94.48248544644461), [1, 1, 0, 1])
+assertDeepAlmostEqual(Color.getLab([1, 1, 0, 1]), [97.13824698129729, -21.555908334832285, 94.48248544644461])
 
 console.log('Done')
