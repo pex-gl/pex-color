@@ -11,12 +11,14 @@
 //Dependencies imports
 var lerp = require('lerp');
 
-//### create(r, g, b, a)
-//RGBA color constructor function
-//`r` - red component *{ Number 0..1 }* = 0
-//`g` - green component *{ Number 0..1 }* = 0
-//`b` - blue component *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
+/**
+ * RGBA color constructor function
+ * @param  {Number} [r=0] - red component (0..1)
+ * @param  {Number} [g=0] - green component (0..1)
+ * @param  {Number} [b=0] - blue component (0..1)
+ * @param  {Number} [a=1] - alpha component (0..1)
+ * @return {Array}  - RGBA color array [r,g,b,a]
+ */
 function create(r, g, b, a) {
   return [r || 0, g || 0, b || 0, (a === undefined) ? 1 : a];
 }
@@ -24,6 +26,12 @@ function create(r, g, b, a) {
 //### copy()
 //Copies rgba values from another color into this instance
 //`c` - another color to copy values from *{ Color }*
+/**
+ * Copies color
+ * @param  {Array} color - color to copy
+ * @param  {Array} [out] - color to copy values into
+ * @return {Array} - new RGBA color array [r,g,b,a] or updated out color
+ */
 function copy(color, out) {
     if (out !== undefined) {
         out[0] = color[0];
@@ -35,17 +43,26 @@ function copy(color, out) {
     return color.slice(0);
 }
 
-//### fromRGB(r, g, b, a)
-//Alias for create(r, g, b, a)
+/**
+ * Creates new color from RGBA values. Alias for create(r, g, b, a)
+ * @param  {Number} r - red component (0..1)
+ * @param  {Number} g - green component (0..1)
+ * @param  {Number} b - blue component (0..1)
+ * @param  {Number} [a=1] - alpha component (0..1)
+ * @return {Array} - RGBA color array [r,g,b,a]
+ */
 function fromRGB(r, g, b, a) {
     return create(r, g, b, a);
 }
 
-//### set(r, g, b, a)
-//`r` - red component *{ Number 0..1 }* = 0
-//`g` - green component *{ Number 0..1 }* = 0
-//`b` - blue component *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
+/**
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {Number} r      - red component (0..1)
+ * @param  {Number} g      - green component (0..1)
+ * @param  {Number} b      - blue component (0..1)
+ * @param  {Number} [a=1]  - alpha component (0..1)
+ * @return {Array} - updated color
+ */
 function set(color, r, g, b, a) {
   color[0] = r;
   color[1] = g;
@@ -55,11 +72,15 @@ function set(color, r, g, b, a) {
   return color;
 }
 
-//### setRGB(r, g, b, a)
-//`r` - red component *{ Number 0..1 }* = 0
-//`g` - green component *{ Number 0..1 }* = 0
-//`b` - blue component *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
+/**
+ * Updates a color based on r, g, b, a component values
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {Number} r      - red component (0..1)
+ * @param  {Number} g      - green component (0..1)
+ * @param  {Number} b      - blue component (0..1)
+ * @param  {Number} [a=1]  - alpha component (0..1)
+ * @return {Array} - updated color
+ */
 function setRGB(color, r, g, b, a) {
     color[0] = r;
     color[1] = g;
@@ -69,13 +90,21 @@ function setRGB(color, r, g, b, a) {
     return color;
 }
 
-//### fromRGBBytes(a)
-//Creates new color from array of 4 byte values [r, g, b, a]
-//`a` - array of rgba values *{ Array of Numbers/Int 0..255 }* = [0, 0, 0, 255]
+/**
+ * Creates new color from array of 4 byte (0..255) values [r, g, b, a]
+ * @param  {Array} bytes - RGB color byte array [r,g,b,a] (0..255)
+ * @return {Array} - RGBA color array [r,g,b,a]
+ */
 function fromRGBBytes(bytes) {
     return [ bytes[0]/255, bytes[1]/255, bytes[2]/255, (bytes.length == 4) ? bytes[3]/255 : 1];
 }
 
+/**
+ * Returns RGB color components as bytes (0..255)
+ * @param  {Array} color - RGBA color array [r,g,b,a]
+ * @param  {Array} out   - array to copy values into
+ * @return {Array}       - RGB color byte array [r,g,b] or updated our array
+ */
 function getRGBBytes(color, out) {
     out = out || [0, 0, 0];
     out[0] = Math.round(color[0]*255);
@@ -84,24 +113,29 @@ function getRGBBytes(color, out) {
     return out;
 }
 
-//### fromHSV(h, s, v, a)
-//Creates new color from hue, saturation and value
-//`h` - hue *{ Number 0..1 }* = 0
-//`s` - saturation *{ Number 0..1 }* = 0
-//`v` - value *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
+/**
+ * Creates new color from hue, saturation and value
+ * @param  {Number} h - hue (0..1)
+ * @param  {Number} s - saturation (0..1)
+ * @param  {Number} v - value (0..1)
+ * @param  {Number} [a=1] - alpha (0..1)
+ * @return {Array}    - RGBA color array [r,g,b,a]
+ */
 function fromHSV(h, s, v, a) {
   var color = create();
   setHSV(color, h, s, v, a)
   return color;
 }
 
-//### setHSV(h, s, l, a)
-//Sets rgb color values from a hue, saturation, value and alpha
-//`h` - hue *{ Number 0..1 }* = 0
-//`s` - saturation *{ Number 0..1 }* = 0
-//`v` - value *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
+/**
+ * Updates a color based on hue, saturation and value
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {Number} h - hue (0..1)
+ * @param  {Number} s - saturation (0..1)
+ * @param  {Number} v - value (0..1)
+ * @param  {Number} [a=1] - alpha (0..1)
+ * @return {Array}    - RGBA color array [r,g,b,a]
+ */
 function setHSV(color, h, s, v, a) {
   a = a || 1;
 
@@ -124,9 +158,11 @@ function setHSV(color, h, s, v, a) {
   return color;
 }
 
-//### getHSV()
-//Returns hue, saturation, value and alpha of color as
-//*{ Object h:0.1, s:0..1, v:0..1, a:0..1 }*
+/**
+ * Get hue, saturation, value and alpha of given color
+ * @param  {Array} color  - RGBA color array [r,g,b,a]
+ * @return {Object}       - { h:0.1, s:0..1, v:0..1, a:0..1 }
+ */
 function getHSV(color) {
   var r = color[0];
   var g = color[1];
@@ -209,10 +245,12 @@ function setHSL(color, h, s, l, a) {
     return color;
 }
 
-//### getHSL()
-//Returns hue, saturation, lightness and alpha of color as
-//*{ Object h:0.1, s:0..1, l:0..1, a:0..1 }*
-//Based on [https://gist.github.com/mjijackson/5311256](https://gist.github.com/mjijackson/5311256)
+/**
+ * Returns hue, saturation, lightness and alpha of given color.
+ * Based on [https://gist.github.com/mjijackson/5311256](https://gist.github.com/mjijackson/5311256)
+ * @param  {Array} color  - RGBA color array [r,g,b,a]
+ * @return {Object}       - { h:0.1, s:0..1, l:0..1, a:0..1 }
+ */
 function getHSL(color) {
   var r = color[0];
   var g = color[1];
@@ -482,6 +520,10 @@ function lerp(startColor, endColor, t, mode) {
 }
 */
 
+/**
+ * RGBA color array utility functions
+ * @type {Array}
+ */
 var Color = {
     create   : create,
     copy     : copy,
@@ -513,20 +555,95 @@ var Color = {
     setLab   : setLab,
     getLab   : getLab,
 
-    //Predefined colors ready to use
+    /**
+     * Transparent color [0, 0, 0, 0]
+     * @static
+     * @type {Array}
+     */
     Transparent : [0, 0, 0, 0],
-    None        : [0, 0, 0, 0],
+
+    /**
+     * Black color [0, 0, 0, 1]
+     * @static
+     * @type {Array}
+     */
     Black       : [0, 0, 0, 1],
+
+    /**
+     * White color [0, 0, 0, 1]
+     * @static
+     * @type {Array}
+     */
     White       : [1, 1, 1, 1],
+
+    /**
+     * Dark Grey color [0, 0, 0, 1]
+     * @static
+     * @type {Array}
+     */
     DarkGrey    : [0.25, 0.25, 0.25, 1],
+
+    /**
+     * Grey color [0.5, 0.5, 0.5, 1]
+     * @static
+     * @type {Array}
+     */
     Grey        : [0.5, 0.5, 0.5, 1],
+
+    /**
+     * Light Grey color [0.75, 0.75, 0.75, 1]
+     * @static
+     * @type {Array}
+     */
     LightGrey   : [0.75, 0.75, 0.75, 1],
+
+    /**
+     * Red color [1, 0, 0, 1]
+     * @static
+     * @type {Array}
+     */
     Red         : [1, 0, 0, 1],
+
+    /**
+     * Green color [0, 1, 0, 1]
+     * @static
+     * @type {Array}
+     */
     Green       : [0, 1, 0, 1],
+
+    /**
+     * Blue color [0, 0, 1, 1]
+     * @static
+     * @type {Array}
+     */
     Blue        : [0, 0, 1, 1],
+
+    /**
+     * Yellow color [1, 1, 0, 1]
+     * @static
+     * @type {Array}
+     */
     Yellow      : [1, 1, 0, 1],
+
+    /**
+     * Pink color [1, 0, 1, 1]
+     * @static
+     * @type {Array}
+     */
     Pink        : [1, 0, 1, 1],
+
+    /**
+     * Cyan color [0, 1, 1, 1]
+     * @static
+     * @type {Array}
+     */
     Cyan        : [0, 1, 1, 1],
+
+    /**
+     * Orange color [1, 0.5, 0, 1]
+     * @static
+     * @type {Array}
+     */
     Orange      : [1, 0.5, 0, 1]
 }
 
