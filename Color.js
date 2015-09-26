@@ -459,7 +459,7 @@ function setLab(color, l, a, b) {
 /**
  * Returns LAB color components
  * @param  {Array} color - RGBA color array [r,g,b,a]
- * @return {Array}       - LAB values array [h,s,l] (l:0..100, a:-128..127, b:-128..127)
+ * @return {Array}       - LAB values array [l,a,b] (l:0..100, a:-128..127, b:-128..127)
  */
 function getLab(color) {
     var xyz = getXYZ(color);

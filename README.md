@@ -201,7 +201,7 @@ Returns LAB color components
 #### Returns
 | Type | Description |
 | --- | --- |
-|`Array`|LAB values array [h,s,l] (l:0..100, a:-128..127, b:-128..127)|
+|`Array`|LAB values array [l,a,b] (l:0..100, a:-128..127, b:-128..127)|
 <a name="getRGBBytes_color__out_">
 ## getRGBBytes(color, out)
 Returns RGB color components as bytes (0..255)
