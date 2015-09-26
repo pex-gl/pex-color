@@ -1,12 +1,6 @@
-//Float (0..1) RGBA Color utility class
-
-//## Example use
-//     var Color = require('pex-color');
-//
-//     var red = [1.0, 0.0, 0.0, 1.0];
-//     var green = Color.fromHSL(0.2, 1.0, 0.0, 0.5);
-
-//## Reference
+/**
+ * Float (0..1) RGBA Color utility class
+ */
 
 //Dependencies imports
 var lerp = require('lerp');
@@ -242,7 +236,6 @@ function setHSL(color, h, s, l, a) {
 
 /**
  * Returns hue, saturation, lightness and alpha of given color.
- * Based on [https://gist.github.com/mjijackson/5311256](https://gist.github.com/mjijackson/5311256)
  * @param  {Array} color  - RGBA color array [r,g,b,a]
  * @return {Array}        - HSLA values array [h,s,l,a] (0..1)
  */
