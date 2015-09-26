@@ -1,6 +1,6 @@
 {
   "name": "pex-color",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Color utilities for the pex library",
   "main": "index.js",
   "scripts": {
