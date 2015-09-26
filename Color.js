@@ -17,11 +17,12 @@ var lerp = require('lerp');
  * @param  {Number} [g=0] - green component (0..1)
  * @param  {Number} [b=0] - blue component (0..1)
  * @param  {Number} [a=1] - alpha component (0..1)
- * @return {Array}  - RGBA color array [r,g,b,a]
+ * @return {Array}  - RGBA color array [r,g,b,a] (0..1)
  */
 function create(r, g, b, a) {
   return [r || 0, g || 0, b || 0, (a === undefined) ? 1 : a];
 }
+
 
 //### copy()
 //Copies rgba values from another color into this instance
@@ -30,7 +31,7 @@ function create(r, g, b, a) {
  * Copies color
  * @param  {Array} color - color to copy
  * @param  {Array} [out] - color to copy values into
- * @return {Array} - new RGBA color array [r,g,b,a] or updated out color
+ * @return {Array} - new RGBA color array [r,g,b,a] (0..1) or updated out color
  */
 function copy(color, out) {
     if (out !== undefined) {
@@ -49,7 +50,7 @@ function copy(color, out) {
  * @param  {Number} g - green component (0..1)
  * @param  {Number} b - blue component (0..1)
  * @param  {Number} [a=1] - alpha component (0..1)
- * @return {Array} - RGBA color array [r,g,b,a]
+ * @return {Array} - RGBA color array [r,g,b,a] (0..1)
  */
 function fromRGB(r, g, b, a) {
     return create(r, g, b, a);
@@ -61,7 +62,7 @@ function fromRGB(r, g, b, a) {
  * @param  {Number} g      - green component (0..1)
  * @param  {Number} b      - blue component (0..1)
  * @param  {Number} [a=1]  - alpha component (0..1)
- * @return {Array} - updated color
+ * @return {Array} - updated RGBA color array [r,g,b,a] (0..1)
  */
 function set(color, r, g, b, a) {
   color[0] = r;
@@ -79,7 +80,7 @@ function set(color, r, g, b, a) {
  * @param  {Number} g      - green component (0..1)
  * @param  {Number} b      - blue component (0..1)
  * @param  {Number} [a=1]  - alpha component (0..1)
- * @return {Array} - updated color
+ * @return {Array} - updated RGBA color array [r,g,b,a] (0..1)
  */
 function setRGB(color, r, g, b, a) {
     color[0] = r;
@@ -93,7 +94,7 @@ function setRGB(color, r, g, b, a) {
 /**
  * Creates new color from array of 4 byte (0..255) values [r, g, b, a]
  * @param  {Array} bytes - RGB color byte array [r,g,b,a] (0..255)
- * @return {Array} - RGBA color array [r,g,b,a]
+ * @return {Array} - RGBA color array [r,g,b,a] (0..1)
  */
 function fromRGBBytes(bytes) {
     return [ bytes[0]/255, bytes[1]/255, bytes[2]/255, (bytes.length == 4) ? bytes[3]/255 : 1];
@@ -103,7 +104,7 @@ function fromRGBBytes(bytes) {
  * Returns RGB color components as bytes (0..255)
  * @param  {Array} color - RGBA color array [r,g,b,a]
  * @param  {Array} out   - array to copy values into
- * @return {Array}       - RGB color byte array [r,g,b] or updated our array
+ * @return {Array}       - RGB color byte array [r,g,b] (0..255) or updated out array
  */
 function getRGBBytes(color, out) {
     out = out || [0, 0, 0];
@@ -119,7 +120,7 @@ function getRGBBytes(color, out) {
  * @param  {Number} s - saturation (0..1)
  * @param  {Number} v - value (0..1)
  * @param  {Number} [a=1] - alpha (0..1)
- * @return {Array}    - RGBA color array [r,g,b,a]
+ * @return {Array}    - RGBA color array [r,g,b,a] (0..1)
  */
 function fromHSV(h, s, v, a) {
   var color = create();
@@ -128,13 +129,13 @@ function fromHSV(h, s, v, a) {
 }
 
 /**
- * Updates a color based on hue, saturation and value
+ * Updates a color based on hue, saturation, value and alpha
  * @param  {Array} color   - RGBA color array [r,g,b,a] to update
  * @param  {Number} h - hue (0..1)
  * @param  {Number} s - saturation (0..1)
  * @param  {Number} v - value (0..1)
  * @param  {Number} [a=1] - alpha (0..1)
- * @return {Array}    - RGBA color array [r,g,b,a]
+ * @return {Array}    - updated RGBA color array [r,g,b,a] (0..1)
  */
 function setHSV(color, h, s, v, a) {
   a = a || 1;
@@ -161,7 +162,7 @@ function setHSV(color, h, s, v, a) {
 /**
  * Get hue, saturation, value and alpha of given color
  * @param  {Array} color  - RGBA color array [r,g,b,a]
- * @return {Object}       - { h:0.1, s:0..1, v:0..1, a:0..1 }
+ * @return {Array}        - HSVA values array [h,s,v,a] (0..1)
  */
 function getHSV(color) {
   var r = color[0];
@@ -189,34 +190,29 @@ function getHSV(color) {
   return [ h, s, v, color[3] ];
 }
 
-//### fromHSL(h, s, l, a)
-//Creates new color from hue, saturation and lightness
-//`h` - hue *{ Number 0..1 }* = 0
-//`s` - saturation *{ Number 0..1 }* = 0
-//`l` - lightness *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
+/**
+ * Creates new color from hue, saturation, lightness and alpha
+ * @param  {Number} h - hue (0..1)
+ * @param  {Number} s - saturation (0..1)
+ * @param  {Number} l - lightness (0..1)
+ * @param  {Number} [a=1] - alpha (0..1)
+ * @return {Array} - RGBA color array [r,g,b,a] (0..1)
+ */
 function fromHSL(h, s, l, a) {
-  var color = create();
-  setHSL(color, h, s, l, a);
-  return color;
+    var color = create();
+    setHSL(color, h, s, l, a);
+    return color;
 }
 
-//### fromHex(hex)
-//Creates new color from html hex value e.g. #FF0000
-//`hex` - html hex color string (with or without #) *{ String }*
-function fromHex(hex) {
-  var color = create();
-  setHex(color, hex);
-  return color;
-}
-
-//### setHSL(h, s, l, a)
-//Sets rgb color values from a hue, saturation, lightness and alpha
-//`h` - hue *{ Number 0..1 }* = 0
-//`s` - saturation *{ Number 0..1 }* = 0
-//`l` - lightness *{ Number 0..1 }* = 0
-//`a` - alpha opacity *{ Number 0..1 }* = 1
-//Based on [https://gist.github.com/mjijackson/5311256](https://gist.github.com/mjijackson/5311256)
+/**
+ * Updates a color based on hue, saturation, lightness and alpha
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {Number} h - hue (0..1)
+ * @param  {Number} s - saturation (0..1)
+ * @param  {Number} l - lightness (0..1)
+ * @param  {Number} [a=1] - alpha (0..1)
+ * @return {Array} - updated RGBA color array [r,g,b,a] (0..1)
+ */
 function setHSL(color, h, s, l, a) {
     a = a || 1;
 
@@ -228,7 +224,6 @@ function setHSL(color, h, s, l, a) {
         if (t < 2/3) { return p + (q - p) * (2/3 - t) * 6; }
         return p;
     }
-
 
     if (s === 0) {
         color[0] = color[1] = color[2] = l; // achromatic
@@ -249,40 +244,54 @@ function setHSL(color, h, s, l, a) {
  * Returns hue, saturation, lightness and alpha of given color.
  * Based on [https://gist.github.com/mjijackson/5311256](https://gist.github.com/mjijackson/5311256)
  * @param  {Array} color  - RGBA color array [r,g,b,a]
- * @return {Object}       - { h:0.1, s:0..1, l:0..1, a:0..1 }
+ * @return {Array}        - HSLA values array [h,s,l,a] (0..1)
  */
 function getHSL(color) {
-  var r = color[0];
-  var g = color[1];
-  var b = color[2];
-  var max = Math.max(r, g, b);
-  var min = Math.min(r, g, b);
-  var l = (max + min) / 2;
-  var h;
-  var s;
+    var r = color[0];
+    var g = color[1];
+    var b = color[2];
+    var max = Math.max(r, g, b);
+    var min = Math.min(r, g, b);
+    var l = (max + min) / 2;
+    var h;
+    var s;
 
-  if (max === min) {
-    h = s = 0; // achromatic
-  }
-  else {
-    var d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === min) {
+        h = s = 0; // achromatic
+    }
+    else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+
+        h /= 6;
     }
 
-    h /= 6;
-  }
-
-  return  [ h, s, l, color[3] ];
+    return  [ h, s, l, color[3] ];
 }
 
-//### setHex(hex)
-//Sets rgb color values from a html hex value e.g. #FF0000
-//`hex` - html hex color string (with or without #) *{ String }*
+/**
+ * Creates new color from html hex string
+ * @param  {String} hex    - html hex string #RRGGBB (# is optional)
+ * @return {Array} - RGBA color array [r,g,b,a] (0..1)
+ */
+function fromHex(hex) {
+    var color = create();
+    setHex(color, hex);
+    return color;
+}
+
+/**
+ * Updates a color based on html hex string e.g. #FF0000 -> 1,0,0,1
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {String} hex    - html hex string #RRGGBB (# is optional)
+ * @return {Array} - updated RGBA color array [r,g,b,a] (0..1)
+ */
 function setHex(color, hex) {
     hex = hex.replace(/^#/, "");
     var num = parseInt(hex, 16);
@@ -295,29 +304,33 @@ function setHex(color, hex) {
     return color;
 }
 
-//### getHex()
-//Returns html hex representation of this color *{ String }*
+/**
+ * Returns html hex representation of given color
+ * @param  {Array} color  - RGBA color array [r,g,b,a]
+ * @return {String}       - html hex color including leading hash e.g. #FF0000
+ */
 function getHex(color) {
-  var c = [ color[0], color[1], color[2] ].map(function(val) {
-    return Math.floor(val * 255);
-  });
+    var c = [ color[0], color[1], color[2] ].map(function(val) {
+        return Math.floor(val * 255);
+    });
 
-  return "#" + ((c[2] | c[1] << 8 | c[0] << 16) | 1 << 24)
-    .toString(16)
-    .slice(1)
-    .toUpperCase();
+    return "#" + ((c[2] | c[1] << 8 | c[0] << 16) | 1 << 24)
+        .toString(16)
+        .slice(1)
+        .toUpperCase();
 }
 
-
-//### fromXYZ(x, y, z)
-//Creates new color from XYZ representation
-//x - *{ Number 0..1 }*
-//y - *{ Number 0..1 }*
-//z - *{ Number 0..1 }*
+/**
+ * Creates new color from XYZ values
+ * @param  {Number} x - x component (0..95)
+ * @param  {Number} y - y component (0..100)
+ * @param  {Number} z - z component (0..108)
+ * @return {Array} - RGBA color array [r,g,b,a] (0..1)
+ */
 function fromXYZ(x, y, z) {
-  var color = create();
-  setXYZ(color, x, y, z);
-  return color;
+    var color = create();
+    setXYZ(color, x, y, z);
+    return color;
 }
 
 function fromXYZValue(val) {
@@ -350,11 +363,14 @@ function toXYZValue(val) {
     return val;
 }
 
-//### setXYZ(color, x, y, z)
-//Sets rgb color values from XYZ
-//x - *{ Number 0..1 }*
-//y - *{ Number 0..1 }*
-//z - *{ Number 0..1 }*
+/**
+ * Updates a color based on x, y, z component values
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {Number} x - x component (0..95)
+ * @param  {Number} y - y component (0..100)
+ * @param  {Number} z - z component (0..108)
+ * @return {Array} - updated RGBA color array [r,g,b,a] (0..1)
+ */
 function setXYZ(color, x, y, z) {
     var r = x *  3.2406 + y * -1.5372 + z * -0.4986;
     var g = x * -0.9689 + y *  1.8758 + z *  0.0415;
@@ -368,30 +384,34 @@ function setXYZ(color, x, y, z) {
     return color;
 }
 
-//### getXYZ()
-//Returns xyz representation of this color as
-//*{ Object x:0..1, y:0..1, z:0..1 }*
+/**
+ * Returns XYZ representation of given color
+ * @param  {Array} color  - RGBA color array [r,g,b,a]
+ * @return {Array}        - [x,y,z] (x:0..95, y:0..100, z:0..108)
+ */
 function getXYZ(color) {
     var r = toXYZValue(color[0]);
     var g = toXYZValue(color[1]);
     var b = toXYZValue(color[2]);
 
     return [
-        r * 0.4124 + g * 0.3576 + b * 0.1805,
-        r * 0.2126 + g * 0.7152 + b * 0.0722,
-        r * 0.0193 + g * 0.1192 + b * 0.9505
+        x: r * 0.4124 + g * 0.3576 + b * 0.1805,
+        y: r * 0.2126 + g * 0.7152 + b * 0.0722,
+        z: r * 0.0193 + g * 0.1192 + b * 0.9505
     ]
 }
 
-//### fromLab(l, a, b)
-//Creates new color from Lab representation
-//l - *{ Number 0..100 }*
-//a - *{ Number -128..127 }*
-//b - *{ Number -128..127 }*
+/**
+ * Creates new color from l,a,b component values
+ * @param  {Number} l - l component (0..100)
+ * @param  {Number} a - a component (-128..127)
+ * @param  {Number} b - b component (-128..127)
+ * @return {Array} - RGBA color array [r,g,b,a] (0..1)
+ */
 function fromLab(l, a, b) {
-  var color = create();
-  setLab(color, l, a, b);
-  return color;
+    var color = create();
+    setLab(color, l, a, b);
+    return color;
 }
 
 function fromLabValueToXYZValue(val, white) {
@@ -421,11 +441,14 @@ function fromXYZValueToLabValue(val, white) {
     return val;
 }
 
-//### setLab(l, a, b)
-//Sets rgb color values from Lab
-//l - *{ Number 0..100 }*
-//a - *{ Number -128..127 }*
-//b - *{ Number -128..127 }*
+/**
+ * Updates a color based on l, a, b, component values
+ * @param  {Array} color   - RGBA color array [r,g,b,a] to update
+ * @param  {Number} l - l component (0..100)
+ * @param  {Number} a - a component (-128..127)
+ * @param  {Number} b - b component (-128..127)
+ * @return {Array} - updated RGBA color array [r,g,b,a] (0..1)
+ */
 function setLab(color, l, a, b) {
     var white = [ 95.047, 100.000, 108.883 ]; //for X, Y, Z
 
@@ -440,9 +463,11 @@ function setLab(color, l, a, b) {
     return setXYZ(color, x, y, z);
 }
 
-//### getLab()
-//Returns Lab representation of this color as
-//*{ Object l: 0..100, a: -128..127, b: -128..127 }*
+/**
+ * Returns LAB color components
+ * @param  {Array} color - RGBA color array [r,g,b,a]
+ * @return {Array}       - LAB values array [h,s,l] (l:0..100, a:-128..127, b:-128..127)
+ */
 function getLab(color) {
     var xyz = getXYZ(color);
 
