@@ -539,8 +539,8 @@ function lerp(startColor, endColor, t, mode) {
 */
 
 /**
- * RGBA color array utility functions
- * @type {Array}
+ * @name pex-color
+ * @desc RGBA color array utility functions
  */
 var Color = {
     create   : create,
@@ -571,98 +571,7 @@ var Color = {
 
     fromLab  : fromLab,
     setLab   : setLab,
-    getLab   : getLab,
-
-    /**
-     * Transparent color [0, 0, 0, 0]
-     * @static
-     * @type {Array}
-     */
-    Transparent : [0, 0, 0, 0],
-
-    /**
-     * Black color [0, 0, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    Black       : [0, 0, 0, 1],
-
-    /**
-     * White color [0, 0, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    White       : [1, 1, 1, 1],
-
-    /**
-     * Dark Grey color [0, 0, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    DarkGrey    : [0.25, 0.25, 0.25, 1],
-
-    /**
-     * Grey color [0.5, 0.5, 0.5, 1]
-     * @static
-     * @type {Array}
-     */
-    Grey        : [0.5, 0.5, 0.5, 1],
-
-    /**
-     * Light Grey color [0.75, 0.75, 0.75, 1]
-     * @static
-     * @type {Array}
-     */
-    LightGrey   : [0.75, 0.75, 0.75, 1],
-
-    /**
-     * Red color [1, 0, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    Red         : [1, 0, 0, 1],
-
-    /**
-     * Green color [0, 1, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    Green       : [0, 1, 0, 1],
-
-    /**
-     * Blue color [0, 0, 1, 1]
-     * @static
-     * @type {Array}
-     */
-    Blue        : [0, 0, 1, 1],
-
-    /**
-     * Yellow color [1, 1, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    Yellow      : [1, 1, 0, 1],
-
-    /**
-     * Pink color [1, 0, 1, 1]
-     * @static
-     * @type {Array}
-     */
-    Pink        : [1, 0, 1, 1],
-
-    /**
-     * Cyan color [0, 1, 1, 1]
-     * @static
-     * @type {Array}
-     */
-    Cyan        : [0, 1, 1, 1],
-
-    /**
-     * Orange color [1, 0.5, 0, 1]
-     * @static
-     * @type {Array}
-     */
-    Orange      : [1, 0.5, 0, 1]
+    getLab   : getLab
 }
 
 
