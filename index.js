@@ -514,6 +514,9 @@ export function fromXYZValueToLabValue(val, white) {
   return val;
 }
 
+// x,y,z tristimulus values
+const white = [95.047, 100, 108.883];
+
 /**
  * Updates a color based on lab component values.
  * @param {color} color
@@ -523,17 +526,16 @@ export function fromXYZValueToLabValue(val, white) {
  * @return {color}
  */
 export function setLab(color, l, a, b) {
-  const white = [95.047, 100, 108.883]; //for X, Y, Z
+  const y = (l + 16) / 116;
+  const x = a / 500 + y;
+  const z = y - b / 200;
 
-  let y = (l + 16) / 116;
-  let x = a / 500 + y;
-  let z = y - b / 200;
-
-  x = fromLabValueToXYZValue(x, white[0]);
-  y = fromLabValueToXYZValue(y, white[1]);
-  z = fromLabValueToXYZValue(z, white[2]);
-
-  return setXYZ(color, x, y, z);
+  return setXYZ(
+    color,
+    fromLabValueToXYZValue(x, white[0]),
+    fromLabValueToXYZValue(y, white[1]),
+    fromLabValueToXYZValue(z, white[2])
+  );
 }
 
 /**
@@ -543,8 +545,6 @@ export function setLab(color, l, a, b) {
  */
 export function getLab(color) {
   const xyz = getXYZ(color);
-
-  const white = [95.047, 100, 108.883]; //for X, Y, Z
 
   const x = fromXYZValueToLabValue(xyz[0], white[0]);
   const y = fromXYZValueToLabValue(xyz[1], white[1]);
