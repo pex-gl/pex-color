@@ -385,14 +385,16 @@ export function setHex(color, hex) {
  * @return {hex}
  */
 export function getHex(color) {
-  const c = [color[0], color[1], color[2]].map((val) => {
-    return Math.floor(val * 255);
-  });
+  const c = color.map((val) => Math.round(val * 255));
 
   return `#${(c[2] | (c[1] << 8) | (c[0] << 16) | (1 << 24))
     .toString(16)
     .slice(1)
-    .toUpperCase()}`;
+    .toUpperCase()}${
+    color[3] !== undefined && color[3] !== 1
+      ? (c[3] | (1 << 8)).toString(16).slice(1)
+      : ""
+  }`;
 }
 
 // XYZ
