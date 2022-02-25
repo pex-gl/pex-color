@@ -1,42 +1,35 @@
 {
   "name": "pex-color",
   "version": "1.1.1",
-  "description": "Color utilities for the pex library",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pex-gl/pex-color.git"
-  },
+  "description": "Color utilities for PEX.",
   "keywords": [
     "pex",
-    "webgl",
     "color",
+    "webgl",
+    "3d",
     "hsl",
     "lab",
     "hcl",
     "rgb"
   ],
-  "author": {
-    "name": "Marcin Ignac",
-    "email": "marcin.ignac@gmail.com",
-    "url": "http://marcinignac.com"
-  },
-  "contributors": [
-    {
-      "name": "Szymon Kaliski",
-      "email": "contact@treesmovethemost.com",
-      "url": "http://treesmovethemost.com"
-    }
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/pex-gl/pex-color/issues"
-  },
   "homepage": "https://github.com/pex-gl/pex-color",
-  "dependencies": {
-    "lerp": "^1.0.3"
+  "bugs": "https://github.com/pex-gl/pex-color/issues",
+  "repository": "pex-gl/pex-color",
+  "license": "MIT",
+  "author": "Marcin Ignac <marcin.ignac@gmail.com> (http://marcinignac.com)",
+  "contributors": [
+    "Damien Seguin (https://github.com/dmnsgn)",
+    "Szymon Kaliski <contact@treesmovethemost.com> (http://treesmovethemost.com)"
+  ],
+  "type": "module",
+  "exports": "./index.js",
+  "main": "index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./test/index.js"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
   }
 }
