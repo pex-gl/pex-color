@@ -101,14 +101,9 @@ export function setRGB(color, r, g, b, a = 1) {
  * @param {bytes} bytes
  * @return {color}
  */
-// TODO: uniformise from values (takes r, g, b, a?)
 export function fromRGBBytes(bytes) {
-  return [
-    bytes[0] / 255,
-    bytes[1] / 255,
-    bytes[2] / 255,
-    bytes.length === 4 ? bytes[3] / 255 : 1,
-  ];
+  const color = create();
+  return setRGBBytes(color, ...bytes);
 }
 
 /**
@@ -120,16 +115,16 @@ export function fromRGBBytes(bytes) {
  * @param {number} [a=255]
  * @returns {color}
  */
-export function setRGBBytes(color, r, g, b, a = 255) {
-  color[0] = Math.round(r / 255);
-  color[1] = Math.round(g / 255);
-  color[2] = Math.round(b / 255);
-  color[3] = Math.round(a / 255);
+export function setRGBBytes(color, r, g, b, a) {
+  color[0] = r / 255;
+  color[1] = g / 255;
+  color[2] = b / 255;
+  if (a !== undefined) color[3] = a / 255;
   return color;
 }
 
 /**
- * Returns RGB color components as bytes
+ * Get RGB color components as bytes array.
  * @param {color} color
  * @param {bytes} out
  * @return {bytes}

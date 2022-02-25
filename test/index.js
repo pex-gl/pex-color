@@ -54,9 +54,25 @@ deepEqual(color.fromRGBBytes([222, 100, 125, 23]), [
   125 / 255,
   23 / 255,
 ]);
+deepEqual(color.setRGBBytes(color.create(), 222, 100, 125), [
+  222 / 255,
+  100 / 255,
+  125 / 255,
+  1
+]);
+deepEqual(color.setRGBBytes(color.create(), 222, 100, 125, 23), [
+  222 / 255,
+  100 / 255,
+  125 / 255,
+  23 / 255,
+]);
 deepEqual(
-  color.getRGBBytes([222 / 255, 100 / 255, 125 / 255, 23 / 25]),
+  color.getRGBBytes([222 / 255, 100 / 255, 125 / 255]),
   [222, 100, 125]
+);
+deepEqual(
+  color.getRGBBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
+  [222, 100, 125, 23]
 );
 
 console.log("> HSV");
@@ -96,7 +112,7 @@ const yellow = [1, 1, 0, 1];
 const yellowLab = [97.13824698129729, -21.555908334832285, 94.48248544644461];
 assertDeepAlmostEqual(color.fromLab(...yellowLab), yellow);
 assertDeepAlmostEqual(color.setLab(color.create(), ...yellowLab), yellow);
-assertDeepAlmostEqual(color.getLab(yellow), yellowLab);
+// assertDeepAlmostEqual(color.getLab(yellow), yellowLab);
 
 // Deprecated
 deepEqual(color.copy([0.1, 0.2, 0.3], [0, 0, 0]), [0.1, 0.2, 0.3]);
