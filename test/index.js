@@ -3,12 +3,12 @@ import color from "../index.js";
 
 const EPSILON = 0.001;
 
-function assertDeepAlmostEqual(a, b) {
+function assertDeepAlmostEqual(a, b, e = EPSILON) {
   if (a.length != b.length) {
     throw new Error(`${a} assertDeepAlmostEqual ${b}`);
   }
   for (let i = 0; i < a.length; i++) {
-    if (Math.abs(a[i] - b[i]) > EPSILON) {
+    if (Math.abs(a[i] - b[i]) > e) {
       throw new Error(
         `${a} assertDeepAlmostEqual ${b} (diff=${Math.abs(a[i] - b[i])})`
       );
@@ -101,19 +101,44 @@ deepEqual(color.setHSL(color.create(), 0, 1, 0.5), [1, 0, 0, 1]);
 deepEqual(color.getHSL([1, 0, 0, 1]), [0, 1, 0.5, 1]);
 
 console.log("> HEX");
+// 0.4 = 102/255 = #66
+// 0.5 = 127.5/255 = #80
 deepEqual(color.fromHex("#FF0000"), [1, 0, 0, 1]);
 deepEqual(color.fromHex("#00FF00"), [0, 1, 0, 1]);
 deepEqual(color.fromHex("#0000FF"), [0, 0, 1, 1]);
+deepEqual(color.setHex(color.create(), "#FF0066"), [1, 0, 0.4, 1]);
 
-// 40%	#66	102/255
+// Leading #
+deepEqual(color.fromHex("000000"), [0, 0, 0, 1]);
+deepEqual(color.fromHex("ffffff"), [1, 1, 1, 1]);
+deepEqual(color.fromHex("ff0066"), [1, 0, 0.4, 1]);
+deepEqual(color.fromHex("F06"), [1, 0, 0.4, 1]);
+deepEqual(color.fromHex("FF006666"), [1, 0, 0.4, 0.4]);
+
+const hexEPSILON = 0.5 / 255 + Number.EPSILON;
 // Alpha
-deepEqual(color.fromHex("#FF000066"), [1, 0, 0, 0.4]);
-deepEqual(color.fromHex("#F00"), [1, 0, 0, 1]);
-deepEqual(color.fromHex("#F006"), [1, 0, 0, 0.4]);
-
+deepEqual(color.fromHex("#00000000"), [0, 0, 0, 0]);
+assertDeepAlmostEqual(color.fromHex("#00000080"), [0, 0, 0, 0.5], hexEPSILON);
+deepEqual(color.fromHex("#000000"), [0, 0, 0, 1]);
+deepEqual(color.fromHex("#FFFFFFFF"), [1, 1, 1, 1]);
+assertDeepAlmostEqual(color.fromHex("#FFFFFF80"), [1, 1, 1, 0.5], hexEPSILON);
+deepEqual(color.fromHex("#FFFFFF"), [1, 1, 1, 1]);
 deepEqual(color.fromHex("#FF0066"), [1, 0, 0.4, 1]);
-deepEqual(color.setHex(color.create(), "#FF00FF"), [1, 0, 1, 1]);
+deepEqual(color.fromHex("#FF006666"), [1, 0, 0.4, 0.4]);
+
+// RGB[A]
+deepEqual(color.fromHex("#F06"), [1, 0, 0.4, 1]);
+deepEqual(color.fromHex("#F066"), [1, 0, 0.4, 0.4]);
+
+deepEqual(color.getHex([0, 0, 0]), "#000000");
+deepEqual(color.getHex([0, 0, 0, 0]), "#00000000");
+deepEqual(color.getHex([0, 0, 0, 0.5]), "#00000080");
+deepEqual(color.getHex([1, 1, 1]), "#FFFFFF");
+deepEqual(color.getHex([1, 1, 1, 1]), "#FFFFFF");
+deepEqual(color.getHex([1, 1, 1, 0.5]), "#FFFFFF80");
+deepEqual(color.getHex([1, 0, 0.4]), "#FF0066");
 deepEqual(color.getHex([1, 0, 0.4, 1]), "#FF0066");
+deepEqual(color.getHex([1, 0, 0.4, 0.4]), "#FF006666");
 
 console.log("> LAB");
 const yellow = [1, 1, 0, 1];
