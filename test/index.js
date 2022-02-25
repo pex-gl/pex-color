@@ -58,7 +58,7 @@ deepEqual(color.setRGBBytes(color.create(), 222, 100, 125), [
   222 / 255,
   100 / 255,
   125 / 255,
-  1
+  1,
 ]);
 deepEqual(color.setRGBBytes(color.create(), 222, 100, 125, 23), [
   222 / 255,
@@ -100,9 +100,17 @@ deepEqual(color.fromHSL(0.5, 1, 0.5), [0, 0.9999999999999998, 1, 1]);
 deepEqual(color.setHSL(color.create(), 0, 1, 0.5), [1, 0, 0, 1]);
 deepEqual(color.getHSL([1, 0, 0, 1]), [0, 1, 0.5, 1]);
 
+console.log("> HEX");
 deepEqual(color.fromHex("#FF0000"), [1, 0, 0, 1]);
 deepEqual(color.fromHex("#00FF00"), [0, 1, 0, 1]);
 deepEqual(color.fromHex("#0000FF"), [0, 0, 1, 1]);
+
+// 40%	#66	102/255
+// Alpha
+deepEqual(color.fromHex("#FF000066"), [1, 0, 0, 0.4]);
+deepEqual(color.fromHex("#F00"), [1, 0, 0, 1]);
+deepEqual(color.fromHex("#F006"), [1, 0, 0, 0.4]);
+
 deepEqual(color.fromHex("#FF0066"), [1, 0, 0.4, 1]);
 deepEqual(color.setHex(color.create(), "#FF00FF"), [1, 0, 1, 1]);
 deepEqual(color.getHex([1, 0, 0.4, 1]), "#FF0066");
