@@ -133,6 +133,7 @@ export function getRGBBytes(color, out = [0, 0, 0]) {
   out[0] = Math.round(color[0] * 255);
   out[1] = Math.round(color[1] * 255);
   out[2] = Math.round(color[2] * 255);
+  if (color[3] !== undefined) out[3] = Math.round(color[3] * 255);
   return out;
 }
 
