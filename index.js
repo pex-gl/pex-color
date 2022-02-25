@@ -102,8 +102,7 @@ export function setRGB(color, r, g, b, a = 1) {
  * @return {color}
  */
 export function fromRGBBytes(bytes) {
-  const color = create();
-  return setRGBBytes(color, ...bytes);
+  return setRGBBytes(create(), ...bytes);
 }
 
 /**
@@ -147,9 +146,7 @@ export function getRGBBytes(color, out = [0, 0, 0]) {
  * @return {color}
  */
 export function fromHSV(h, s, v, a) {
-  const color = create();
-  setHSV(color, h, s, v, a);
-  return color;
+  return setHSV(create(), h, s, v, a);
 }
 
 /**
@@ -251,9 +248,7 @@ export function getHSV(color) {
  * @return {color}
  */
 export function fromHSL(h, s, l, a) {
-  const color = create();
-  setHSL(color, h, s, l, a);
-  return color;
+  return setHSL(create(), h, s, l, a);
 }
 
 /**
@@ -348,9 +343,7 @@ export function getHSL(color) {
  * @return {color}
  */
 export function fromHex(hex) {
-  const color = create();
-  setHex(color, hex);
-  return color;
+  return setHex(create(), hex);
 }
 
 /**
@@ -396,9 +389,7 @@ export function getHex(color) {
  * @return {color}
  */
 export function fromXYZ(x, y, z) {
-  const color = create();
-  setXYZ(color, x, y, z);
-  return color;
+  return setXYZ(create(), x, y, z);
 }
 
 /**
@@ -480,9 +471,7 @@ export function getXYZ(color) {
  * @return {color}
  */
 export function fromLab(l, a, b) {
-  const color = create();
-  setLab(color, l, a, b);
-  return color;
+  return setLab(create(), l, a, b);
 }
 
 export function fromLabValueToXYZValue(val, white) {
