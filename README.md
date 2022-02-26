@@ -21,8 +21,10 @@ npm install pex-color
 ## Usage
 
 ```js
-import pexColorEsm from "pex-color";
-console.log(pexColorEsm);
+import color from "pex-color";
+
+color.getHex([1, 0, 0]);
+// => #FF0000
 ```
 
 ## API
