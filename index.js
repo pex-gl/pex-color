@@ -1,8 +1,4 @@
 /**
- * All functions arguments in the range 0 < x < 1 unless otherwise specified.
- */
-
-/**
  * @typedef {number[]} color All components in the range 0 < x < 1
  */
 /**

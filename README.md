@@ -27,6 +27,14 @@ console.log(pexColorEsm);
 
 ## API
 
+The "color" primitive is an array of 3 (RGB) or 4 (A) values in the range 0 < x < 1.
+
+API naming follows the following rules:
+
+- fromType(...values) = create a generic color from Type values
+- setType(color, ...values) = set a color primitive from Type values
+- getType(color) = convert a color primitive to an array of Type
+
 <!-- api-start -->
 
 ## Functions
@@ -54,7 +62,7 @@ console.log(pexColorEsm);
 <dd><p>Set a color from byte values.</p>
 </dd>
 <dt><a href="#getRGBBytes">getRGBBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
-<dd><p>Returns RGB color components as bytes</p>
+<dd><p>Get RGB color components as bytes array.</p>
 </dd>
 <dt><a href="#fromHSV">fromHSV(h, s, v, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Creates a new color from hue, saturation, value and alpha.</p>
@@ -234,7 +242,7 @@ Set a color from byte values.
 
 ## getRGBBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
 
-Returns RGB color components as bytes
+Get RGB color components as bytes array.
 
 **Kind**: global function
 
