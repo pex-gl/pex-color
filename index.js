@@ -394,17 +394,7 @@ export function getHex(color) {
 }
 
 // XYZ
-/**
- * Creates a new color from XYZ values.
- * @param {number} x
- * @param {number} y
- * @param {number} z
- * @return {color}
- */
-export function fromXYZ(x, y, z) {
-  return setXYZ(create(), x, y, z);
-}
-
+// Helpers
 /**
  * @private
  */
@@ -435,6 +425,17 @@ function toXYZValue(val) {
   val *= 100;
 
   return val;
+}
+
+/**
+ * Creates a new color from XYZ values.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @return {color}
+ */
+export function fromXYZ(x, y, z) {
+  return setXYZ(create(), x, y, z);
 }
 
 /**
@@ -476,18 +477,18 @@ export function getXYZ(color) {
 }
 
 // LAB
+// Helpers
+// x,y,z tristimulus values
 /**
- * Creates a new color from lab component values
- * @param {number} l
- * @param {number} a
- * @param {number} b
- * @return {color}
+ * @constant
+ * @private
  */
-export function fromLab(l, a, b) {
-  return setLab(create(), l, a, b);
-}
+const white = [95.047, 100, 108.883];
 
-export function fromLabValueToXYZValue(val, white) {
+/**
+ * @private
+ */
+function fromLabValueToXYZValue(val, white) {
   const pow = val ** 3;
 
   if (pow > 0.008856) {
@@ -501,7 +502,10 @@ export function fromLabValueToXYZValue(val, white) {
   return val;
 }
 
-export function fromXYZValueToLabValue(val, white) {
+/**
+ * @private
+ */
+function fromXYZValueToLabValue(val, white) {
   val /= white;
 
   if (val > 0.008856) {
@@ -512,8 +516,16 @@ export function fromXYZValueToLabValue(val, white) {
   return val;
 }
 
-// x,y,z tristimulus values
-const white = [95.047, 100, 108.883];
+/**
+ * Creates a new color from lab component values
+ * @param {number} l
+ * @param {number} a
+ * @param {number} b
+ * @return {color}
+ */
+export function fromLab(l, a, b) {
+  return setLab(create(), l, a, b);
+}
 
 /**
  * Updates a color based on lab component values.
