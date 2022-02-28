@@ -197,10 +197,7 @@ export function setHSV(color, h, s, v, a = 1) {
  * @param {color} color
  * @return {hsv}
  */
-export function getHSV(color) {
-  const r = color[0];
-  const g = color[1];
-  const b = color[2];
+export function getHSV([r, g, b, a = 1]) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   let h;
@@ -225,7 +222,7 @@ export function getHSV(color) {
     h /= 6;
   }
 
-  return [h, s, v, color[3]];
+  return [h, s, v, a];
 }
 
 // HSL
@@ -292,10 +289,7 @@ export function setHSL(color, h, s, l, a = 1) {
  * @param {Array} color  - RGBA color array [r, g, b, a]
  * @return {hsl}
  */
-export function getHSL(color) {
-  const r = color[0];
-  const g = color[1];
-  const b = color[2];
+export function getHSL([r, g, b, a = 1]) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const l = (max + min) / 2;
@@ -323,7 +317,7 @@ export function getHSL(color) {
     h /= 6;
   }
 
-  return [h, s, l, color[3]];
+  return [h, s, l, a];
 }
 
 // HEX
