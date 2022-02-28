@@ -405,7 +405,7 @@ function fromXYZValue(val) {
  */
 function toXYZValue(val) {
   if (val > 0.04045) {
-    val = (val + 0.055) / 1.055 ** 2.4;
+    val = ((val + 0.055) / 1.055) ** 2.4;
   } else {
     val /= 12.92;
   }
