@@ -1,29 +1,23 @@
 /**
- * @typedef {number[]} color All components in the range 0 < x < 1
+ * @typedef {number[]} color All components in the range 0 <= x <= 1
  */
 /**
- * @typedef {number[]} bytes All components in the range 0 < x < 255
+ * @typedef {number[]} bytes All components in the range 0 <= x <= 255
  */
 /**
- * @typedef {number[]} hsv All components in the range 0 < x < 1
+ * @typedef {number[]} hsv All components in the range 0 <= x <= 1
  */
 /**
- * @typedef {number[]} hsl All components in the range 0 < x < 1
+ * @typedef {number[]} hsl All components in the range 0 <= x <= 1
  */
 /**
- * @typedef {string} hex RGB hex value string eg. #RRGGBB
+ * @typedef {string} hex RGB hex value string eg. #RRGGBB[AA]
  */
 /**
- * @typedef {number[]} xyz Components range:
- * 0 < x < 95;
- * 0 < y < 100;
- * 0 < z < 108;
+ * @typedef {number[]} xyz Components range: 0 <= x <= 95; 0 <= y <= 100; 0 <= z <= 108;
  */
 /**
- * @typedef {number[]} lab Components range:
- * 0 < l < 100;
- * -128 < a < 127;
- * -128 < b < 127;
+ * @typedef {number[]} lab Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
  */
 
 /**
