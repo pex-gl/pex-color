@@ -93,23 +93,23 @@ API naming follows the following rules:
 <dt><a href="#getHex">getHex(color)</a> ⇒ <code><a href="#hex">hex</a></code></dt>
 <dd><p>Returns a html hex string representation of a given color.</p>
 </dd>
-<dt><a href="#fromXYZ">fromXYZ(x, y, z)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#fromXYZ">fromXYZ(x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Creates a new color from XYZ values.</p>
 </dd>
-<dt><a href="#setXYZ">setXYZ(color, x, y, z)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#setXYZ">setXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on x, y, z component values.</p>
 </dd>
 <dt><a href="#getXYZ">getXYZ(color)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Returns a XYZ representation of a given color.</p>
 </dd>
-<dt><a href="#fromLab">fromLab(l, a, b)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from lab component values</p>
+<dt><a href="#fromLab">fromLab(l, a, b, α)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Creates a new color from CIELAB component values</p>
 </dd>
-<dt><a href="#setLab">setLab(color, l, a, b)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on lab component values.</p>
+<dt><a href="#setLab">setLab(color, l, a, b, α)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on CIELAB component values.</p>
 </dd>
 <dt><a href="#getLab">getLab(color)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
-<dd><p>Returns a LAB representation of a given color.</p>
+<dd><p>Returns a CIELAB representation of a given color.</p>
 </dd>
 </dl>
 
@@ -117,31 +117,25 @@ API naming follows the following rules:
 
 <dl>
 <dt><a href="#color">color</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt; x &lt; 1</p>
+<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#bytes">bytes</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt; x &lt; 255</p>
+<dd><p>All components in the range 0 &lt;= x &lt;= 255</p>
 </dd>
 <dt><a href="#hsv">hsv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt; x &lt; 1</p>
+<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#hsl">hsl</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt; x &lt; 1</p>
+<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#hex">hex</a> : <code>string</code></dt>
-<dd><p>RGB hex value string eg. #RRGGBB</p>
+<dd><p>RGB hex value string eg. #RRGGBB[AA]</p>
 </dd>
 <dt><a href="#xyz">xyz</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range:
-0 &lt; x &lt; 95;
-0 &lt; y &lt; 100;
-0 &lt; z &lt; 108;</p>
+<dd><p>Components range: 0 &lt;= x &lt;= 95; 0 &lt;= y &lt;= 100; 0 &lt;= z &lt;= 108;</p>
 </dd>
 <dt><a href="#lab">lab</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range:
-0 &lt; l &lt; 100;
--128 &lt; a &lt; 127;
--128 &lt; b &lt; 127;</p>
+<dd><p>Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
 </dd>
 </dl>
 
@@ -378,7 +372,7 @@ Returns a html hex string representation of a given color.
 
 <a name="fromXYZ"></a>
 
-## fromXYZ(x, y, z) ⇒ [<code>color</code>](#color)
+## fromXYZ(x, y, z, a) ⇒ [<code>color</code>](#color)
 
 Creates a new color from XYZ values.
 
@@ -389,10 +383,11 @@ Creates a new color from XYZ values.
 | x     | <code>number</code> |
 | y     | <code>number</code> |
 | z     | <code>number</code> |
+| a     | <code>number</code> |
 
 <a name="setXYZ"></a>
 
-## setXYZ(color, x, y, z) ⇒ [<code>color</code>](#color)
+## setXYZ(color, x, y, z, a) ⇒ [<code>color</code>](#color)
 
 Updates a color based on x, y, z component values.
 
@@ -404,6 +399,7 @@ Updates a color based on x, y, z component values.
 | x     | <code>number</code>          |
 | y     | <code>number</code>          |
 | z     | <code>number</code>          |
+| a     | <code>number</code>          |
 
 <a name="getXYZ"></a>
 
@@ -419,9 +415,9 @@ Returns a XYZ representation of a given color.
 
 <a name="fromLab"></a>
 
-## fromLab(l, a, b) ⇒ [<code>color</code>](#color)
+## fromLab(l, a, b, α) ⇒ [<code>color</code>](#color)
 
-Creates a new color from lab component values
+Creates a new color from CIELAB component values
 
 **Kind**: global function
 
@@ -430,12 +426,13 @@ Creates a new color from lab component values
 | l     | <code>number</code> |
 | a     | <code>number</code> |
 | b     | <code>number</code> |
+| α     | <code>number</code> |
 
 <a name="setLab"></a>
 
-## setLab(color, l, a, b) ⇒ [<code>color</code>](#color)
+## setLab(color, l, a, b, α) ⇒ [<code>color</code>](#color)
 
-Updates a color based on lab component values.
+Updates a color based on CIELAB component values.
 
 **Kind**: global function
 
@@ -445,12 +442,13 @@ Updates a color based on lab component values.
 | l     | <code>number</code>          |
 | a     | <code>number</code>          |
 | b     | <code>number</code>          |
+| α     | <code>number</code>          |
 
 <a name="getLab"></a>
 
 ## getLab(color) ⇒ [<code>lab</code>](#lab)
 
-Returns a LAB representation of a given color.
+Returns a CIELAB representation of a given color.
 
 **Kind**: global function
 
@@ -462,55 +460,49 @@ Returns a LAB representation of a given color.
 
 ## color : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 < x < 1
+All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 <a name="bytes"></a>
 
 ## bytes : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 < x < 255
+All components in the range 0 <= x <= 255
 
 **Kind**: global typedef
 <a name="hsv"></a>
 
 ## hsv : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 < x < 1
+All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 <a name="hsl"></a>
 
 ## hsl : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 < x < 1
+All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 <a name="hex"></a>
 
 ## hex : <code>string</code>
 
-RGB hex value string eg. #RRGGBB
+RGB hex value string eg. #RRGGBB[AA]
 
 **Kind**: global typedef
 <a name="xyz"></a>
 
 ## xyz : <code>Array.&lt;number&gt;</code>
 
-Components range:
-0 < x < 95;
-0 < y < 100;
-0 < z < 108;
+Components range: 0 <= x <= 95; 0 <= y <= 100; 0 <= z <= 108;
 
 **Kind**: global typedef
 <a name="lab"></a>
 
 ## lab : <code>Array.&lt;number&gt;</code>
 
-Components range:
-0 < l < 100;
--128 < a < 127;
--128 < b < 127;
+Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
 
 **Kind**: global typedef
 

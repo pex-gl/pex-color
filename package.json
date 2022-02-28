@@ -26,7 +26,11 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "test": "node ./test/index.js"
+    "test": "mocha",
+    "test:watch": "npm test -- --watch --parallel"
+  },
+  "devDependencies": {
+    "mocha": "^9.2.1"
   },
   "engines": {
     "node": ">=16.0.0",
