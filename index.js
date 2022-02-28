@@ -420,10 +420,11 @@ function toXYZValue(val) {
  * @param {number} x
  * @param {number} y
  * @param {number} z
+ * @param {number} a
  * @return {color}
  */
-export function fromXYZ(x, y, z) {
-  return setXYZ(create(), x, y, z);
+export function fromXYZ(x, y, z, a) {
+  return setXYZ(create(), x, y, z, a);
 }
 
 /**
@@ -432,9 +433,10 @@ export function fromXYZ(x, y, z) {
  * @param {number} x
  * @param {number} y
  * @param {number} z
+ * @param {number} a
  * @return {color}
  */
-export function setXYZ(color, x, y, z) {
+export function setXYZ(color, x, y, z, a = 1) {
   const r = x * 3.2406 + y * -1.5372 + z * -0.4986;
   const g = x * -0.9689 + y * 1.8758 + z * 0.0415;
   const b = x * 0.0557 + y * -0.204 + z * 1.057;
@@ -442,7 +444,7 @@ export function setXYZ(color, x, y, z) {
   color[0] = fromXYZValue(r);
   color[1] = fromXYZValue(g);
   color[2] = fromXYZValue(b);
-  color[3] = 1;
+  color[3] = a;
 
   return color;
 }
@@ -461,13 +463,14 @@ export function getXYZ(color) {
     r * 0.4124 + g * 0.3576 + b * 0.1805,
     r * 0.2126 + g * 0.7152 + b * 0.0722,
     r * 0.0193 + g * 0.1192 + b * 0.9505,
+    color[3],
   ];
 }
 
 // LAB
 // Helpers
-// x,y,z tristimulus values
 /**
+ * x,y,z tristimulus values
  * @constant
  * @private
  */
@@ -505,25 +508,27 @@ function fromXYZValueToLabValue(val, white) {
 }
 
 /**
- * Creates a new color from lab component values
+ * Creates a new color from CIELAB component values
  * @param {number} l
  * @param {number} a
  * @param {number} b
+ * @param {number} α
  * @return {color}
  */
-export function fromLab(l, a, b) {
-  return setLab(create(), l, a, b);
+export function fromLab(l, a, b, α) {
+  return setLab(create(), l, a, b, α);
 }
 
 /**
- * Updates a color based on lab component values.
+ * Updates a color based on CIELAB component values.
  * @param {color} color
  * @param {number} l
  * @param {number} a
  * @param {number} b
+ * @param {number} α
  * @return {color}
  */
-export function setLab(color, l, a, b) {
+export function setLab(color, l, a, b, α = 1) {
   const y = (l + 16) / 116;
   const x = a / 500 + y;
   const z = y - b / 200;
@@ -532,12 +537,13 @@ export function setLab(color, l, a, b) {
     color,
     fromLabValueToXYZValue(x, white[0]),
     fromLabValueToXYZValue(y, white[1]),
-    fromLabValueToXYZValue(z, white[2])
+    fromLabValueToXYZValue(z, white[2]),
+    α
   );
 }
 
 /**
- * Returns a LAB representation of a given color.
+ * Returns a CIELAB representation of a given color.
  * @param {color} color
  * @return {lab}
  */
@@ -548,7 +554,7 @@ export function getLab(color) {
   const y = fromXYZValueToLabValue(xyz[1], white[1]);
   const z = fromXYZValueToLabValue(xyz[2], white[2]);
 
-  return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
+  return [116 * y - 16, 500 * (x - y), 200 * (y - z), color[3]];
 }
 
 export default {
