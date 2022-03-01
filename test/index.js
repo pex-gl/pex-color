@@ -1,13 +1,13 @@
 import { deepEqual } from "assert";
-import color from "../index.js";
+import * as color from "../index.js";
 
 const DEFAULT_ALPHA = 1;
 
 function deepAlmostEqual(a, b, epsilon = 0.001) {
   if (a.length != b.length) throw new Error(`${a} deepAlmostEqual ${b}`);
   for (let i = 0; i < a.length; i++) {
-    if (a === undefined || b === undefined) {
-      throw new Error(`${a} deepAlmostEqual ${b}`);
+    if (!Number.isFinite(a[i]) || !Number.isFinite(b[[i]])) {
+      throw new Error(`${a} deepAlmostEqual ${b} not finite`);
     }
     if (Math.abs(a[i] - b[i]) > epsilon) {
       throw new Error(
@@ -302,95 +302,72 @@ describe("HEX", () => {
   });
 });
 
-const xyzEPSILON = 3 / (95 + 100 + 108) + Number.EPSILON;
-const yellowXyz = [77.003, 92.783, 13.853];
+const rgbaGreenHalfAlpha = [0.4, 0.6, 0, 0.5];
+const rgbaGreenDefaultAlpha = [0.4, 0.6, 0, DEFAULT_ALPHA];
+// #669900 https://ajalt.github.io/colormath/converter/
+const greens = {
+  XYZ: [0.1687, 0.25607, 0.04054].map((n) => n * 100),
+  Lab: [57.6619, -36.5132, 60.22545],
+  LCHuv: [57.6619, 71.91135, 111.0721],
+  HSLuv: [111.0721, 100, 57.6619],
+  HPLuv: [111.0721, 158.2515, 57.6619],
+};
+const epsilons = {
+  XYZ: 3 / (95 + 100 + 108) + Number.EPSILON,
+  Lab: 0.01, // TODO: that's pretty high
+};
 
-describe("XYZ", () => {
-  describe("from", () => {
-    it("should create a red color from XYZ values", () => {
-      deepAlmostEqual(
-        color.fromXYZ(...yellowXyz, 0.5),
-        [1, 1, 0, 0.5],
-        xyzEPSILON
-      );
+Object.entries(greens).forEach(([type, c]) => {
+  describe(type, () => {
+    describe(`from`, () => {
+      it(`should create a color from ${type} values and alpha`, () => {
+        deepAlmostEqual(
+          color[`from${type}`](...c, 0.5),
+          rgbaGreenHalfAlpha,
+          epsilons[type]
+        );
+      });
+      it(`should create a color from ${type} values and set the default alpha to 1`, () => {
+        deepAlmostEqual(
+          color[`from${type}`](...c),
+          rgbaGreenDefaultAlpha,
+          epsilons[type]
+        );
+      });
     });
-    it("should create a red color from XYZ values and set the default alpha to 1", () => {
-      deepAlmostEqual(
-        color.fromXYZ(...yellowXyz),
-        [1, 1, 0, DEFAULT_ALPHA],
-        xyzEPSILON
-      );
-    });
-  });
 
-  describe("set", () => {
-    it("should set a color from XYZ values with supplied alpha", () => {
-      deepAlmostEqual(
-        color.setXYZ(color.create(), ...yellowXyz, 0.5),
-        [1, 1, 0, 0.5]
-      );
+    describe(`set`, () => {
+      it(`should set a color from ${type} values with supplied alpha`, () => {
+        deepAlmostEqual(
+          color[`set${type}`](color.create(), ...c, 0.5),
+          rgbaGreenHalfAlpha,
+          epsilons[type]
+        );
+      });
+      it(`should set a color from ${type} values and add default alpha`, () => {
+        deepAlmostEqual(
+          color[`set${type}`](color.create(), ...c),
+          rgbaGreenDefaultAlpha,
+          epsilons[type]
+        );
+      });
     });
-    it("should set a color from XYZ values and add default alpha", () => {
-      deepAlmostEqual(color.setXYZ(color.create(), ...yellowXyz), [1, 1, 0, 1]);
-    });
-  });
 
-  describe("get", () => {
-    it("should return XYZ values from a color with supplied alpha", () => {
-      deepAlmostEqual(
-        color.getXYZ([1, 1, 0, 0.5]),
-        [...yellowXyz, 0.5],
-        xyzEPSILON
-      );
-    });
-    it("should return XYZ values from a color and add default alpha", () => {
-      deepAlmostEqual(
-        color.getXYZ([1, 1, 0]),
-        [...yellowXyz, DEFAULT_ALPHA],
-        xyzEPSILON
-      );
-    });
-  });
-});
-
-const yellowLab = [97.13824698129729, -21.555908334832285, 94.48248544644461];
-
-describe("LAB", () => {
-  describe("from", () => {
-    it("should create a color from LAB values and alpha", () => {
-      deepAlmostEqual(color.fromLab(...yellowLab, 0.5), [1, 1, 0, 0.5]);
-    });
-    it("should create a color from LAB values and set the default alpha to 1", () => {
-      deepAlmostEqual(color.fromLab(...yellowLab), [1, 1, 0, DEFAULT_ALPHA]);
-    });
-  });
-
-  describe("set", () => {
-    it("should set a color from LAB values with supplied alpha", () => {
-      deepAlmostEqual(
-        color.setLab(color.create(), ...yellowLab, 0.5),
-        [1, 1, 0, 0.5]
-      );
-    });
-    it("should set a color from LAB values and add default alpha", () => {
-      deepAlmostEqual(color.setLab(color.create(), ...yellowLab), [
-        1,
-        1,
-        0,
-        DEFAULT_ALPHA,
-      ]);
-    });
-  });
-
-  describe("get", () => {
-    it("should return LAB values from a color with supplied alpha", () => {
-      deepAlmostEqual(color.getLab([1, 1, 0, 0.5]), [...yellowLab, 0.5]);
-    });
-    it("should return LAB values from a color", () => {
-      deepAlmostEqual(color.getLab([1, 1, 0, 1]), [
-        ...yellowLab,
-        DEFAULT_ALPHA,
-      ]);
+    describe(`get`, () => {
+      it(`should return ${type} values from a color with supplied alpha`, () => {
+        deepAlmostEqual(
+          color[`get${type}`](rgbaGreenHalfAlpha),
+          [...c, 0.5],
+          epsilons[type]
+        );
+      });
+      it(`should return ${type} values from a color`, () => {
+        deepAlmostEqual(
+          color[`get${type}`](rgbaGreenDefaultAlpha),
+          [...c, DEFAULT_ALPHA],
+          epsilons[type]
+        );
+      });
     });
   });
 });
