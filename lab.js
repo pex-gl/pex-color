@@ -14,27 +14,12 @@ const D65 = [95.047, 100, 108.883];
 
 function fromLabValueToXYZValue(val, white) {
   const pow = val ** 3;
-
-  if (pow > 0.008856) {
-    val = pow;
-  } else {
-    val = (val - 16 / 116) / 7.787;
-  }
-
-  val *= white;
-
-  return val;
+  return (pow > 0.008856 ? pow : (val - 16 / 116) / 7.787) * white;
 }
 
 function fromXYZValueToLabValue(val, white) {
   val /= white;
-
-  if (val > 0.008856) {
-    val = val ** (1 / 3);
-  } else {
-    val = 7.787 * val + 16 / 116;
-  }
-  return val;
+  return val > 0.008856 ? val ** (1 / 3) : 7.787 * val + 16 / 116;
 }
 
 /**
