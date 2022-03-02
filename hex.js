@@ -1,11 +1,11 @@
 import { create } from "./color.js";
 
 /**
- * @typedef {string} hex RGB hex value string eg. #RRGGBB[AA]
+ * @typedef {string} hex hexadecimal string (RGB[A] or RRGGBB[AA]).
  */
 
 /**
- * Creates a new color from a html hex string
+ * Creates a new color from a hexadecimal string.
  * @param {hex} hex
  * @return {color}
  */
@@ -14,7 +14,7 @@ export function fromHex(hex) {
 }
 
 /**
- * Updates a color based on a html hex string.
+ * Updates a color based on a hexadecimal string.
  * @param {color} color
  * @param {hex} hex Leading '#' is optional.
  * @return {color}
@@ -47,7 +47,7 @@ export function setHex(color, hex) {
 }
 
 /**
- * Returns a html hex string representation of a given color.
+ * Returns a hexadecimal string representation of a given color.
  * @param {color} color
  * @return {hex}
  */

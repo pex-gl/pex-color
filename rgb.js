@@ -7,7 +7,7 @@ import { create } from "./color.js";
 export const fromRGB = create;
 
 /**
- * Updates a color based on r, g, b, a component values.
+ * Updates a color based on linear r, g, b, a values.
  * @param {color} color
  * @param {number} r
  * @param {number} g

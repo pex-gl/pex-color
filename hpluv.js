@@ -3,7 +3,7 @@ import { setLCHuv, getLCHuv } from "./lchuv.js";
 import { getBounds } from "./utils.js";
 
 /**
- * @typedef {number[]} hpluv Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
+ * @typedef {number[]} hpluv CIELUV. Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
  */
 
 const distanceLineFromOrigin = ({ intercept, slope }) =>

@@ -3,7 +3,7 @@ import { setLCHuv, getLCHuv } from "./lchuv.js";
 import { getBounds } from "./utils.js";
 
 /**
- * @typedef {number[]} hsluv Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
+ * @typedef {number[]} hsluv CIELUV. Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
  */
 
 const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>

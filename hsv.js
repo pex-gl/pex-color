@@ -1,11 +1,11 @@
 import { create } from "./color.js";
 
 /**
- * @typedef {number[]} hsv All components in the range 0 <= x <= 1
+ * @typedef {number[]} hsv hue, saturation, value. All components in the range 0 <= x <= 1
  */
 
 /**
- * Creates a new color from hue, saturation, value and alpha.
+ * Creates a new color from HSV values and alpha.
  * @param {number} h
  * @param {number} s
  * @param {number} v
@@ -17,7 +17,7 @@ export function fromHSV(h, s, v, a) {
 }
 
 /**
- * Updates a color based on hue, saturation, value and alpha.
+ * Updates a color based on HSV values and alpha.
  * @param {color} color
  * @param {number} h
  * @param {number} s
@@ -70,7 +70,7 @@ export function setHSV(color, h, s, v, a = 1) {
 }
 
 /**
- * Get hue, saturation, value and alpha of a given color.
+ * Returns a HSV representation of a given color.
  * @param {color} color
  * @return {hsv}
  */

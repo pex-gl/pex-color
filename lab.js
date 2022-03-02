@@ -2,7 +2,7 @@ import { create } from "./color.js";
 import { getXYZ, setXYZ } from "./xyz.js";
 
 /**
- * @typedef {number[]} lab Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+ * @typedef {number[]} lab CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
  */
 
 /**
@@ -23,7 +23,7 @@ function fromXYZValueToLabValue(val, white) {
 }
 
 /**
- * Creates a new color from Lab component values
+ * Creates a new color from Lab values and alpha.
  * @param {number} l
  * @param {number} a
  * @param {number} b
@@ -35,7 +35,7 @@ export function fromLab(l, a, b, α) {
 }
 
 /**
- * Updates a color based on Lab component values.
+ * Updates a color based on Lab values and alpha.
  * @param {color} color
  * @param {number} l
  * @param {number} a

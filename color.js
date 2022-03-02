@@ -1,7 +1,7 @@
 import { setRGB } from "./rgb.js";
 
 /**
- * Creates a new color from component values.
+ * Creates a new color from linear values.
  * @param {number} [r=0]
  * @param {number} [g=0]
  * @param {number} [b=0]

@@ -1,7 +1,7 @@
 import { create } from "./color.js";
 
 /**
- * @typedef {number[]} hsl All components in the range 0 <= x <= 1
+ * @typedef {number[]} hsl hue, saturation, lightness. All components in the range 0 <= x <= 1
  */
 
 function hue2rgb(p, q, t) {
@@ -24,7 +24,7 @@ function hue2rgb(p, q, t) {
 }
 
 /**
- * Creates a new color from hue, saturation, lightness and alpha.
+ * Creates a new color from HSL values and alpha.
  * @param {number} h
  * @param {number} s
  * @param {number} l
@@ -36,7 +36,7 @@ export function fromHSL(h, s, l, a) {
 }
 
 /**
- * Updates a color based on hue, saturation, lightness and alpha.
+ * Updates a color based on HSL values and alpha.
  * @param {color} color
  * @param {number} h
  * @param {number} s
@@ -60,7 +60,7 @@ export function setHSL(color, h, s, l, a = 1) {
 }
 
 /**
- * Returns a hsl representation of a given color.
+ * Returns a HSL representation of a given color.
  * @param {color} color
  * @return {hsl}
  */

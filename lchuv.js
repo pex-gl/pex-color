@@ -3,7 +3,7 @@ import { fromXYZ, getXYZ } from "./xyz.js";
 import { luvToXyz, lchToLuv, luvToLch, xyzToLuv } from "./utils.js";
 
 /**
- * @typedef {number[]} lchuv Components range: 0 <= l <= 100; 0 <= c <= 100; 0 <= h <= 360;
+ * @typedef {number[]} lchuv CIELChuv. Components range: 0 <= l <= 100; 0 <= c <= 100; 0 <= h <= 360;
  */
 
 /**

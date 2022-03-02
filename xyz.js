@@ -6,7 +6,7 @@ import { fromLinear, toLinear, m, minv } from "./utils.js";
  */
 
 /**
- * Creates a new color from XYZ values.
+ * Creates a new color from XYZ values and alpha.
  * @param {number} x
  * @param {number} y
  * @param {number} z
@@ -18,7 +18,7 @@ export function fromXYZ(x, y, z, a) {
 }
 
 /**
- * Updates a color based on x, y, z component values.
+ * Updates a color based on XYZ values and alpha.
  * @param {color} color
  * @param {number} x
  * @param {number} y
