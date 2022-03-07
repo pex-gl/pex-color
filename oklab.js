@@ -1,5 +1,4 @@
-import { create } from "./color.js";
-import { fromLinear, toLinear } from "./utils.js";
+import { fromLinear, setAlpha, toLinear } from "./utils.js";
 
 /**
  * @typedef {number[]} oklab Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
@@ -7,27 +6,15 @@ import { fromLinear, toLinear } from "./utils.js";
  */
 
 /**
- * Creates a new color from Oklab values and alpha.
- * @param {number} l
- * @param {number} a
- * @param {number} b
- * @param {number} [α=1]
- * @return {color}
- */
-export function fromOklab(l, a, b, α) {
-  return setOklab(create(), l, a, b, α);
-}
-
-/**
  * Updates a color based on Oklab values and alpha.
  * @param {color} color
  * @param {number} l
  * @param {number} a
  * @param {number} b
- * @param {number} [α=1]
+ * @param {number} [α]
  * @return {color}
  */
-export function setOklab(color, L, a, b, α = 1) {
+export function fromOklab(color, L, a, b, α) {
   const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
   const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
   const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
@@ -37,17 +24,17 @@ export function setOklab(color, L, a, b, α = 1) {
     -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s
   );
   color[2] = fromLinear(-0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s);
-  color[3] = α;
 
-  return color;
+  return setAlpha(color, α);
 }
 
 /**
  * Returns an Oklab representation of a given color.
  * @param {color} color
+ * @param {Array} out
  * @return {oklab}
  */
-export function getOklab([r, g, b, a = 1]) {
+export function getOklab([r, g, b, a], out = []) {
   const lr = toLinear(r);
   const lg = toLinear(g);
   const lb = toLinear(b);
@@ -61,10 +48,8 @@ export function getOklab([r, g, b, a = 1]) {
     0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb
   );
 
-  return [
-    0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s,
-    1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s,
-    0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s,
-    a,
-  ];
+  out[0] = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  out[1] = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  out[2] = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  return setAlpha(out, a);
 }

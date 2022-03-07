@@ -1,5 +1,5 @@
-import { create } from "./color.js";
-import { getXYZ, setXYZ } from "./xyz.js";
+import { getXYZ, fromXYZ } from "./xyz.js";
+import { setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} lab CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
@@ -23,18 +23,6 @@ function fromXYZValueToLabValue(val, white) {
 }
 
 /**
- * Creates a new color from Lab values and alpha.
- * @param {number} l
- * @param {number} a
- * @param {number} b
- * @param {number} α
- * @return {color}
- */
-export function fromLab(l, a, b, α) {
-  return setLab(create(), l, a, b, α);
-}
-
-/**
  * Updates a color based on Lab values and alpha.
  * @param {color} color
  * @param {number} l
@@ -43,12 +31,12 @@ export function fromLab(l, a, b, α) {
  * @param {number} α
  * @return {color}
  */
-export function setLab(color, l, a, b, α = 1) {
+export function fromLab(color, l, a, b, α) {
   const y = (l + 16) / 116;
   const x = a / 500 + y;
   const z = y - b / 200;
 
-  return setXYZ(
+  return fromXYZ(
     color,
     fromLabValueToXYZValue(x, D65[0]),
     fromLabValueToXYZValue(y, D65[1]),
@@ -60,14 +48,19 @@ export function setLab(color, l, a, b, α = 1) {
 /**
  * Returns a Lab representation of a given color.
  * @param {color} color
+ * @param {Array} out
  * @return {lab}
  */
-export function getLab(color) {
+export function getLab(color, out = []) {
   const xyz = getXYZ(color);
 
   const x = fromXYZValueToLabValue(xyz[0], D65[0]);
   const y = fromXYZValueToLabValue(xyz[1], D65[1]);
   const z = fromXYZValueToLabValue(xyz[2], D65[2]);
 
-  return [116 * y - 16, 500 * (x - y), 200 * (y - z), color[3]];
+  out[0] = 116 * y - 16;
+  out[1] = 500 * (x - y);
+  out[2] = 200 * (y - z);
+
+  return setAlpha(out, color[3]);
 }

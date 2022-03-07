@@ -1,3 +1,8 @@
+export const setAlpha = (color, a) => {
+  if (a !== undefined) color[3] = a;
+  return color;
+};
+
 // https://github.com/hsluv/hsluv/tree/master/haxe/src/hsluv
 export const m = [
   [3.240969941904521, -1.537383177570093, -0.498610760293],

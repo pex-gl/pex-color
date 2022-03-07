@@ -1,17 +1,6 @@
-import { create } from "./color.js";
-
 /**
  * @typedef {string} hex hexadecimal string (RGB[A] or RRGGBB[AA]).
  */
-
-/**
- * Creates a new color from a hexadecimal string.
- * @param {hex} hex
- * @return {color}
- */
-export function fromHex(hex) {
-  return setHex(create(), hex);
-}
 
 /**
  * Updates a color based on a hexadecimal string.
@@ -19,7 +8,7 @@ export function fromHex(hex) {
  * @param {hex} hex Leading '#' is optional.
  * @return {color}
  */
-export function setHex(color, hex) {
+export function fromHex(color, hex) {
   hex = hex.replace(/^#/, "");
 
   let a = 1;
@@ -41,7 +30,7 @@ export function setHex(color, hex) {
   color[0] = ((num >> 16) & 255) / 255;
   color[1] = ((num >> 8) & 255) / 255;
   color[2] = (num & 255) / 255;
-  color[3] = a;
+  if (color[3] !== undefined) color[3] = a;
 
   return color;
 }
@@ -49,16 +38,17 @@ export function setHex(color, hex) {
 /**
  * Returns a hexadecimal string representation of a given color.
  * @param {color} color
+ * @param {boolean} alpha Handle alpha
  * @return {hex}
  */
-export function getHex(color) {
+export function getHex(color, alpha = true) {
   const c = color.map((val) => Math.round(val * 255));
 
   return `#${(c[2] | (c[1] << 8) | (c[0] << 16) | (1 << 24))
     .toString(16)
     .slice(1)
     .toUpperCase()}${
-    color[3] !== undefined && color[3] !== 1
+    alpha && color[3] !== undefined && color[3] !== 1
       ? (c[3] | (1 << 8)).toString(16).slice(1)
       : ""
   }`;

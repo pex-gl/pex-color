@@ -1,7 +1,11 @@
 import { deepEqual } from "assert";
 import * as color from "../index.js";
 
+// TODO: HSV and HSL switch case
+
 const DEFAULT_ALPHA = 1;
+
+const TEMP_VEC3 = [0, 0, 0];
 
 function deepAlmostEqual(a, b, epsilon = 0.001) {
   if (a.length != b.length) throw new Error(`${a} deepAlmostEqual ${b}`);
@@ -34,6 +38,9 @@ describe("copy()", () => {
 });
 
 describe("set()", () => {
+  it("should set a color", () => {
+    deepEqual(color.set(TEMP_VEC3, [0.1, 0.2, 0.3]), [0.1, 0.2, 0.3]);
+  });
   it("should set a color with supplied alpha", () => {
     deepEqual(
       color.set(color.create(), [0.1, 0.2, 0.3, 0.4]),
@@ -51,23 +58,18 @@ describe("set()", () => {
 });
 
 describe("RGB", () => {
-  describe("from", () => {
-    it("should create a color from RGBA values", () => {
-      deepEqual(color.fromRGB(0.1, 0.2, 0.3, 0.4), [0.1, 0.2, 0.3, 0.4]);
-    });
-    it("should create a color from RGBA values and set the default alpha to 1", () => {
-      deepEqual(color.fromRGB(0.1, 0.2, 0.3), [0.1, 0.2, 0.3, DEFAULT_ALPHA]);
-    });
-  });
   describe("set", () => {
+    it("should set a color", () => {
+      deepEqual(color.fromRGB(TEMP_VEC3, 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
+    });
     it("should set a color with supplied alpha", () => {
       deepEqual(
-        color.setRGB(color.create(), 0.1, 0.2, 0.3, 0.4),
+        color.fromRGB(color.create(), 0.1, 0.2, 0.3, 0.4),
         [0.1, 0.2, 0.3, 0.4]
       );
     });
-    it("should set a color and add default alpha", () => {
-      deepEqual(color.setRGB(color.create(), 0.1, 0.2, 0.3), [
+    it("should set a color and keep the color alpha", () => {
+      deepEqual(color.fromRGB(color.create(), 0.1, 0.2, 0.3), [
         0.1,
         0.2,
         0.3,
@@ -78,36 +80,24 @@ describe("RGB", () => {
 });
 
 describe("RGBBytes", () => {
-  describe("from", () => {
-    it("should create a color from a RGBA Bytes array", () => {
-      deepEqual(color.fromRGBBytes([222, 100, 125, 23]), [
-        222 / 255,
-        100 / 255,
-        125 / 255,
-        23 / 255,
-      ]);
-    });
-    it("should create a color from a RGB Bytes array and set the default alpha to 1", () => {
-      deepEqual(color.fromRGBBytes([222, 100, 125]), [
-        222 / 255,
-        100 / 255,
-        125 / 255,
-        DEFAULT_ALPHA,
-      ]);
-    });
-  });
-
   describe("set", () => {
+    it("should set a color from a RGB Bytes array", () => {
+      deepEqual(color.fromRGBBytes(TEMP_VEC3, [222, 100, 125]), [
+        222 / 255,
+        100 / 255,
+        125 / 255,
+      ]);
+    });
     it("should set a color from a RGB Bytes array with supplied alpha", () => {
-      deepEqual(color.setRGBBytes(color.create(), 222, 100, 125, 23), [
+      deepEqual(color.fromRGBBytes(color.create(), [222, 100, 125, 23]), [
         222 / 255,
         100 / 255,
         125 / 255,
         23 / 255,
       ]);
     });
-    it("should set a color from a RGB Bytes array and add default alpha", () => {
-      deepEqual(color.setRGBBytes(color.create(), 222, 100, 125), [
+    it("should set a color from a RGB Bytes array and keep the color alpha", () => {
+      deepEqual(color.fromRGBBytes(color.create(), [222, 100, 125]), [
         222 / 255,
         100 / 255,
         125 / 255,
@@ -132,85 +122,6 @@ describe("RGBBytes", () => {
   });
 });
 
-describe("HSV", () => {
-  describe("from", () => {
-    it("should create a red color from hue (0), saturation and value", () => {
-      deepEqual(color.fromHSV(0, 1, 1), [1, 0, 0, DEFAULT_ALPHA]);
-    });
-    it("should create a half saturated red color from hue, saturation and value", () => {
-      deepEqual(color.fromHSV(0, 0.5, 1), [1, 0.5, 0.5, DEFAULT_ALPHA]);
-    });
-    it("should create a green color from hue (1/3), saturation and value", () => {
-      deepAlmostEqual(color.fromHSV(1 / 3, 1, 1), [0, 1, 0, DEFAULT_ALPHA]);
-    });
-    it("should create a half saturated green color from hue (1/3), saturation and value", () => {
-      deepAlmostEqual(color.fromHSV(1 / 3, 0.5, 0.5), [
-        0.25,
-        0.5,
-        0.25,
-        DEFAULT_ALPHA,
-      ]);
-    });
-  });
-
-  describe("set", () => {
-    it("should set a color to a half saturated green color from hue (1/3), saturation and value with supplied alpha", () => {
-      deepEqual(
-        color.setHSV(color.create(), 1 / 3, 0.5, 0.5, 0.5),
-        [0.25, 0.5, 0.25, 0.5]
-      );
-    });
-    it("should set a color to a half saturated green color from hue (1/3), saturation and value, and add default alpha", () => {
-      deepEqual(color.setHSV(color.create(), 1 / 3, 0.5, 0.5), [
-        0.25,
-        0.5,
-        0.25,
-        DEFAULT_ALPHA,
-      ]);
-    });
-  });
-
-  describe("get", () => {
-    it("should return a HSVA array from a color with supplied alpha", () => {
-      deepEqual(color.getHSV([0.25, 0.5, 0.25, 0.5]), [1 / 3, 0.5, 0.5, 0.5]);
-    });
-    it("should return a HSVA array from a color and add default alpha", () => {
-      deepEqual(color.getHSV([1, 0, 0]), [0, 1, 1, DEFAULT_ALPHA]);
-    });
-  });
-});
-
-// TODO: alpha testing all
-describe("HSL", () => {
-  describe("from", () => {
-    it("should create a red color from hue, saturation and lightness", () => {
-      deepEqual(color.fromHSL(0, 1, 0.5), [1, 0, 0, 1]);
-    });
-    it("should create a green color from hue, saturation and lightness", () => {
-      deepAlmostEqual(color.fromHSL(1 / 3, 1, 0.5), [0, 1, 0, 1]);
-    });
-    it("should create a fuchsia color from hue, saturation and lightness", () => {
-      deepAlmostEqual(color.fromHSL(0.5, 1, 0.5), [0, 1, 1, 1]);
-    });
-  });
-  describe("set", () => {
-    it("should set a color from hue, saturation and lightness with supplied alpha", () => {
-      deepEqual(color.setHSL(color.create(), 0, 1, 0.5, 0.5), [1, 0, 0, 0.5]);
-    });
-    it("should set a color from hue, saturation and lightness and add default alpha", () => {
-      deepEqual(color.setHSL(color.create(), 0, 1, 0.5), [1, 0, 0, 1]);
-    });
-  });
-  describe("get", () => {
-    it("should return a HSLA array from a color with supplied alpha", () => {
-      deepEqual(color.getHSL([1, 0, 0, 0.5]), [0, 1, 0.5, 0.5]);
-    });
-    it("should return a HSLA array from a color and add default alpha", () => {
-      deepEqual(color.getHSL([1, 0, 0]), [0, 1, 0.5, DEFAULT_ALPHA]);
-    });
-  });
-});
-
 // Colors
 // 0.4 = 102/255 = #66
 // 0.5 = 127.5/255 = #80
@@ -220,38 +131,93 @@ const hexEPSILON = 0.5 / 255 + Number.EPSILON;
 describe("HEX", () => {
   describe("from", () => {
     it("should create primary and B&W colors from HEX strings and add default alpha", () => {
-      deepEqual(color.fromHex("#FF0000"), [1, 0, 0, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("#00FF00"), [0, 1, 0, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("#0000FF"), [0, 0, 1, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("#000000"), [0, 0, 0, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("#FFFFFF"), [1, 1, 1, DEFAULT_ALPHA]);
+      deepEqual(color.fromHex(color.create(), "#FF0000"), [
+        1,
+        0,
+        0,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "#00FF00"), [
+        0,
+        1,
+        0,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "#0000FF"), [
+        0,
+        0,
+        1,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "#000000"), [
+        0,
+        0,
+        0,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "#FFFFFF"), [
+        1,
+        1,
+        1,
+        DEFAULT_ALPHA,
+      ]);
     });
     it("should create a color with alpha from a 8 characters HEX string", () => {
-      deepEqual(color.fromHex("#00000000"), [0, 0, 0, 0]);
-      deepAlmostEqual(color.fromHex("#00000080"), [0, 0, 0, 0.5], hexEPSILON);
-      deepEqual(color.fromHex("#FFFFFFFF"), [1, 1, 1, 1]);
-      deepAlmostEqual(color.fromHex("#FFFFFF80"), [1, 1, 1, 0.5], hexEPSILON);
-      deepEqual(color.fromHex("#FF006666"), [1, 0, 0.4, 0.4]);
+      deepEqual(color.fromHex(color.create(), "#00000000"), [0, 0, 0, 0]);
+      deepAlmostEqual(
+        color.fromHex(color.create(), "#00000080"),
+        [0, 0, 0, 0.5],
+        hexEPSILON
+      );
+      deepEqual(color.fromHex(color.create(), "#FFFFFFFF"), [1, 1, 1, 1]);
+      deepAlmostEqual(
+        color.fromHex(color.create(), "#FFFFFF80"),
+        [1, 1, 1, 0.5],
+        hexEPSILON
+      );
+      deepEqual(color.fromHex(color.create(), "#FF006666"), [1, 0, 0.4, 0.4]);
     });
     it("should create a color from a 3 characters HEX string and add default alpha", () => {
-      deepEqual(color.fromHex("#F06"), [1, 0, 0.4, DEFAULT_ALPHA]);
+      deepEqual(color.fromHex(color.create(), "#F06"), [
+        1,
+        0,
+        0.4,
+        DEFAULT_ALPHA,
+      ]);
     });
     it("should create a color with alpha from a 4 characters HEX string", () => {
-      deepEqual(color.fromHex("#F066"), [1, 0, 0.4, 0.4]);
+      deepEqual(color.fromHex(color.create(), "#F066"), [1, 0, 0.4, 0.4]);
     });
     it("should create a color from a HEX string without leading #", () => {
-      deepEqual(color.fromHex("000000"), [0, 0, 0, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("ffffff"), [1, 1, 1, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("ff0066"), [1, 0, 0.4, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("FF006666"), [1, 0, 0.4, 0.4]);
-      deepEqual(color.fromHex("F06"), [1, 0, 0.4, DEFAULT_ALPHA]);
-      deepEqual(color.fromHex("F066"), [1, 0, 0.4, 0.4]);
+      deepEqual(color.fromHex(color.create(), "000000"), [
+        0,
+        0,
+        0,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "ffffff"), [
+        1,
+        1,
+        1,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "ff0066"), [
+        1,
+        0,
+        0.4,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "FF006666"), [1, 0, 0.4, 0.4]);
+      deepEqual(color.fromHex(color.create(), "F06"), [
+        1,
+        0,
+        0.4,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromHex(color.create(), "F066"), [1, 0, 0.4, 0.4]);
     });
-  });
-
-  describe("set", () => {
     it("should create a color from a HEX string and add default alpha", () => {
-      deepEqual(color.setHex(color.create(), "#FF0066"), [
+      deepEqual(color.fromHex(color.create(), "#FF0066"), [
         1,
         0,
         0.4,
@@ -302,13 +268,20 @@ describe("HEX", () => {
   });
 });
 
-const rgbaGreenHalfAlpha = [0.4, 0.6, 0, 0.5];
-const rgbaGreenDefaultAlpha = [0.4, 0.6, 0, DEFAULT_ALPHA];
+const rgbGreen = [0.4, 0.6, 0];
+const rgbaGreenHalfAlpha = [...rgbGreen, 0.5];
+const rgbaGreenDefaultAlpha = [...rgbGreen, DEFAULT_ALPHA];
+const NON_NORMALISED_RANGES = [360, 100, 100];
 // #669900 https://ajalt.github.io/colormath/converter/
 const greens = {
+  // RGBBytes: [102, 153, 0],
+  RGB: [0.4, 0.6, 0],
+  HSL: [80 / 360, 1, 0.3],
+  HSV: [80 / 360, 1, 0.6],
   XYZ: [0.1687, 0.25607, 0.04054].map((n) => n * 100),
   Lab: [57.6619, -36.5132, 60.22545],
   Oklab: [0.62281, -0.1053, 0.12838],
+  // HSLuv: [111.0721, 100, 57.6619].map((n, i) => n / NON_NORMALISED_RANGES[i]),
   LCHuv: [57.6619, 71.91135, 111.0721],
   HSLuv: [111.0721, 100, 57.6619],
   HPLuv: [111.0721, 158.2515, 57.6619],
@@ -321,33 +294,23 @@ const epsilons = {
 Object.entries(greens).forEach(([type, c]) => {
   describe(type, () => {
     describe(`from`, () => {
-      it(`should create a color from ${type} values and alpha`, () => {
+      it(`should set a color from ${type} values`, () => {
         deepAlmostEqual(
-          color[`from${type}`](...c, 0.5),
-          rgbaGreenHalfAlpha,
+          color[`from${type}`](TEMP_VEC3, ...c),
+          rgbGreen,
           epsilons[type]
         );
       });
-      it(`should create a color from ${type} values and set the default alpha to 1`, () => {
-        deepAlmostEqual(
-          color[`from${type}`](...c),
-          rgbaGreenDefaultAlpha,
-          epsilons[type]
-        );
-      });
-    });
-
-    describe(`set`, () => {
       it(`should set a color from ${type} values with supplied alpha`, () => {
         deepAlmostEqual(
-          color[`set${type}`](color.create(), ...c, 0.5),
+          color[`from${type}`](color.create(), ...c, 0.5),
           rgbaGreenHalfAlpha,
           epsilons[type]
         );
       });
       it(`should set a color from ${type} values and add default alpha`, () => {
         deepAlmostEqual(
-          color[`set${type}`](color.create(), ...c),
+          color[`from${type}`](color.create(), ...c),
           rgbaGreenDefaultAlpha,
           epsilons[type]
         );
@@ -355,6 +318,13 @@ Object.entries(greens).forEach(([type, c]) => {
     });
 
     describe(`get`, () => {
+      it(`should return ${type} values from a color`, () => {
+        deepAlmostEqual(
+          color[`get${type}`](rgbaGreenDefaultAlpha),
+          [...c, DEFAULT_ALPHA],
+          epsilons[type]
+        );
+      });
       it(`should return ${type} values from a color with supplied alpha`, () => {
         deepAlmostEqual(
           color[`get${type}`](rgbaGreenHalfAlpha),
@@ -362,12 +332,9 @@ Object.entries(greens).forEach(([type, c]) => {
           epsilons[type]
         );
       });
-      it(`should return ${type} values from a color`, () => {
-        deepAlmostEqual(
-          color[`get${type}`](rgbaGreenDefaultAlpha),
-          [...c, DEFAULT_ALPHA],
-          epsilons[type]
-        );
+      it(`should assign ${type} values to a provided array without reassigning it`, () => {
+        const v = [0, 0, 0];
+        deepAlmostEqual(color[`get${type}`](rgbGreen, v), v, epsilons[type]);
       });
     });
   });
@@ -383,10 +350,10 @@ describe("Deprecated APIs", () => {
       [0.1, 0.2, 0.3, 0.4]
     );
   });
+  it("set() should act as setRGB", () => {
+    deepEqual(color.set([0, 0, 0], 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
+  });
   it("set() should act as setRGB with supplied alpha", () => {
     deepEqual(color.set([0, 0, 0], 0.1, 0.2, 0.3, 0.4), [0.1, 0.2, 0.3, 0.4]);
-  });
-  it("set() should act as setRGB and add default alpha", () => {
-    deepEqual(color.set([0, 0, 0], 0.1, 0.2, 0.3), [0.1, 0.2, 0.3, 1]);
   });
 });

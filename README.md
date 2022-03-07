@@ -33,9 +33,8 @@ The "color" primitive is an array of 3 (RGB) or 4 (A) values in the range 0 < x 
 
 API naming follows the following rules:
 
-- fromType(...values) = create a generic color from Type values
-- setType(color, ...values) = set a color primitive from Type values
-- getType(color) = convert a color primitive to an array of Type
+- fromType(color, ...values) = set a color primitive from Type values
+- getType(color, out) = convert a color primitive to an array of Type and optionally set it to out
 
 <!-- api-start -->
 
@@ -43,7 +42,7 @@ API naming follows the following rules:
 
 <dl>
 <dt><a href="#create">create([r], [g], [b], [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from component values.</p>
+<dd><p>Creates a new color from linear values.</p>
 </dd>
 <dt><a href="#copy">copy(color, [out])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Returns a copy of a color.</p>
@@ -51,91 +50,70 @@ API naming follows the following rules:
 <dt><a href="#set">set(color, color2, [g], [b], [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Sets a color to another color.</p>
 </dd>
-<dt><a href="#fromHex">fromHex(hex)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from a html hex string</p>
+<dt><a href="#fromHex">fromHex(color, hex)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on a hexadecimal string.</p>
 </dd>
-<dt><a href="#setHex">setHex(color, hex)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on a html hex string.</p>
+<dt><a href="#getHex">getHex(color, alpha)</a> ⇒ <code><a href="#hex">hex</a></code></dt>
+<dd><p>Returns a hexadecimal string representation of a given color.</p>
 </dd>
-<dt><a href="#getHex">getHex(color)</a> ⇒ <code><a href="#hex">hex</a></code></dt>
-<dd><p>Returns a html hex string representation of a given color.</p>
-</dd>
-<dt><a href="#fromHPLuv">fromHPLuv(h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from HPLuv values and alpha.</p>
-</dd>
-<dt><a href="#setHPLuv">setHPLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#fromHPLuv">fromHPLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HPLuv values and alpha.</p>
 </dd>
-<dt><a href="#getHPLuv">getHPLuv(color)</a> ⇒ <code><a href="#hpluv">hpluv</a></code></dt>
+<dt><a href="#getHPLuv">getHPLuv(color, out)</a> ⇒ <code><a href="#hpluv">hpluv</a></code></dt>
 <dd><p>Returns a HPLuv representation of a given color.</p>
 </dd>
-<dt><a href="#fromHSL">fromHSL(h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from hue, saturation, lightness and alpha.</p>
+<dt><a href="#fromHSL">fromHSL(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on HSL values and alpha.</p>
 </dd>
-<dt><a href="#setHSL">setHSL(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on hue, saturation, lightness and alpha.</p>
+<dt><a href="#getHSL">getHSL(color, out)</a> ⇒ <code><a href="#hsl">hsl</a></code></dt>
+<dd><p>Returns a HSL representation of a given color.</p>
 </dd>
-<dt><a href="#getHSL">getHSL(color)</a> ⇒ <code><a href="#hsl">hsl</a></code></dt>
-<dd><p>Returns a hsl representation of a given color.</p>
-</dd>
-<dt><a href="#fromHSLuv">fromHSLuv(h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from HSLuv values and alpha.</p>
-</dd>
-<dt><a href="#setHSLuv">setHSLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#fromHSLuv">fromHSLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HSLuv values and alpha.</p>
 </dd>
-<dt><a href="#getHSLuv">getHSLuv(color)</a> ⇒ <code><a href="#hsluv">hsluv</a></code></dt>
+<dt><a href="#getHSLuv">getHSLuv(color, out)</a> ⇒ <code><a href="#hsluv">hsluv</a></code></dt>
 <dd><p>Returns a HSLuv representation of a given color.</p>
 </dd>
-<dt><a href="#fromHSV">fromHSV(h, s, v, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from hue, saturation, value and alpha.</p>
+<dt><a href="#fromHSV">fromHSV(color, h, s, v, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on HSV values and alpha.</p>
 </dd>
-<dt><a href="#setHSV">setHSV(color, h, s, v, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on hue, saturation, value and alpha.</p>
+<dt><a href="#getHSV">getHSV(color, out)</a> ⇒ <code><a href="#hsv">hsv</a></code></dt>
+<dd><p>Returns a HSV representation of a given color.</p>
 </dd>
-<dt><a href="#getHSV">getHSV(color)</a> ⇒ <code><a href="#hsv">hsv</a></code></dt>
-<dd><p>Get hue, saturation, value and alpha of a given color.</p>
+<dt><a href="#fromLab">fromLab(color, l, a, b, α)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on Lab values and alpha.</p>
 </dd>
-<dt><a href="#fromLab">fromLab(l, a, b, α)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from Lab component values</p>
-</dd>
-<dt><a href="#setLab">setLab(color, l, a, b, α)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on Lab component values.</p>
-</dd>
-<dt><a href="#getLab">getLab(color)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
+<dt><a href="#getLab">getLab(color, out)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
 <dd><p>Returns a Lab representation of a given color.</p>
 </dd>
-<dt><a href="#fromLCHuv">fromLCHuv(l, c, h, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from LCHuv values and alpha.</p>
-</dd>
-<dt><a href="#setLCHuv">setLCHuv(color, l, c, h, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#fromLCHuv">fromLCHuv(color, l, c, h, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on LCHuv values and alpha.</p>
 </dd>
-<dt><a href="#getLCHuv">getLCHuv(color)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
+<dt><a href="#getLCHuv">getLCHuv(color, out)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
 <dd><p>Returns a LCHuv representation of a given color.</p>
 </dd>
-<dt><a href="#fromRGB">fromRGB()</a></dt>
-<dd><p>Alias for <a href="#create">create</a></p>
+<dt><a href="#fromOklab">fromOklab(color, l, a, b, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on Oklab values and alpha.</p>
 </dd>
-<dt><a href="#setRGB">setRGB(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on r, g, b, a component values.</p>
+<dt><a href="#getOklab">getOklab(color, out)</a> ⇒ <code><a href="#oklab">oklab</a></code></dt>
+<dd><p>Returns an Oklab representation of a given color.</p>
 </dd>
-<dt><a href="#fromRGBBytes">fromRGBBytes(bytes)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from an array of bytes values.</p>
+<dt><a href="#fromRGB">fromRGB(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on linear r, g, b, a values.</p>
 </dd>
-<dt><a href="#setRGBBytes">setRGBBytes(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Set a color from byte values.</p>
+<dt><a href="#getRGB">getRGB()</a></dt>
+<dd><p>Alias for <a href="#copy">copy</a></p>
+</dd>
+<dt><a href="#fromRGBBytes">fromRGBBytes(color, bytes)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on byte values.</p>
 </dd>
 <dt><a href="#getRGBBytes">getRGBBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
-<dd><p>Get RGB color components as bytes array.</p>
+<dd><p>Get RGB[A] color components as bytes array.</p>
 </dd>
-<dt><a href="#fromXYZ">fromXYZ(x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from XYZ values.</p>
+<dt><a href="#fromXYZ">fromXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on XYZ values and alpha.</p>
 </dd>
-<dt><a href="#setXYZ">setXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on x, y, z component values.</p>
-</dd>
-<dt><a href="#getXYZ">getXYZ(color)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#getXYZ">getXYZ(color, out)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Returns a XYZ representation of a given color.</p>
 </dd>
 </dl>
@@ -144,28 +122,34 @@ API naming follows the following rules:
 
 <dl>
 <dt><a href="#hex">hex</a> : <code>string</code></dt>
-<dd><p>RGB hex value string eg. #RRGGBB[AA]</p>
+<dd><p>hexadecimal string (RGB[A] or RRGGBB[AA]).</p>
 </dd>
 <dt><a href="#hpluv">hpluv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= h &lt;= 360; 0 &lt;= s &lt;= 100; 0 &lt;= l &lt;= 100;</p>
+<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1.
+Components range: 0 &lt;= h &lt;= 360; 0 &lt;= s &lt;= 100; 0 &lt;= l &lt;= 100;</p>
 </dd>
 <dt><a href="#hsl">hsl</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#hsluv">hsluv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= h &lt;= 360; 0 &lt;= s &lt;= 100; 0 &lt;= l &lt;= 100;</p>
+<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1
+Components range: 0 &lt;= h &lt;= 360; 0 &lt;= s &lt;= 100; 0 &lt;= l &lt;= 100;</p>
 </dd>
 <dt><a href="#hsv">hsv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>hue, saturation, value. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#color">color</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#lab">lab</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
+<dd><p>CIELAB with D65 standard illuminant. Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
 </dd>
 <dt><a href="#lchuv">lchuv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= l &lt;= 100; 0 &lt;= c &lt;= 100; 0 &lt;= h &lt;= 360;</p>
+<dd><p>CIELChuv Luminance Chroma Hue. All components in the range 0 &lt;= x &lt;= 1
+Components range: 0 &lt;= l &lt;= 100; 0 &lt;= c &lt;= 100; 0 &lt;= h &lt;= 360;</p>
+</dd>
+<dt><a href="#oklab">oklab</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
 </dd>
 <dt><a href="#bytes">bytes</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>All components in the range 0 &lt;= x &lt;= 255</p>
@@ -179,7 +163,7 @@ API naming follows the following rules:
 
 ## create([r], [g], [b], [a]) ⇒ [<code>color</code>](#color)
 
-Creates a new color from component values.
+Creates a new color from linear values.
 
 **Kind**: global function
 
@@ -188,7 +172,7 @@ Creates a new color from component values.
 | [r]   | <code>number</code> | <code>0</code> |
 | [g]   | <code>number</code> | <code>0</code> |
 | [b]   | <code>number</code> | <code>0</code> |
-| [a]   | <code>number</code> | <code>1</code> |
+| [a]   | <code>number</code> |                |
 
 <a name="copy"></a>
 
@@ -211,31 +195,19 @@ Sets a color to another color.
 
 **Kind**: global function
 
-| Param  | Type                                                | Description                                  |
-| ------ | --------------------------------------------------- | -------------------------------------------- |
-| color  | [<code>color</code>](#color)                        |                                              |
-| color2 | [<code>color</code>](#color) \| <code>number</code> |                                              |
-| [g]    | <code>number</code>                                 | // Deprecated: use setRGB(color, r, g, b, a) |
-| [b]    | <code>number</code>                                 | // Deprecated: use setRGB(color, r, g, b, a) |
-| [a]    | <code>number</code>                                 | // Deprecated: use setRGB(color, r, g, b, a) |
+| Param  | Type                                                | Description                                   |
+| ------ | --------------------------------------------------- | --------------------------------------------- |
+| color  | [<code>color</code>](#color)                        |                                               |
+| color2 | [<code>color</code>](#color) \| <code>number</code> |                                               |
+| [g]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
+| [b]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
+| [a]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
 
 <a name="fromHex"></a>
 
-## fromHex(hex) ⇒ [<code>color</code>](#color)
+## fromHex(color, hex) ⇒ [<code>color</code>](#color)
 
-Creates a new color from a html hex string
-
-**Kind**: global function
-
-| Param | Type                     |
-| ----- | ------------------------ |
-| hex   | [<code>hex</code>](#hex) |
-
-<a name="setHex"></a>
-
-## setHex(color, hex) ⇒ [<code>color</code>](#color)
-
-Updates a color based on a html hex string.
+Updates a color based on a hexadecimal string.
 
 **Kind**: global function
 
@@ -246,50 +218,36 @@ Updates a color based on a html hex string.
 
 <a name="getHex"></a>
 
-## getHex(color) ⇒ [<code>hex</code>](#hex)
+## getHex(color, alpha) ⇒ [<code>hex</code>](#hex)
 
-Returns a html hex string representation of a given color.
+Returns a hexadecimal string representation of a given color.
+
+**Kind**: global function
+
+| Param | Type                         | Description  |
+| ----- | ---------------------------- | ------------ |
+| color | [<code>color</code>](#color) |              |
+| alpha | <code>boolean</code>         | Handle alpha |
+
+<a name="fromHPLuv"></a>
+
+## fromHPLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on HPLuv values and alpha.
 
 **Kind**: global function
 
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
-
-<a name="fromHPLuv"></a>
-
-## fromHPLuv(h, s, l, [a]) ⇒ [<code>color</code>](#color)
-
-Creates a new color from HPLuv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                | Default        |
-| ----- | ------------------- | -------------- |
-| h     | <code>number</code> |                |
-| s     | <code>number</code> |                |
-| l     | <code>number</code> |                |
-| [a]   | <code>number</code> | <code>1</code> |
-
-<a name="setHPLuv"></a>
-
-## setHPLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on HPLuv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         | Default        |
-| ----- | ---------------------------- | -------------- |
-| color | [<code>color</code>](#color) |                |
-| h     | <code>number</code>          |                |
-| s     | <code>number</code>          |                |
-| l     | <code>number</code>          |                |
-| [a]   | <code>number</code>          | <code>1</code> |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
 <a name="getHPLuv"></a>
 
-## getHPLuv(color) ⇒ [<code>hpluv</code>](#hpluv)
+## getHPLuv(color, out) ⇒ [<code>hpluv</code>](#hpluv)
 
 Returns a HPLuv representation of a given color.
 
@@ -298,84 +256,56 @@ Returns a HPLuv representation of a given color.
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
 <a name="fromHSL"></a>
 
-## fromHSL(h, s, l, [a]) ⇒ [<code>color</code>](#color)
+## fromHSL(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
 
-Creates a new color from hue, saturation, lightness and alpha.
-
-**Kind**: global function
-
-| Param | Type                | Default        |
-| ----- | ------------------- | -------------- |
-| h     | <code>number</code> |                |
-| s     | <code>number</code> |                |
-| l     | <code>number</code> |                |
-| [a]   | <code>number</code> | <code>1</code> |
-
-<a name="setHSL"></a>
-
-## setHSL(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on hue, saturation, lightness and alpha.
-
-**Kind**: global function
-
-| Param | Type                         | Default        |
-| ----- | ---------------------------- | -------------- |
-| color | [<code>color</code>](#color) |                |
-| h     | <code>number</code>          |                |
-| s     | <code>number</code>          |                |
-| l     | <code>number</code>          |                |
-| [a]   | <code>number</code>          | <code>1</code> |
-
-<a name="getHSL"></a>
-
-## getHSL(color) ⇒ [<code>hsl</code>](#hsl)
-
-Returns a hsl representation of a given color.
+Updates a color based on HSL values and alpha.
 
 **Kind**: global function
 
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
-<a name="fromHSLuv"></a>
+<a name="getHSL"></a>
 
-## fromHSLuv(h, s, l, [a]) ⇒ [<code>color</code>](#color)
+## getHSL(color, out) ⇒ [<code>hsl</code>](#hsl)
 
-Creates a new color from HSLuv values and alpha.
+Returns a HSL representation of a given color.
 
 **Kind**: global function
 
-| Param | Type                | Default        |
-| ----- | ------------------- | -------------- |
-| h     | <code>number</code> |                |
-| s     | <code>number</code> |                |
-| l     | <code>number</code> |                |
-| [a]   | <code>number</code> | <code>1</code> |
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
-<a name="setHSLuv"></a>
+<a name="fromHSLuv"></a>
 
-## setHSLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
+## fromHSLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
 
 Updates a color based on HSLuv values and alpha.
 
 **Kind**: global function
 
-| Param | Type                         | Default        |
-| ----- | ---------------------------- | -------------- |
-| color | [<code>color</code>](#color) |                |
-| h     | <code>number</code>          |                |
-| s     | <code>number</code>          |                |
-| l     | <code>number</code>          |                |
-| [a]   | <code>number</code>          | <code>1</code> |
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
 <a name="getHSLuv"></a>
 
-## getHSLuv(color) ⇒ [<code>hsluv</code>](#hsluv)
+## getHSLuv(color, out) ⇒ [<code>hsluv</code>](#hsluv)
 
 Returns a HSLuv representation of a given color.
 
@@ -384,70 +314,42 @@ Returns a HSLuv representation of a given color.
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
 <a name="fromHSV"></a>
 
-## fromHSV(h, s, v, [a]) ⇒ [<code>color</code>](#color)
+## fromHSV(color, h, s, v, [a]) ⇒ [<code>color</code>](#color)
 
-Creates a new color from hue, saturation, value and alpha.
-
-**Kind**: global function
-
-| Param | Type                | Default        |
-| ----- | ------------------- | -------------- |
-| h     | <code>number</code> |                |
-| s     | <code>number</code> |                |
-| v     | <code>number</code> |                |
-| [a]   | <code>number</code> | <code>1</code> |
-
-<a name="setHSV"></a>
-
-## setHSV(color, h, s, v, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on hue, saturation, value and alpha.
-
-**Kind**: global function
-
-| Param | Type                         | Default        |
-| ----- | ---------------------------- | -------------- |
-| color | [<code>color</code>](#color) |                |
-| h     | <code>number</code>          |                |
-| s     | <code>number</code>          |                |
-| v     | <code>number</code>          |                |
-| [a]   | <code>number</code>          | <code>1</code> |
-
-<a name="getHSV"></a>
-
-## getHSV(color) ⇒ [<code>hsv</code>](#hsv)
-
-Get hue, saturation, value and alpha of a given color.
+Updates a color based on HSV values and alpha.
 
 **Kind**: global function
 
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| v     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
-<a name="fromLab"></a>
+<a name="getHSV"></a>
 
-## fromLab(l, a, b, α) ⇒ [<code>color</code>](#color)
+## getHSV(color, out) ⇒ [<code>hsv</code>](#hsv)
 
-Creates a new color from Lab component values
+Returns a HSV representation of a given color.
 
 **Kind**: global function
 
-| Param | Type                |
-| ----- | ------------------- |
-| l     | <code>number</code> |
-| a     | <code>number</code> |
-| b     | <code>number</code> |
-| α     | <code>number</code> |
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
-<a name="setLab"></a>
+<a name="fromLab"></a>
 
-## setLab(color, l, a, b, α) ⇒ [<code>color</code>](#color)
+## fromLab(color, l, a, b, α) ⇒ [<code>color</code>](#color)
 
-Updates a color based on Lab component values.
+Updates a color based on Lab values and alpha.
 
 **Kind**: global function
 
@@ -461,7 +363,7 @@ Updates a color based on Lab component values.
 
 <a name="getLab"></a>
 
-## getLab(color) ⇒ [<code>lab</code>](#lab)
+## getLab(color, out) ⇒ [<code>lab</code>](#lab)
 
 Returns a Lab representation of a given color.
 
@@ -470,41 +372,27 @@ Returns a Lab representation of a given color.
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
 <a name="fromLCHuv"></a>
 
-## fromLCHuv(l, c, h, [a]) ⇒ [<code>color</code>](#color)
-
-Creates a new color from LCHuv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                | Default        |
-| ----- | ------------------- | -------------- |
-| l     | <code>number</code> |                |
-| c     | <code>number</code> |                |
-| h     | <code>number</code> |                |
-| [a]   | <code>number</code> | <code>1</code> |
-
-<a name="setLCHuv"></a>
-
-## setLCHuv(color, l, c, h, [a]) ⇒ [<code>color</code>](#color)
+## fromLCHuv(color, l, c, h, [a]) ⇒ [<code>color</code>](#color)
 
 Updates a color based on LCHuv values and alpha.
 
 **Kind**: global function
 
-| Param | Type                         | Default        |
-| ----- | ---------------------------- | -------------- |
-| color | [<code>color</code>](#color) |                |
-| l     | <code>number</code>          |                |
-| c     | <code>number</code>          |                |
-| h     | <code>number</code>          |                |
-| [a]   | <code>number</code>          | <code>1</code> |
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| l     | <code>number</code>          |
+| c     | <code>number</code>          |
+| h     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
 <a name="getLCHuv"></a>
 
-## getLCHuv(color) ⇒ [<code>lchuv</code>](#lchuv)
+## getLCHuv(color, out) ⇒ [<code>lchuv</code>](#lchuv)
 
 Returns a LCHuv representation of a given color.
 
@@ -513,91 +401,91 @@ Returns a LCHuv representation of a given color.
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
-<a name="fromRGB"></a>
+<a name="fromOklab"></a>
 
-## fromRGB()
+## fromOklab(color, l, a, b, [α]) ⇒ [<code>color</code>](#color)
 
-Alias for [create](#create)
-
-**Kind**: global function
-<a name="setRGB"></a>
-
-## setRGB(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on r, g, b, a component values.
-
-**Kind**: global function
-
-| Param | Type                         | Default        |
-| ----- | ---------------------------- | -------------- |
-| color | [<code>color</code>](#color) |                |
-| r     | <code>number</code>          |                |
-| g     | <code>number</code>          |                |
-| b     | <code>number</code>          |                |
-| [a]   | <code>number</code>          | <code>1</code> |
-
-<a name="fromRGBBytes"></a>
-
-## fromRGBBytes(bytes) ⇒ [<code>color</code>](#color)
-
-Creates a new color from an array of bytes values.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| bytes | [<code>bytes</code>](#bytes) |
-
-<a name="setRGBBytes"></a>
-
-## setRGBBytes(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
-
-Set a color from byte values.
-
-**Kind**: global function
-
-| Param | Type                         | Default          |
-| ----- | ---------------------------- | ---------------- |
-| color | [<code>color</code>](#color) |                  |
-| r     | <code>number</code>          |                  |
-| g     | <code>number</code>          |                  |
-| b     | <code>number</code>          |                  |
-| [a]   | <code>number</code>          | <code>255</code> |
-
-<a name="getRGBBytes"></a>
-
-## getRGBBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
-
-Get RGB color components as bytes array.
+Updates a color based on Oklab values and alpha.
 
 **Kind**: global function
 
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
-| out   | [<code>bytes</code>](#bytes) |
+| l     | <code>number</code>          |
+| a     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [α]   | <code>number</code>          |
 
-<a name="fromXYZ"></a>
+<a name="getOklab"></a>
 
-## fromXYZ(x, y, z, a) ⇒ [<code>color</code>](#color)
+## getOklab(color, out) ⇒ [<code>oklab</code>](#oklab)
 
-Creates a new color from XYZ values.
+Returns an Oklab representation of a given color.
 
 **Kind**: global function
 
-| Param | Type                |
-| ----- | ------------------- |
-| x     | <code>number</code> |
-| y     | <code>number</code> |
-| z     | <code>number</code> |
-| a     | <code>number</code> |
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
-<a name="setXYZ"></a>
+<a name="fromRGB"></a>
 
-## setXYZ(color, x, y, z, a) ⇒ [<code>color</code>](#color)
+## fromRGB(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
 
-Updates a color based on x, y, z component values.
+Updates a color based on linear r, g, b, a values.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| r     | <code>number</code>          |
+| g     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="getRGB"></a>
+
+## getRGB()
+
+Alias for [copy](#copy)
+
+**Kind**: global function
+<a name="fromRGBBytes"></a>
+
+## fromRGBBytes(color, bytes) ⇒ [<code>color</code>](#color)
+
+Updates a color based on byte values.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| bytes | [<code>bytes</code>](#bytes) |
+
+<a name="getRGBBytes"></a>
+
+## getRGBBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
+
+Get RGB[A] color components as bytes array.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="fromXYZ"></a>
+
+## fromXYZ(color, x, y, z, a) ⇒ [<code>color</code>](#color)
+
+Updates a color based on XYZ values and alpha.
 
 **Kind**: global function
 
@@ -611,7 +499,7 @@ Updates a color based on x, y, z component values.
 
 <a name="getXYZ"></a>
 
-## getXYZ(color) ⇒ [<code>color</code>](#color)
+## getXYZ(color, out) ⇒ [<code>color</code>](#color)
 
 Returns a XYZ representation of a given color.
 
@@ -620,18 +508,20 @@ Returns a XYZ representation of a given color.
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
 <a name="hex"></a>
 
 ## hex : <code>string</code>
 
-RGB hex value string eg. #RRGGBB[AA]
+hexadecimal string (RGB[A] or RRGGBB[AA]).
 
 **Kind**: global typedef
 <a name="hpluv"></a>
 
 ## hpluv : <code>Array.&lt;number&gt;</code>
 
+CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1.
 Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 
 **Kind**: global typedef
@@ -639,13 +529,14 @@ Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 
 ## hsl : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 <= x <= 1
+hue, saturation, lightness. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 <a name="hsluv"></a>
 
 ## hsluv : <code>Array.&lt;number&gt;</code>
 
+CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
 Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 
 **Kind**: global typedef
@@ -653,7 +544,7 @@ Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 
 ## hsv : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 <= x <= 1
+hue, saturation, value. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 <a name="color"></a>
@@ -667,16 +558,25 @@ All components in the range 0 <= x <= 1
 
 ## lab : <code>Array.&lt;number&gt;</code>
 
-Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
 
 **Kind**: global typedef
 <a name="lchuv"></a>
 
 ## lchuv : <code>Array.&lt;number&gt;</code>
 
+CIELChuv Luminance Chroma Hue. All components in the range 0 <= x <= 1
 Components range: 0 <= l <= 100; 0 <= c <= 100; 0 <= h <= 360;
 
 **Kind**: global typedef
+<a name="oklab"></a>
+
+## oklab : <code>Array.&lt;number&gt;</code>
+
+Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+
+**Kind**: global typedef
+**See**: [https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab](https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab)
 <a name="bytes"></a>
 
 ## bytes : <code>Array.&lt;number&gt;</code>

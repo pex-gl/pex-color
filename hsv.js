@@ -1,20 +1,8 @@
-import { create } from "./color.js";
+import { setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} hsv hue, saturation, value. All components in the range 0 <= x <= 1
  */
-
-/**
- * Creates a new color from HSV values and alpha.
- * @param {number} h
- * @param {number} s
- * @param {number} v
- * @param {number} [a=1]
- * @return {color}
- */
-export function fromHSV(h, s, v, a) {
-  return setHSV(create(), h, s, v, a);
-}
 
 /**
  * Updates a color based on HSV values and alpha.
@@ -22,10 +10,10 @@ export function fromHSV(h, s, v, a) {
  * @param {number} h
  * @param {number} s
  * @param {number} v
- * @param {number} [a=1]
+ * @param {number} [a]
  * @return {color}
  */
-export function setHSV(color, h, s, v, a = 1) {
+export function fromHSV(color, h, s, v, a) {
   const i = Math.floor(h * 6);
   const f = h * 6 - i;
   const p = v * (1 - s);
@@ -65,39 +53,38 @@ export function setHSV(color, h, s, v, a = 1) {
       break;
   }
 
-  color[3] = a;
-  return color;
+  return setAlpha(color, a);
 }
 
 /**
  * Returns a HSV representation of a given color.
  * @param {color} color
+ * @param {Array} out
  * @return {hsv}
  */
-export function getHSV([r, g, b, a = 1]) {
+export function getHSV([r, g, b, a], out = []) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
-  let h;
-  const v = max;
+  out[2] = max;
   const d = max - min;
-  const s = max === 0 ? 0 : d / max;
+  out[1] = max === 0 ? 0 : d / max;
 
   if (max === min) {
-    h = 0; // achromatic
+    out[0] = 0; // achromatic
   } else {
     switch (max) {
       case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
+        out[0] = (g - b) / d + (g < b ? 6 : 0);
         break;
       case g:
-        h = (b - r) / d + 2;
+        out[0] = (b - r) / d + 2;
         break;
       case b:
-        h = (r - g) / d + 4;
+        out[0] = (r - g) / d + 4;
         break;
     }
-    h /= 6;
+    out[0] /= 6;
   }
 
-  return [h, s, v, a];
+  return setAlpha(out, a);
 }

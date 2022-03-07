@@ -1,9 +1,9 @@
-import { create } from "./color.js";
-import { setLCHuv, getLCHuv } from "./lchuv.js";
-import { getBounds } from "./utils.js";
+import { fromLCHuv, getLCHuv } from "./lchuv.js";
+import { getBounds, setAlpha } from "./utils.js";
 
 /**
- * @typedef {number[]} hsluv CIELUV. Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
+ * @typedef {number[]} hsluv CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
+ * Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
  */
 
 const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
@@ -36,37 +36,25 @@ const lchToHsluv = ([L, C, H]) => {
 };
 
 /**
- * Creates a new color from HSLuv values and alpha.
- * @param {number} h
- * @param {number} s
- * @param {number} l
- * @param {number} [a=1]
- * @return {color}
- */
-export function fromHSLuv(h, s, l, a) {
-  return setHSLuv(create(), h, s, l, a);
-}
-
-/**
  * Updates a color based on HSLuv values and alpha.
  * @param {color} color
  * @param {number} h
  * @param {number} s
  * @param {number} l
- * @param {number} [a=1]
+ * @param {number} [a]
  * @return {color}
  */
-export function setHSLuv(color, h, s, l, a = 1) {
-  return setLCHuv(color, ...hsluvToLch([h, s, l]), a);
+export function fromHSLuv(color, h, s, l, a) {
+  return fromLCHuv(color, ...hsluvToLch([h, s, l]), a);
 }
 
 /**
  * Returns a HSLuv representation of a given color.
  * @param {color} color
+ * @param {Array} out
  * @return {hsluv}
  */
-export function getHSLuv([r, g, b, a = 1]) {
-  const color = lchToHsluv(getLCHuv([r, g, b]));
-  color[3] = a;
-  return color;
+export function getHSLuv([r, g, b, a], out = []) {
+  [out[0], out[1], out[2]] = lchToHsluv(getLCHuv([r, g, b]));
+  return setAlpha(out, a);
 }
