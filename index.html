@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>pex-color by pex-gl (https://github.com/pex-gl)</title>
+    <style>
+      :root {
+        --color-dark: #404040;
+        --color-light: #f2f2f2;
+        --color-accent: #fd5e62;
+      }
+
+      body {
+        margin: 0;
+        overscroll-behavior: none;
+        font-family: sans-serif;
+        color: var(--color-dark);
+        background-color: var(--color-light);
+      }
+
+      main {
+        padding: 0 20px;
+      }
+
+      main > div {
+        margin-bottom: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        border: thin solid #999;
+        padding: 0.3em 0.4em;
+        text-align: left;
+      }
+      input {
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>pex-color</h1>
+      <div class="Types">
+        <label>
+          <span>From:</span>
+          <select class="TypesSelect"></select>
+        </label>
+      </div>
+      <div class="Values">
+        <label>
+          <span>Values:</span>
+          <input type="number" placeholder="r" value="1" step="0.001" />
+          <input type="number" placeholder="g" value="1" step="0.001" />
+          <input type="number" placeholder="b" value="1" step="0.001" />
+          <input type="number" placeholder="a" value="1" step="0.001" />
+        </label>
+      </div>
+      <div class="Hex">
+        <label>
+          <span>Picker:</span>
+          <input type="color" value="#ffffff" />
+        </label>
+      </div>
+      <table class="Results"></table>
+    </main>
+    <script type="module">
+      import * as color from "./index.js";
+
+      const PRECISION = 3;
+
+      let currentType = "RGB";
+
+      const typesSelectElement = document.querySelector(".TypesSelect");
+      const inputElements = document.querySelectorAll(".Values input");
+      const hexInputElement = document.querySelector(".Hex input");
+      const resultsElement = document.querySelector(".Results");
+
+      const gettersKeys = Object.keys(color).filter((m) => m.startsWith("get"));
+      const getters = gettersKeys.reduce(
+        (obj, key) => ({ ...obj, [key]: color[key] }),
+        {}
+      );
+      const types = gettersKeys.map((m) => m.replace("get", ""));
+
+      types
+        .filter((type) => !["Hex", "RGBBytes"].includes(type))
+        .forEach((type) => {
+          const optionElement = document.createElement("option");
+          optionElement.innerHTML = optionElement.value = type;
+          typesSelectElement.appendChild(optionElement);
+          typesSelectElement.value = currentType;
+        });
+
+      const getColor = (type) =>
+        color[`from${type}`](
+          color.create(),
+          ...Array.from(inputElements).map((input) => parseFloat(input.value))
+        );
+
+      const update = () => {
+        const rgb = getColor(typesSelectElement.value);
+
+        resultsElement.innerHTML = Object.values(getters)
+          .map((getter) => getter(rgb))
+          .map(
+            (value, i) =>
+              `<tr><td>${types[i]}</td><td>${
+                Array.isArray(value)
+                  ? value.map((v) => +v.toFixed(PRECISION)).join(", ")
+                  : value
+              }</td></tr>`
+          )
+          .join("");
+
+        hexInputElement.value = color.getHex(rgb);
+      };
+
+      inputElements.forEach((input) => {
+        input.addEventListener("change", update);
+      });
+      typesSelectElement.addEventListener("input", ({ target }) => {
+        // Get previous rgb
+        const rgb = getColor(currentType);
+
+        // Update current type
+        currentType = target.value;
+
+        // Convert previous rgb to update inputs
+        const converted = color[`get${currentType}`](rgb);
+        Array.from(inputElements).forEach((v, i) => (v.value = converted[i]));
+      });
+      hexInputElement.addEventListener("input", ({ target }) => {
+        color
+          .fromHex(color.create(), target.value)
+          .map(
+            (v, i) =>
+              (Array.from(inputElements)[i].value = +v.toFixed(PRECISION))
+          );
+        update();
+      });
+      update();
+    </script>
+  </body>
+</html>
