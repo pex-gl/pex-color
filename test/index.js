@@ -271,6 +271,7 @@ const BLACK = {
     // RGBBytes: [0, 0, 0],
     RGB: [0, 0, 0],
     HSL: [0, 0, 0],
+    HWB: [0 / 360, 0, 1],
     HSV: [0, 0, 0],
     XYZ: [0, 0, 0],
     Lab: [0, 0, 0],
@@ -289,6 +290,7 @@ const WHITE = {
     // RGBBytes: [255, 255, 255],
     RGB: [1, 1, 1],
     HSL: [0, 0, 1],
+    HWB: [0 / 360, 1, 0],
     HSV: [0, 0, 1],
     XYZ: [0.95046, 1, 1.08906].map((n) => n * 100),
     Lab: [100, -0.00001, -0],
@@ -307,6 +309,7 @@ const RED = {
     // RGBBytes: [255, 0, 0],
     RGB: [1, 0, 0],
     HSL: [0, 1, 0.5],
+    HWB: [0 / 360, 0, 0],
     HSV: [0, 1, 1],
     XYZ: [0.41239, 0.21264, 0.01933].map((n) => n * 100),
     Lab: [53.23711, 80.0901, 67.20326],
@@ -325,6 +328,7 @@ const GREEN = {
     // RGBBytes: [0, 255, 0],
     RGB: [0, 1, 0],
     HSL: [120 / 360, 1, 0.5],
+    HWB: [120 / 360, 0, 0],
     HSV: [120 / 360, 1, 1],
     XYZ: [0.35758, 0.71517, 0.11919].map((n) => n * 100),
     Lab: [87.73552, -86.18159, 83.18662],
@@ -343,6 +347,7 @@ const BLUE = {
     // RGBBytes: [0, 0, 255],
     RGB: [0, 0, 1],
     HSL: [240 / 360, 1, 0.5],
+    HWB: [240 / 360, 0, 0],
     HSV: [240 / 360, 1, 1],
     XYZ: [0.18048, 0.07219, 0.95053].map((n) => n * 100),
     Lab: [32.30087, 79.19527, -107.85547],
@@ -361,6 +366,7 @@ const REDISH = {
     // RGBBytes: [153, 102, 0],
     RGB: [0.6, 0.4, 0],
     HSL: [40 / 360, 1, 0.3],
+    HWB: [40 / 360, 0, 0.4],
     HSV: [40 / 360, 1, 0.6],
     XYZ: [0.17888, 0.16276, 0.02199].map((n) => n * 100),
     Lab: [47.33437, 13.54214, 54.73176],
@@ -379,6 +385,7 @@ const GREENISH = {
     // RGBBytes: [102, 153, 0],
     RGB: [0.4, 0.6, 0],
     HSL: [80 / 360, 1, 0.3],
+    HWB: [80 / 360, 0, 0.4],
     HSV: [80 / 360, 1, 0.6],
     XYZ: [0.1687, 0.25607, 0.04054].map((n) => n * 100),
     Lab: [57.6619, -36.5132, 60.22545],
@@ -396,9 +403,10 @@ const BLUEISH = {
   rgbaHalfAlpha: [0, 0.4, 0.6, 0.5],
   rgbaDefaultAlpha: [0, 0.4, 0.6, DEFAULT_ALPHA],
   reference: {
-    // RGBBytes: [153, 102, 0],
+    // RGBBytes: [0, 102, 153],
     RGB: [0, 0.4, 0.6],
     HSL: [200 / 360, 1, 0.3],
+    HWB: [200 / 360, 0, 0.4],
     HSV: [200 / 360, 1, 0.6],
     XYZ: [0.105, 0.11802, 0.31863].map((n) => n * 100),
     Lab: [40.89967, -5.34064, -34.66923],
@@ -414,9 +422,10 @@ const PINKISH = {
   rgbaHalfAlpha: [1, 0, 0.4, 0.5],
   rgbaDefaultAlpha: [1, 0, 0.4, DEFAULT_ALPHA],
   reference: {
-    // RGBBytes: [255, 255, 255],
+    // RGBBytes: [255, 0, 102],
     RGB: [1, 0, 0.4],
     HSL: [336 / 360, 1, 0.5],
+    HWB: [336 / 360, 0, 0],
     HSV: [336 / 360, 1, 1],
     XYZ: [0.43637, 0.22223, 0.14563].map((n) => n * 100),
     Lab: [54.26293, 82.86769, 18.87027],
@@ -487,6 +496,58 @@ Object.entries({
     });
   })
 );
+
+describe("CSS", () => {
+  it("getCSSRGB() should get a rgb(a) CSS string representation", () => {
+    deepEqual(color.getCSSRGB([1, 0, 0]), "rgb(255, 0, 0)");
+    deepEqual(color.getCSSRGB([1, 0, 0, 0]), "rgba(255, 0, 0, 0)");
+    deepEqual(color.getCSSRGB([1, 0, 0, 1]), "rgba(255, 0, 0, 1)");
+    deepEqual(color.getCSSRGB([1, 0, 0, 0.5]), "rgba(255, 0, 0, 0.5)");
+  });
+  it("getCSSHSL() should get a hsl(a) CSS string representation", () => {
+    deepEqual(color.getCSSHSL([1, 0, 0]), "hsl(0, 100%, 50%)");
+    deepEqual(color.getCSSHSL([1, 0, 0, 0]), "hsla(0, 100%, 50%, 0)");
+    deepEqual(color.getCSSHSL([1, 0, 0, 1]), "hsla(0, 100%, 50%, 1)");
+    deepEqual(color.getCSSHSL([1, 0, 0, 0.5]), "hsla(0, 100%, 50%, 0.5)");
+  });
+  it("getCSSLab() should get a lab CSS string representation", () => {
+    const redLab50 = [53.23711, 78.27048, 62.14609];
+    const redCSSLab = `lab(${redLab50[0]}% ${redLab50[1]} ${redLab50[2]})`;
+    deepEqual(color.getCSSLab([1, 0, 0], 5), redCSSLab);
+    deepEqual(
+      color.getCSSLab([1, 0, 0, 0], 5),
+      redCSSLab.replace(")", " / 0)")
+    );
+    deepEqual(
+      color.getCSSLab([1, 0, 0, 1], 5),
+      redCSSLab.replace(")", " / 1)")
+    );
+    deepEqual(
+      color.getCSSLab([1, 0, 0, 0.5], 5),
+      redCSSLab.replace(")", " / 0.5)")
+    );
+  });
+  it("getCSSLCH() should get a lch CSS string representation", () => {
+    const redCSSLab = `lch(${RED.reference.LCHuv[0]}% ${RED.reference.LCHuv[1]} ${RED.reference.LCHuv[2]})`;
+    deepEqual(color.getCSSLCH([1, 0, 0]), redCSSLab);
+    deepEqual(color.getCSSLCH([1, 0, 0, 0]), redCSSLab.replace(")", " / 0)"));
+    deepEqual(color.getCSSLCH([1, 0, 0, 1]), redCSSLab.replace(")", " / 1)"));
+    deepEqual(
+      color.getCSSLCH([1, 0, 0, 0.5]),
+      redCSSLab.replace(")", " / 0.5)")
+    );
+  });
+  it("getCSSHWB() should get a hwb CSS string representation", () => {
+    const redCSSHWB = `hwb(${RED.reference.HWB[0]}% ${RED.reference.HWB[1]} ${RED.reference.HWB[2]})`;
+    deepEqual(color.getCSSHWB([1, 0, 0]), redCSSHWB);
+    deepEqual(color.getCSSHWB([1, 0, 0, 0]), redCSSHWB.replace(")", " / 0)"));
+    deepEqual(color.getCSSHWB([1, 0, 0, 1]), redCSSHWB.replace(")", " / 1)"));
+    deepEqual(
+      color.getCSSHWB([1, 0, 0, 0.5]),
+      redCSSHWB.replace(")", " / 0.5)")
+    );
+  });
+});
 
 describe("Deprecated APIs", () => {
   it("copy() should act as set", () => {

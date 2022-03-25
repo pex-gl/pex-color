@@ -10,7 +10,12 @@ import { setAlpha } from "./utils.js";
  * @private
  * @see {@link https://en.wikipedia.org/wiki/Illuminant_D65}
  */
-const D65 = [95.047, 100, 108.883];
+export const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329].map(
+  (n) => n * 100
+);
+export const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585].map(
+  (n) => n * 100
+);
 
 function fromLabValueToXYZValue(val, white) {
   const pow = val ** 3;
@@ -29,18 +34,19 @@ function fromXYZValueToLabValue(val, white) {
  * @param {number} a
  * @param {number} b
  * @param {number} α
+ * @param {Array} illuminant
  * @return {color}
  */
-export function fromLab(color, l, a, b, α) {
+export function fromLab(color, l, a, b, α, illuminant = D65) {
   const y = (l + 16) / 116;
   const x = a / 500 + y;
   const z = y - b / 200;
 
   return fromXYZ(
     color,
-    fromLabValueToXYZValue(x, D65[0]),
-    fromLabValueToXYZValue(y, D65[1]),
-    fromLabValueToXYZValue(z, D65[2]),
+    fromLabValueToXYZValue(x, illuminant[0]),
+    fromLabValueToXYZValue(y, illuminant[1]),
+    fromLabValueToXYZValue(z, illuminant[2]),
     α
   );
 }
@@ -49,14 +55,15 @@ export function fromLab(color, l, a, b, α) {
  * Returns a Lab representation of a given color.
  * @param {color} color
  * @param {Array} out
+ * @param {Array} illuminant
  * @return {lab}
  */
-export function getLab(color, out = []) {
+export function getLab(color, out = [], illuminant = D65) {
   const xyz = getXYZ(color);
 
-  const x = fromXYZValueToLabValue(xyz[0], D65[0]);
-  const y = fromXYZValueToLabValue(xyz[1], D65[1]);
-  const z = fromXYZValueToLabValue(xyz[2], D65[2]);
+  const x = fromXYZValueToLabValue(xyz[0], illuminant[0]);
+  const y = fromXYZValueToLabValue(xyz[1], illuminant[1]);
+  const z = fromXYZValueToLabValue(xyz[2], illuminant[2]);
 
   out[0] = 116 * y - 16;
   out[1] = 500 * (x - y);

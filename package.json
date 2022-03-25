@@ -12,6 +12,7 @@
     "rgbbytes",
     "hsv",
     "hsl",
+    "hwb",
     "hex",
     "xyz",
     "lab",

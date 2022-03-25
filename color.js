@@ -1,6 +1,10 @@
 import { fromRGB } from "./rgb.js";
 
 /**
+ * @typedef {number[]} color All components in the range 0 <= x <= 1
+ */
+
+/**
  * Creates a new color from linear values.
  * @param {number} [r=0]
  * @param {number} [g=0]

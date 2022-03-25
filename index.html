@@ -88,7 +88,9 @@
       const types = gettersKeys.map((m) => m.replace("get", ""));
 
       types
-        .filter((type) => !["Hex", "RGBBytes"].includes(type))
+        .filter(
+          (type) => !["Hex", "RGBBytes"].includes(type) && !type.includes("CSS")
+        )
         .forEach((type) => {
           const optionElement = document.createElement("option");
           optionElement.innerHTML = optionElement.value = type;
@@ -109,11 +111,11 @@
           .map((getter) => getter(rgb))
           .map(
             (value, i) =>
-              `<tr><td>${types[i]}</td><td>${
+              `<tr><td>${types[i]}</td><td><code>${
                 Array.isArray(value)
                   ? value.map((v) => +v.toFixed(PRECISION)).join(", ")
                   : value
-              }</td></tr>`
+              }</code></td></tr>`
           )
           .join("");
 
