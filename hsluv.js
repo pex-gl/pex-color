@@ -1,17 +1,17 @@
 import { fromLCHuv, getLCHuv } from "./lchuv.js";
-import { getBounds, setAlpha } from "./utils.js";
+import { getBounds, setAlpha, L_EPSILON } from "./utils.js";
 
 /**
  * @typedef {number[]} hsluv CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
- * Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
+ * @see {@link https://www.hsluv.org/}
  */
 
 const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
   intercept / (Math.sin(theta) - slope * Math.cos(theta));
 
 const maxChromaForLH = (L, H) => {
-  const hrad = (H / 360) * Math.PI * 2;
-  const bounds = getBounds(L);
+  const hrad = H * Math.PI * 2;
+  const bounds = getBounds(L * 100);
   let min = Infinity;
   let _g = 0;
   while (_g < bounds.length) {
@@ -20,19 +20,19 @@ const maxChromaForLH = (L, H) => {
     const length = lengthOfRayUntilIntersect(hrad, bound);
     if (length >= 0) min = Math.min(min, length);
   }
-  return min;
+  return min / 100;
 };
 
 const hsluvToLch = ([H, S, L]) => {
-  if (L > 99.9999999) return [100, 0, H];
-  if (L < 0.00000001) return [0, 0, H];
-  return [L, (maxChromaForLH(L, H) / 100) * S, H];
+  if (L > 1 - L_EPSILON) return [1, 0, H];
+  if (L < L_EPSILON) return [0, 0, H];
+  return [L, maxChromaForLH(L, H) * S, H];
 };
 
 const lchToHsluv = ([L, C, H]) => {
-  if (L > 99.9999999) return [H, 0, 100];
-  if (L < 0.00000001) return [H, 0, 0];
-  return [H, (C / maxChromaForLH(L, H)) * 100, L];
+  if (L > 1 - L_EPSILON) return [H, 0, 1];
+  if (L < L_EPSILON) return [H, 0, 0];
+  return [H, C / maxChromaForLH(L, H), L];
 };
 
 /**

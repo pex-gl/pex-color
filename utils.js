@@ -3,6 +3,16 @@ export const setAlpha = (color, a) => {
   return color;
 };
 
+export const floorArray = (color, precision = 5) => {
+  const p = 10 ** precision;
+  color.forEach(
+    (n, i) => (color[i] = Math.floor((n + Number.EPSILON) * p) / p)
+  );
+  return color;
+};
+
+export const L_EPSILON = 1e-10;
+
 // https://github.com/hsluv/hsluv/tree/master/haxe/src/hsluv
 export const m = [
   [3.240969941904521, -1.537383177570093, -0.498610760293],
@@ -16,23 +26,20 @@ export const minv = [
   [0.019330818715591, 0.11919477979462, 0.95053215224966],
 ];
 
-const REF_Y = 1;
 const REF_U = 0.19783000664283;
 const REF_V = 0.46831999493879;
-const KAPPA = 903.2962962;
-const EPSILON = 0.0088564516;
+const KAPPA = 9.032962962;
+const EPSILON = 0.000088564516;
 
-const yToL = (Y) =>
-  Y <= EPSILON ? (Y / REF_Y) * KAPPA : 116 * (Y / REF_Y) ** (1 / 3) - 16;
+const yToL = (Y) => (Y <= EPSILON ? Y * KAPPA : 1.16 * Y ** (1 / 3) - 0.16);
 
-const lToY = (L) =>
-  L <= 8 ? (REF_Y * L) / KAPPA : REF_Y * ((L + 16) / 116) ** 3;
+const lToY = (L) => (L <= 0.08 ? L / KAPPA : ((L + 0.16) / 1.16) ** 3);
 
 export const xyzToLuv = ([X, Y, Z]) => {
   const divider = X + 15 * Y + 3 * Z;
   let varU = 4 * X;
   let varV = 9 * Y;
-  if (divider != 0) {
+  if (divider !== 0) {
     varU /= divider;
     varV /= divider;
   } else {
@@ -40,13 +47,13 @@ export const xyzToLuv = ([X, Y, Z]) => {
     varV = NaN;
   }
   const L = yToL(Y);
-  if (L == 0) return [0, 0, 0];
+  if (L === 0) return [0, 0, 0];
 
   return [L, 13 * L * (varU - REF_U), 13 * L * (varV - REF_V)];
 };
 
 export const luvToXyz = ([L, U, V]) => {
-  if (L == 0) return [0, 0, 0];
+  if (L === 0) return [0, 0, 0];
   const varU = U / (13 * L) + REF_U;
   const varV = V / (13 * L) + REF_V;
   const Y = lToY(L);
@@ -57,25 +64,26 @@ export const luvToXyz = ([L, U, V]) => {
 export const luvToLch = ([L, U, V]) => {
   const C = Math.sqrt(U * U + V * V);
   let H;
-  if (C < 0.00000001) {
+  if (C < L_EPSILON) {
     H = 0;
   } else {
-    const Hrad = Math.atan2(V, U);
-    H = (Hrad * 180) / Math.PI;
-    if (H < 0) H = 360 + H;
+    H = Math.atan2(V, U) / (2 * Math.PI);
+    if (H < 0) H = 1 + H;
   }
   return [L, C, H];
 };
 
 export const lchToLuv = ([L, C, H]) => {
-  const Hrad = (H / 360) * 2 * Math.PI;
+  const Hrad = H * 2 * Math.PI;
   return [L, Math.cos(Hrad) * C, Math.sin(Hrad) * C];
 };
 
+// TODO: normalize
 export const getBounds = (L) => {
   const result = [];
   const sub1 = (L + 16) ** 3 / 1560896;
   const sub2 = sub1 > EPSILON ? sub1 : L / KAPPA;
+
   let _g = 0;
   while (_g < 3) {
     const c = _g++;

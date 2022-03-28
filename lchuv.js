@@ -3,7 +3,6 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} lchuv CIELChuv Luminance Chroma Hue. All components in the range 0 <= x <= 1
- * Components range: 0 <= l <= 100; 0 <= c <= 100; 0 <= h <= 360;
  */
 
 /**
@@ -16,11 +15,7 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
  * @return {color}
  */
 export function fromLCHuv(color, l, c, h, a) {
-  return fromXYZ(
-    color,
-    ...luvToXyz(lchToLuv([l, c, h])).map((n) => n * 100),
-    a
-  );
+  return fromXYZ(color, ...luvToXyz(lchToLuv([l, c, h])), a);
 }
 
 /**
@@ -30,8 +25,6 @@ export function fromLCHuv(color, l, c, h, a) {
  * @return {lchuv}
  */
 export function getLCHuv([r, g, b, a], out = []) {
-  [out[0], out[1], out[2]] = luvToLch(
-    xyzToLuv(getXYZ([r, g, b]).map((n) => n / 100))
-  );
+  [out[0], out[1], out[2]] = luvToLch(xyzToLuv(getXYZ([r, g, b])));
   return setAlpha(out, a);
 }

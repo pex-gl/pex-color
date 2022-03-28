@@ -50,6 +50,21 @@ API naming follows the following rules:
 <dt><a href="#set">set(color, color2, [g], [b], [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Sets a color to another color.</p>
 </dd>
+<dt><a href="#getCSSRGB">getCSSRGB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dd><p>Returns a rgb CSS string representation of a given color.</p>
+</dd>
+<dt><a href="#getCSSHSL">getCSSHSL(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dd><p>Returns a hsl CSS string representation of a given color.</p>
+</dd>
+<dt><a href="#getCSSLab">getCSSLab(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dd><p>Returns a lab CSS string representation of a given color.</p>
+</dd>
+<dt><a href="#getCSSLCH">getCSSLCH(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dd><p>Returns a lch CSS string representation of a given color.</p>
+</dd>
+<dt><a href="#getCSSHWB">getCSSHWB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dd><p>Returns a hwb CSS string representation of a given color.</p>
+</dd>
 <dt><a href="#fromHex">fromHex(color, hex)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on a hexadecimal string.</p>
 </dd>
@@ -80,10 +95,16 @@ API naming follows the following rules:
 <dt><a href="#getHSV">getHSV(color, out)</a> ⇒ <code><a href="#hsv">hsv</a></code></dt>
 <dd><p>Returns a HSV representation of a given color.</p>
 </dd>
-<dt><a href="#fromLab">fromLab(color, l, a, b, α)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#fromHWB">fromHWB(color, h, w, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on HWB values and alpha.</p>
+</dd>
+<dt><a href="#getHWB">getHWB(color, out)</a> ⇒ <code><a href="#hwb">hwb</a></code></dt>
+<dd><p>Returns a HWB representation of a given color.</p>
+</dd>
+<dt><a href="#fromLab">fromLab(color, l, a, b, α, illuminant)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Lab values and alpha.</p>
 </dd>
-<dt><a href="#getLab">getLab(color, out)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
+<dt><a href="#getLab">getLab(color, out, illuminant)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
 <dd><p>Returns a Lab representation of a given color.</p>
 </dd>
 <dt><a href="#fromLCHuv">fromLCHuv(color, l, c, h, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
@@ -121,32 +142,35 @@ API naming follows the following rules:
 ## Typedefs
 
 <dl>
+<dt><a href="#color">color</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
+</dd>
+<dt><a href="#css">css</a> : <code>string</code></dt>
+<dd><p>CSS string representation.</p>
+</dd>
 <dt><a href="#hex">hex</a> : <code>string</code></dt>
 <dd><p>hexadecimal string (RGB[A] or RRGGBB[AA]).</p>
 </dd>
 <dt><a href="#hpluv">hpluv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1.
-Components range: 0 &lt;= h &lt;= 360; 0 &lt;= s &lt;= 100; 0 &lt;= l &lt;= 100;</p>
+<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1.</p>
 </dd>
 <dt><a href="#hsl">hsl</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#hsluv">hsluv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1
-Components range: 0 &lt;= h &lt;= 360; 0 &lt;= s &lt;= 100; 0 &lt;= l &lt;= 100;</p>
+<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#hsv">hsv</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>hue, saturation, value. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
-<dt><a href="#color">color</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
+<dt><a href="#hwb">hwb</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>hue, whiteness, blackness. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#lab">lab</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>CIELAB with D65 standard illuminant. Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
 </dd>
 <dt><a href="#lchuv">lchuv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELChuv Luminance Chroma Hue. All components in the range 0 &lt;= x &lt;= 1
-Components range: 0 &lt;= l &lt;= 100; 0 &lt;= c &lt;= 100; 0 &lt;= h &lt;= 360;</p>
+<dd><p>CIELChuv Luminance Chroma Hue. All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#oklab">oklab</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
@@ -155,7 +179,7 @@ Components range: 0 &lt;= l &lt;= 100; 0 &lt;= c &lt;= 100; 0 &lt;= h &lt;= 360;
 <dd><p>All components in the range 0 &lt;= x &lt;= 255</p>
 </dd>
 <dt><a href="#xyz">xyz</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= x &lt;= 95; 0 &lt;= y &lt;= 100; 0 &lt;= z &lt;= 108;</p>
+<dd><p>Components range: 0 &lt;= x &lt;= 0.95; 0 &lt;= y &lt;= 1; 0 &lt;= z &lt;= 1.08;</p>
 </dd>
 </dl>
 
@@ -202,6 +226,71 @@ Sets a color to another color.
 | [g]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
 | [b]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
 | [a]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
+
+<a name="getCSSRGB"></a>
+
+## getCSSRGB(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a rgb CSS string representation of a given color.
+
+**Kind**: global function
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="getCSSHSL"></a>
+
+## getCSSHSL(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a hsl CSS string representation of a given color.
+
+**Kind**: global function
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="getCSSLab"></a>
+
+## getCSSLab(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a lab CSS string representation of a given color.
+
+**Kind**: global function
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="getCSSLCH"></a>
+
+## getCSSLCH(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a lch CSS string representation of a given color.
+
+**Kind**: global function
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="getCSSHWB"></a>
+
+## getCSSHWB(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a hwb CSS string representation of a given color.
+
+**Kind**: global function
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
 
 <a name="fromHex"></a>
 
@@ -345,27 +434,27 @@ Returns a HSV representation of a given color.
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
 
-<a name="fromLab"></a>
+<a name="fromHWB"></a>
 
-## fromLab(color, l, a, b, α) ⇒ [<code>color</code>](#color)
+## fromHWB(color, h, w, b, [a]) ⇒ [<code>color</code>](#color)
 
-Updates a color based on Lab values and alpha.
+Updates a color based on HWB values and alpha.
 
 **Kind**: global function
 
 | Param | Type                         |
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
-| l     | <code>number</code>          |
-| a     | <code>number</code>          |
+| h     | <code>number</code>          |
+| w     | <code>number</code>          |
 | b     | <code>number</code>          |
-| α     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
-<a name="getLab"></a>
+<a name="getHWB"></a>
 
-## getLab(color, out) ⇒ [<code>lab</code>](#lab)
+## getHWB(color, out) ⇒ [<code>hwb</code>](#hwb)
 
-Returns a Lab representation of a given color.
+Returns a HWB representation of a given color.
 
 **Kind**: global function
 
@@ -373,6 +462,37 @@ Returns a Lab representation of a given color.
 | ----- | ---------------------------- |
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
+
+<a name="fromLab"></a>
+
+## fromLab(color, l, a, b, α, illuminant) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Lab values and alpha.
+
+**Kind**: global function
+
+| Param      | Type                         |
+| ---------- | ---------------------------- |
+| color      | [<code>color</code>](#color) |
+| l          | <code>number</code>          |
+| a          | <code>number</code>          |
+| b          | <code>number</code>          |
+| α          | <code>number</code>          |
+| illuminant | <code>Array</code>           |
+
+<a name="getLab"></a>
+
+## getLab(color, out, illuminant) ⇒ [<code>lab</code>](#lab)
+
+Returns a Lab representation of a given color.
+
+**Kind**: global function
+
+| Param      | Type                         |
+| ---------- | ---------------------------- |
+| color      | [<code>color</code>](#color) |
+| out        | <code>Array</code>           |
+| illuminant | <code>Array</code>           |
 
 <a name="fromLCHuv"></a>
 
@@ -510,6 +630,20 @@ Returns a XYZ representation of a given color.
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
 
+<a name="color"></a>
+
+## color : <code>Array.&lt;number&gt;</code>
+
+All components in the range 0 <= x <= 1
+
+**Kind**: global typedef
+<a name="css"></a>
+
+## css : <code>string</code>
+
+CSS string representation.
+
+**Kind**: global typedef
 <a name="hex"></a>
 
 ## hex : <code>string</code>
@@ -522,7 +656,6 @@ hexadecimal string (RGB[A] or RRGGBB[AA]).
 ## hpluv : <code>Array.&lt;number&gt;</code>
 
 CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1.
-Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 
 **Kind**: global typedef
 <a name="hsl"></a>
@@ -537,7 +670,6 @@ hue, saturation, lightness. All components in the range 0 <= x <= 1
 ## hsluv : <code>Array.&lt;number&gt;</code>
 
 CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
-Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 
 **Kind**: global typedef
 <a name="hsv"></a>
@@ -547,11 +679,11 @@ Components range: 0 <= h <= 360; 0 <= s <= 100; 0 <= l <= 100;
 hue, saturation, value. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
-<a name="color"></a>
+<a name="hwb"></a>
 
-## color : <code>Array.&lt;number&gt;</code>
+## hwb : <code>Array.&lt;number&gt;</code>
 
-All components in the range 0 <= x <= 1
+hue, whiteness, blackness. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 <a name="lab"></a>
@@ -566,7 +698,6 @@ CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a 
 ## lchuv : <code>Array.&lt;number&gt;</code>
 
 CIELChuv Luminance Chroma Hue. All components in the range 0 <= x <= 1
-Components range: 0 <= l <= 100; 0 <= c <= 100; 0 <= h <= 360;
 
 **Kind**: global typedef
 <a name="oklab"></a>
@@ -588,7 +719,7 @@ All components in the range 0 <= x <= 255
 
 ## xyz : <code>Array.&lt;number&gt;</code>
 
-Components range: 0 <= x <= 95; 0 <= y <= 100; 0 <= z <= 108;
+Components range: 0 <= x <= 0.95; 0 <= y <= 1; 0 <= z <= 1.08;
 
 **Kind**: global typedef
 

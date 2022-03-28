@@ -2,6 +2,7 @@ import { setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} hsv hue, saturation, value. All components in the range 0 <= x <= 1
+ * @see {@link https://en.wikipedia.org/wiki/HSL_and_HSV}
  */
 
 /**

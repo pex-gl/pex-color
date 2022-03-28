@@ -7,14 +7,14 @@ const DEFAULT_ALPHA = 1;
 const TEMP_VEC3 = [0, 0, 0];
 
 function deepAlmostEqual(a, b, epsilon = 0.001) {
-  if (a.length != b.length) throw new Error(`${a} deepAlmostEqual ${b}`);
+  if (a.length != b.length) throw new Error(`deepAlmostEqual:\n${a}\n${b}`);
   for (let i = 0; i < a.length; i++) {
     if (!Number.isFinite(a[i]) || !Number.isFinite(b[[i]])) {
-      throw new Error(`${a} deepAlmostEqual ${b} not finite`);
+      throw new Error(`deepAlmostEqual (not finite):\n${a}\n${b}`);
     }
     if (Math.abs(a[i] - b[i]) > epsilon) {
       throw new Error(
-        `${a} deepAlmostEqual ${b} (diff=${Math.abs(a[i] - b[i])})`
+        `deepAlmostEqual (diff=${Math.abs(a[i] - b[i])}):\n${a}\n${b}`
       );
     }
   }
@@ -250,11 +250,12 @@ describe("HEX", () => {
   });
 });
 
-const NON_NORMALISED_RANGES = [360, 100, 100];
+const normalize = (c, reversed = false) =>
+  c.map((n, i) => n / (reversed ? [100, 100, 360] : [360, 100, 100])[i]);
 
 const epsilons = {
   XYZ: 3 / (95 + 100 + 108) + Number.EPSILON,
-  Lab: 0.02, // TODO: that's pretty high
+  Lab: 0.00002,
   LCHuv: 0.0088564516,
   HSLuv: 0.0088564516,
   HPLuv: 0.0088564516,
@@ -276,9 +277,9 @@ const BLACK = {
     XYZ: [0, 0, 0],
     Lab: [0, 0, 0],
     Oklab: [0, 0, 0],
-    LCHuv: [0, 0, 0],
-    HSLuv: [0, 0, 0],
-    HPLuv: [0, 0, 0],
+    LCHuv: normalize([0, 0, 0], true),
+    HSLuv: normalize([0, 0, 0]),
+    HPLuv: normalize([0, 0, 0]),
   },
 };
 // #ffffff
@@ -292,12 +293,12 @@ const WHITE = {
     HSL: [0, 0, 1],
     HWB: [0 / 360, 1, 0],
     HSV: [0, 0, 1],
-    XYZ: [0.95046, 1, 1.08906].map((n) => n * 100),
+    XYZ: [0.95046, 1, 1.08906],
     Lab: [100, -0.00001, -0],
     Oklab: [1, 0, 0],
-    LCHuv: [100, 0.00001, 0], // Clamped hue
-    HSLuv: [0, 0, 100], // Clamped hue
-    HPLuv: [0, 0, 100], // Clamped hue
+    LCHuv: normalize([100, 0.00001, 0], true),
+    HSLuv: normalize([0, 0, 100]),
+    HPLuv: normalize([0, 0, 100]),
   },
 };
 // #ff0000
@@ -311,12 +312,12 @@ const RED = {
     HSL: [0, 1, 0.5],
     HWB: [0 / 360, 0, 0],
     HSV: [0, 1, 1],
-    XYZ: [0.41239, 0.21264, 0.01933].map((n) => n * 100),
+    XYZ: [0.41239, 0.21264, 0.01933],
     Lab: [53.23711, 80.0901, 67.20326],
     Oklab: [0.62796, 0.22486, 0.12585],
-    LCHuv: [53.23711, 179.03809, 12.17705],
-    HSLuv: [12.17705, 100, 53.23711],
-    HPLuv: [12.17705, 426.74677, 53.23711],
+    LCHuv: normalize([53.23711, 179.03809, 12.17705], true),
+    HSLuv: normalize([12.17705, 100, 53.23711]),
+    HPLuv: normalize([12.17705, 426.74677, 53.23711]),
   },
 };
 // #00ff00
@@ -330,12 +331,12 @@ const GREEN = {
     HSL: [120 / 360, 1, 0.5],
     HWB: [120 / 360, 0, 0],
     HSV: [120 / 360, 1, 1],
-    XYZ: [0.35758, 0.71517, 0.11919].map((n) => n * 100),
+    XYZ: [0.35758, 0.71517, 0.11919],
     Lab: [87.73552, -86.18159, 83.18662],
     Oklab: [0.86644, -0.23389, 0.1795],
-    LCHuv: [87.73552, 135.78954, 127.71501],
-    HSLuv: [127.71501, 100.00002, 87.73552],
-    HPLuv: [127.71501, 490.14551, 87.73552],
+    LCHuv: normalize([87.73552, 135.78954, 127.71501], true),
+    HSLuv: normalize([127.71501, 100.00002, 87.73552]),
+    HPLuv: normalize([127.71501, 490.14551, 87.73552]),
   },
 };
 // #0000ff
@@ -349,12 +350,12 @@ const BLUE = {
     HSL: [240 / 360, 1, 0.5],
     HWB: [240 / 360, 0, 0],
     HSV: [240 / 360, 1, 1],
-    XYZ: [0.18048, 0.07219, 0.95053].map((n) => n * 100),
+    XYZ: [0.18048, 0.07219, 0.95053],
     Lab: [32.30087, 79.19527, -107.85547],
     Oklab: [0.45201, -0.03246, -0.31153],
-    LCHuv: [32.30087, 130.68976, 265.87433],
-    HSLuv: [265.87433, 100.00001, 32.30087],
-    HPLuv: [265.87433, 513.41272, 32.30087],
+    LCHuv: normalize([32.30087, 130.68976, 265.87433], true),
+    HSLuv: normalize([265.87433, 100.00001, 32.30087]),
+    HPLuv: normalize([265.87433, 513.41272, 32.30087]),
   },
 };
 // #996600
@@ -368,12 +369,12 @@ const REDISH = {
     HSL: [40 / 360, 1, 0.3],
     HWB: [40 / 360, 0, 0.4],
     HSV: [40 / 360, 1, 0.6],
-    XYZ: [0.17888, 0.16276, 0.02199].map((n) => n * 100),
+    XYZ: [0.17888, 0.16276, 0.02199],
     Lab: [47.33437, 13.54214, 54.73176],
     Oklab: [0.55095, 0.0306, 0.11226],
-    LCHuv: [47.33437, 63.42409, 48.32603],
-    HSLuv: [48.32603, 100, 47.33437],
-    HPLuv: [48.32603, 170.02666, 47.33437],
+    LCHuv: normalize([47.33437, 63.42409, 48.32603], true),
+    HSLuv: normalize([48.32603, 100, 47.33437]),
+    HPLuv: normalize([48.32603, 170.02666, 47.33437]),
   },
 };
 // #669900
@@ -387,13 +388,12 @@ const GREENISH = {
     HSL: [80 / 360, 1, 0.3],
     HWB: [80 / 360, 0, 0.4],
     HSV: [80 / 360, 1, 0.6],
-    XYZ: [0.1687, 0.25607, 0.04054].map((n) => n * 100),
+    XYZ: [0.1687, 0.25607, 0.04054],
     Lab: [57.6619, -36.5132, 60.22545],
     Oklab: [0.62281, -0.1053, 0.12838],
-    // HSLuv: [111.0721, 100, 57.6619].map((n, i) => n / NON_NORMALISED_RANGES[i]),
-    LCHuv: [57.6619, 71.91135, 111.0721],
-    HSLuv: [111.0721, 100, 57.6619],
-    HPLuv: [111.0721, 158.2515, 57.6619],
+    LCHuv: normalize([57.6619, 71.91135, 111.0721], true),
+    HSLuv: normalize([111.0721, 100, 57.6619]),
+    HPLuv: normalize([111.0721, 158.2515, 57.6619]),
   },
 };
 
@@ -408,12 +408,12 @@ const BLUEISH = {
     HSL: [200 / 360, 1, 0.3],
     HWB: [200 / 360, 0, 0.4],
     HSV: [200 / 360, 1, 0.6],
-    XYZ: [0.105, 0.11802, 0.31863].map((n) => n * 100),
+    XYZ: [0.105, 0.11802, 0.31863],
     Lab: [40.89967, -5.34064, -34.66923],
     Oklab: [0.4874, -0.05526, -0.09869],
-    LCHuv: [40.89967, 56.07965, 242.02414],
-    HSLuv: [242.02414, 100.00001, 40.89967],
-    HPLuv: [242.02414, 173.99023, 40.89967],
+    LCHuv: normalize([40.89967, 56.07965, 242.02414], true),
+    HSLuv: normalize([242.02414, 100.00001, 40.89967]),
+    HPLuv: normalize([242.02414, 173.99023, 40.89967]),
   },
 };
 // #ff0066
@@ -427,12 +427,12 @@ const PINKISH = {
     HSL: [336 / 360, 1, 0.5],
     HWB: [336 / 360, 0, 0],
     HSV: [336 / 360, 1, 1],
-    XYZ: [0.43637, 0.22223, 0.14563].map((n) => n * 100),
+    XYZ: [0.43637, 0.22223, 0.14563],
     Lab: [54.26293, 82.86769, 18.87027],
     Oklab: [0.63876, 0.2511, 0.04657],
-    LCHuv: [54.26293, 153.22729, 1.88082],
-    HSLuv: [1.88082, 99.99999, 54.26293],
-    HPLuv: [1.88082, 358.32098, 54.26293],
+    LCHuv: normalize([54.26293, 153.22729, 1.88082], true),
+    HSLuv: normalize([1.88082, 99.99999, 54.26293]),
+    HPLuv: normalize([1.88082, 358.32098, 54.26293]),
   },
 };
 
@@ -528,17 +528,25 @@ describe("CSS", () => {
     );
   });
   it("getCSSLCH() should get a lch CSS string representation", () => {
-    const redCSSLab = `lch(${RED.reference.LCHuv[0]}% ${RED.reference.LCHuv[1]} ${RED.reference.LCHuv[2]})`;
-    deepEqual(color.getCSSLCH([1, 0, 0]), redCSSLab);
-    deepEqual(color.getCSSLCH([1, 0, 0, 0]), redCSSLab.replace(")", " / 0)"));
-    deepEqual(color.getCSSLCH([1, 0, 0, 1]), redCSSLab.replace(")", " / 1)"));
+    const c = color.utils.floorArray(RED.reference.LCHuv);
+    const redCSSLab = `lch(${c[0]}% ${c[1]} ${c[2]})`;
+    deepEqual(color.getCSSLCH([1, 0, 0], 5), redCSSLab);
     deepEqual(
-      color.getCSSLCH([1, 0, 0, 0.5]),
+      color.getCSSLCH([1, 0, 0, 0], 5),
+      redCSSLab.replace(")", " / 0)")
+    );
+    deepEqual(
+      color.getCSSLCH([1, 0, 0, 1], 5),
+      redCSSLab.replace(")", " / 1)")
+    );
+    deepEqual(
+      color.getCSSLCH([1, 0, 0, 0.5], 5),
       redCSSLab.replace(")", " / 0.5)")
     );
   });
   it("getCSSHWB() should get a hwb CSS string representation", () => {
-    const redCSSHWB = `hwb(${RED.reference.HWB[0]}% ${RED.reference.HWB[1]} ${RED.reference.HWB[2]})`;
+    const c = color.utils.floorArray(RED.reference.HWB);
+    const redCSSHWB = `hwb(${c[0]}% ${c[1]} ${c[2]})`;
     deepEqual(color.getCSSHWB([1, 0, 0]), redCSSHWB);
     deepEqual(color.getCSSHWB([1, 0, 0, 0]), redCSSHWB.replace(")", " / 0)"));
     deepEqual(color.getCSSHWB([1, 0, 0, 1]), redCSSHWB.replace(")", " / 1)"));

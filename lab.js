@@ -3,6 +3,7 @@ import { setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} lab CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+ * @see {@link https://en.wikipedia.org/wiki/CIELAB_color_space}
  */
 
 /**
@@ -10,21 +11,17 @@ import { setAlpha } from "./utils.js";
  * @private
  * @see {@link https://en.wikipedia.org/wiki/Illuminant_D65}
  */
-export const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329].map(
-  (n) => n * 100
-);
-export const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585].map(
-  (n) => n * 100
-);
+export const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329];
+export const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
 
 function fromLabValueToXYZValue(val, white) {
   const pow = val ** 3;
-  return (pow > 0.008856 ? pow : (val - 16 / 116) / 7.787) * white;
+  return (pow > 0.008856 ? pow : (val - 16 / 116) / 7.787037) * white;
 }
 
 function fromXYZValueToLabValue(val, white) {
   val /= white;
-  return val > 0.008856 ? val ** (1 / 3) : 7.787 * val + 16 / 116;
+  return val > 0.008856 ? val ** (1 / 3) : 7.787037 * val + 16 / 116;
 }
 
 /**
