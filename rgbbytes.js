@@ -1,5 +1,7 @@
 /**
- * @typedef {number[]} bytes All components in the range 0 <= x <= 255
+ * @typedef {number[]} bytes
+ *
+ * All components in the range 0 <= x <= 255
  */
 
 /**

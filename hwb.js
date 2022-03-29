@@ -2,8 +2,10 @@ import { fromHSL, getHSL } from "./hsl.js";
 import { setAlpha } from "./utils.js";
 
 /**
- * @typedef {number[]} hwb hue, whiteness, blackness. All components in the range 0 <= x <= 1
+ * @typedef {number[]} hwb hue, whiteness, blackness.
  * @see {@link https://en.wikipedia.org/wiki/HWB_color_model}
+ *
+ * All components in the range 0 <= x <= 1
  */
 
 /**

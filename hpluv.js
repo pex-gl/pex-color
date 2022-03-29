@@ -2,7 +2,9 @@ import { fromLCHuv, getLCHuv } from "./lchuv.js";
 import { getBounds, setAlpha, L_EPSILON } from "./utils.js";
 
 /**
- * @typedef {number[]} hpluv CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1.
+ * @typedef {number[]} hpluv CIELUV hue, saturation, lightness.
+ *
+ * All components in the range 0 <= x <= 1.
  */
 
 const distanceLineFromOrigin = ({ intercept, slope }) =>

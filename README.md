@@ -152,34 +152,35 @@ API naming follows the following rules:
 <dd><p>hexadecimal string (RGB[A] or RRGGBB[AA]).</p>
 </dd>
 <dt><a href="#hpluv">hpluv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1.</p>
+<dd><p>CIELUV hue, saturation, lightness.</p>
+<p>All components in the range 0 &lt;= x &lt;= 1.</p>
 </dd>
 <dt><a href="#hsl">hsl</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>hue, saturation, lightness.</p>
 </dd>
 <dt><a href="#hsluv">hsluv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELUV hue, saturation, lightness. All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>CIELUV hue, saturation, lightness.</p>
 </dd>
 <dt><a href="#hsv">hsv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>hue, saturation, value. All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>hue, saturation, value.</p>
 </dd>
 <dt><a href="#hwb">hwb</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>hue, whiteness, blackness. All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>hue, whiteness, blackness.</p>
 </dd>
 <dt><a href="#lab">lab</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELAB with D65 standard illuminant. Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
+<dd><p>CIELAB with D65 standard illuminant as default.</p>
 </dd>
 <dt><a href="#lchuv">lchuv</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>CIELChuv Luminance Chroma Hue. All components in the range 0 &lt;= x &lt;= 1</p>
+<dd><p>CIELChuv Luminance Chroma Hue.</p>
 </dd>
 <dt><a href="#oklab">oklab</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= l &lt;= 100; -128 &lt;= a &lt;= 127; -128 &lt;= b &lt;= 127;</p>
+<dd><p>Cartesian form using D65 standard illuminant.</p>
 </dd>
 <dt><a href="#bytes">bytes</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>All components in the range 0 &lt;= x &lt;= 255</p>
 </dd>
 <dt><a href="#xyz">xyz</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Components range: 0 &lt;= x &lt;= 0.95; 0 &lt;= y &lt;= 1; 0 &lt;= z &lt;= 1.08;</p>
+<dd><p>CIE XYZ using D65 standard illuminant.</p>
 </dd>
 </dl>
 
@@ -656,64 +657,82 @@ hexadecimal string (RGB[A] or RRGGBB[AA]).
 
 ## hpluv : <code>Array.&lt;number&gt;</code>
 
-CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1.
+CIELUV hue, saturation, lightness.
+
+All components in the range 0 <= x <= 1.
 
 **Kind**: global typedef
 <a name="hsl"></a>
 
 ## hsl : <code>Array.&lt;number&gt;</code>
 
-hue, saturation, lightness. All components in the range 0 <= x <= 1
+hue, saturation, lightness.
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/HSL_and_HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
+
+All components in the range 0 <= x <= 1
 <a name="hsluv"></a>
 
 ## hsluv : <code>Array.&lt;number&gt;</code>
 
-CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
+CIELUV hue, saturation, lightness.
 
 **Kind**: global typedef
 **See**: [https://www.hsluv.org/](https://www.hsluv.org/)
+
+All components in the range 0 <= x <= 1
 <a name="hsv"></a>
 
 ## hsv : <code>Array.&lt;number&gt;</code>
 
-hue, saturation, value. All components in the range 0 <= x <= 1
+hue, saturation, value.
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/HSL_and_HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
+
+All components in the range 0 <= x <= 1
 <a name="hwb"></a>
 
 ## hwb : <code>Array.&lt;number&gt;</code>
 
-hue, whiteness, blackness. All components in the range 0 <= x <= 1
+hue, whiteness, blackness.
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/HWB_color_model](https://en.wikipedia.org/wiki/HWB_color_model)
+
+All components in the range 0 <= x <= 1
 <a name="lab"></a>
 
 ## lab : <code>Array.&lt;number&gt;</code>
 
-CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+CIELAB with D65 standard illuminant as default.
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/CIELAB_color_space](https://en.wikipedia.org/wiki/CIELAB_color_space)
+
+Components range (D65): 0 <= l <= 1; -0.86183 <= a <= 0.98234; -1.0786 <= b <= 0.94478;
+Components range (D50): 0 <= l <= 1; -0.79287 <= a <= 0.9355; -1.12029 <= b <= 0.93388;
 <a name="lchuv"></a>
 
 ## lchuv : <code>Array.&lt;number&gt;</code>
 
-CIELChuv Luminance Chroma Hue. All components in the range 0 <= x <= 1
+CIELChuv Luminance Chroma Hue.
 
 **Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/CIELUV](https://en.wikipedia.org/wiki/CIELUV)
+
+All components in the range 0 <= x <= 1
 <a name="oklab"></a>
 
 ## oklab : <code>Array.&lt;number&gt;</code>
 
-Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+Cartesian form using D65 standard illuminant.
 
 **Kind**: global typedef
 **See**: [https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab](https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab)
+
+Components range: 0 <= l <= 1; -0.233 <= a <= 0.276; -0.311 <= b <= 0.198;
 <a name="bytes"></a>
 
 ## bytes : <code>Array.&lt;number&gt;</code>
@@ -725,10 +744,12 @@ All components in the range 0 <= x <= 255
 
 ## xyz : <code>Array.&lt;number&gt;</code>
 
-Components range: 0 <= x <= 0.95; 0 <= y <= 1; 0 <= z <= 1.08;
+CIE XYZ using D65 standard illuminant.
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/CIE_1931_color_space](https://en.wikipedia.org/wiki/CIE_1931_color_space)
+
+Components range: 0 <= x <= 0.95; 0 <= y <= 1; 0 <= z <= 1.08;
 
 <!-- api-end -->
 

@@ -1,8 +1,10 @@
 import { fromLinear, setAlpha, toLinear } from "./utils.js";
 
 /**
- * @typedef {number[]} oklab Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
+ * @typedef {number[]} oklab Cartesian form using D65 standard illuminant.
  * @see {@link https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab}
+ *
+ * Components range: 0 <= l <= 1; -0.233 <= a <= 0.276; -0.311 <= b <= 0.198;
  */
 
 /**

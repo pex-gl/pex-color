@@ -2,8 +2,10 @@ import { fromLCHuv, getLCHuv } from "./lchuv.js";
 import { getBounds, setAlpha, L_EPSILON } from "./utils.js";
 
 /**
- * @typedef {number[]} hsluv CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
+ * @typedef {number[]} hsluv CIELUV hue, saturation, lightness.
  * @see {@link https://www.hsluv.org/}
+ *
+ * All components in the range 0 <= x <= 1
  */
 
 const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>

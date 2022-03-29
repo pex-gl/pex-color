@@ -1,8 +1,10 @@
 import { fromLinear, toLinear, m, minv, setAlpha } from "./utils.js";
 
 /**
- * @typedef {number[]} xyz Components range: 0 <= x <= 0.95; 0 <= y <= 1; 0 <= z <= 1.08;
+ * @typedef {number[]} xyz CIE XYZ using D65 standard illuminant.
  * @see {@link https://en.wikipedia.org/wiki/CIE_1931_color_space}
+ *
+ * Components range: 0 <= x <= 0.95; 0 <= y <= 1; 0 <= z <= 1.08;
  */
 
 /**
