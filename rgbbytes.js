@@ -1,5 +1,5 @@
 /**
- * @typedef {number[]} bytes
+ * @typedef {number[]} bytes An array of 3 (RGB) or 4 (A) values in bytes.
  *
  * All components in the range 0 <= x <= 255
  */

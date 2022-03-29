@@ -1,7 +1,7 @@
 import { fromRGB } from "./rgb.js";
 
 /**
- * @typedef {number[]} color
+ * @typedef {number[]} color An array of 3 (RGB) or 4 (A) values.
  *
  * All components in the range 0 <= x <= 1
  */

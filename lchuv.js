@@ -3,9 +3,9 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} lchuv CIELChuv Luminance Chroma Hue.
- * @see {@link https://en.wikipedia.org/wiki/CIELUV}
  *
  * All components in the range 0 <= x <= 1
+ * @see {@link https://en.wikipedia.org/wiki/CIELUV}
  */
 
 /**

@@ -2,9 +2,9 @@ import { setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} hsl hue, saturation, lightness.
- * @see {@link https://en.wikipedia.org/wiki/HSL_and_HSV}
  *
  * All components in the range 0 <= x <= 1
+ * @see {@link https://en.wikipedia.org/wiki/HSL_and_HSV}
  */
 
 function hue2rgb(p, q, t) {

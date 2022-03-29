@@ -1,5 +1,6 @@
 /**
  * @typedef {string} css CSS string representation.
+ *
  * @see {@link https://www.w3.org/TR/css-color-4/}
  */
 
@@ -20,8 +21,8 @@ const TMP = [0, 0, 0];
  */
 export function getCSSRGB(color, precision = 5) {
   getRGBBytes(color, TMP);
-  const a = color[3] !== undefined ? `, ${color[3]}` : "";
   if (precision !== undefined) floorArray(TMP, precision);
+  const a = color[3] !== undefined ? `, ${color[3]}` : "";
   return `rgb${a ? "a" : ""}(${TMP.slice(0, 3).join(", ")}${a})`;
 }
 

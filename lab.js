@@ -3,10 +3,11 @@ import { setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} lab CIELAB with D65 standard illuminant as default.
- * @see {@link https://en.wikipedia.org/wiki/CIELAB_color_space}
  *
  * Components range (D65): 0 <= l <= 1; -0.86183 <= a <= 0.98234; -1.0786 <= b <= 0.94478;
+ *
  * Components range (D50): 0 <= l <= 1; -0.79287 <= a <= 0.9355; -1.12029 <= b <= 0.93388;
+ * @see {@link https://en.wikipedia.org/wiki/CIELAB_color_space}
  */
 
 /**

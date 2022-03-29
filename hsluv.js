@@ -3,9 +3,9 @@ import { getBounds, setAlpha, L_EPSILON } from "./utils.js";
 
 /**
  * @typedef {number[]} hsluv CIELUV hue, saturation, lightness.
- * @see {@link https://www.hsluv.org/}
  *
  * All components in the range 0 <= x <= 1
+ * @see {@link https://www.hsluv.org/}
  */
 
 const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
