@@ -49,6 +49,9 @@ export function getCSSHSL(color, precision = 5) {
  */
 export function getCSSLab(color, precision = 5) {
   getLab(color, TMP, D50);
+  TMP[0] *= 100;
+  TMP[1] *= 100;
+  TMP[2] *= 100;
   if (precision !== undefined) floorArray(TMP, precision);
   return `lab(${TMP[0]}% ${TMP[1]} ${TMP[2]}${
     color[3] !== undefined ? ` / ${color[3]}` : ""

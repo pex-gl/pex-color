@@ -24,7 +24,7 @@ function fromLabValueToXYZValue(val, white) {
 
 function fromXYZValueToLabValue(val, white) {
   val /= white;
-  return val > 0.008856 ? val ** (1 / 3) : 7.787037 * val + 16 / 116;
+  return val > 0.008856 ? Math.cbrt(val) : 7.787037 * val + 16 / 116;
 }
 
 /**
@@ -38,15 +38,13 @@ function fromXYZValueToLabValue(val, white) {
  * @return {color}
  */
 export function fromLab(color, l, a, b, α, illuminant = D65) {
-  const y = (l + 16) / 116;
-  const x = a / 500 + y;
-  const z = y - b / 200;
+  const y = (l + 0.16) / 1.16;
 
   return fromXYZ(
     color,
-    fromLabValueToXYZValue(x, illuminant[0]),
+    fromLabValueToXYZValue(a / 5 + y, illuminant[0]),
     fromLabValueToXYZValue(y, illuminant[1]),
-    fromLabValueToXYZValue(z, illuminant[2]),
+    fromLabValueToXYZValue(y - b / 2, illuminant[2]),
     α
   );
 }
@@ -65,9 +63,9 @@ export function getLab(color, out = [], illuminant = D65) {
   const y = fromXYZValueToLabValue(xyz[1], illuminant[1]);
   const z = fromXYZValueToLabValue(xyz[2], illuminant[2]);
 
-  out[0] = 116 * y - 16;
-  out[1] = 500 * (x - y);
-  out[2] = 200 * (y - z);
+  out[0] = 1.16 * y - 0.16;
+  out[1] = 5 * (x - y);
+  out[2] = 2 * (y - z);
 
   return setAlpha(out, color[3]);
 }
