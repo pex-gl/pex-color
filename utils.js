@@ -1,3 +1,7 @@
+/**
+ * @module utils
+ */
+
 export const setAlpha = (color, a) => {
   if (a !== undefined) color[3] = a;
   return color;
@@ -103,8 +107,18 @@ export const getBounds = (L) => {
   return result;
 };
 
+/**
+ * Convert component from linear value
+ * @param {number} c
+ * @returns {number}
+ */
 export const fromLinear = (c) =>
   c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
 
+/**
+ * Convert component to linear value
+ * @param {number} c
+ * @returns {number}
+ */
 export const toLinear = (c) =>
   c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;

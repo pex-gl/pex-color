@@ -38,6 +38,13 @@ API naming follows the following rules:
 
 <!-- api-start -->
 
+## Modules
+
+<dl>
+<dt><a href="#module_utils">utils</a></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -194,6 +201,38 @@ API naming follows the following rules:
 <p>Components range: 0 &lt;= x &lt;= 0.95; 0 &lt;= y &lt;= 1; 0 &lt;= z &lt;= 1.08;</p>
 </dd>
 </dl>
+
+<a name="module_utils"></a>
+
+## utils
+
+- [utils](#module_utils)
+  - [.fromLinear](#module_utils.fromLinear) ⇒ <code>number</code>
+  - [.toLinear](#module_utils.toLinear) ⇒ <code>number</code>
+
+<a name="module_utils.fromLinear"></a>
+
+### utils.fromLinear ⇒ <code>number</code>
+
+Convert component from linear value
+
+**Kind**: static constant of [<code>utils</code>](#module_utils)
+
+| Param | Type                |
+| ----- | ------------------- |
+| c     | <code>number</code> |
+
+<a name="module_utils.toLinear"></a>
+
+### utils.toLinear ⇒ <code>number</code>
+
+Convert component to linear value
+
+**Kind**: static constant of [<code>utils</code>](#module_utils)
+
+| Param | Type                |
+| ----- | ------------------- |
+| c     | <code>number</code> |
 
 <a name="create"></a>
 
