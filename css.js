@@ -5,7 +5,7 @@
 
 import { getHSL } from "./hsl.js";
 import { getHWB } from "./hwb.js";
-import { D50, getLab } from "./lab.js";
+import { getLab, D50 } from "./lab.js";
 import { getLCHuv } from "./lchuv.js";
 import { getRGBBytes } from "./rgbbytes.js";
 import { floorArray } from "./utils.js";

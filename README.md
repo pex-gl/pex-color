@@ -644,6 +644,7 @@ All components in the range 0 <= x <= 1
 CSS string representation.
 
 **Kind**: global typedef
+**See**: [https://www.w3.org/TR/css-color-4/](https://www.w3.org/TR/css-color-4/)
 <a name="hex"></a>
 
 ## hex : <code>string</code>
@@ -665,6 +666,7 @@ CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1.
 hue, saturation, lightness. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/HSL_and_HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
 <a name="hsluv"></a>
 
 ## hsluv : <code>Array.&lt;number&gt;</code>
@@ -672,6 +674,7 @@ hue, saturation, lightness. All components in the range 0 <= x <= 1
 CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
+**See**: [https://www.hsluv.org/](https://www.hsluv.org/)
 <a name="hsv"></a>
 
 ## hsv : <code>Array.&lt;number&gt;</code>
@@ -679,6 +682,7 @@ CIELUV hue, saturation, lightness. All components in the range 0 <= x <= 1
 hue, saturation, value. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/HSL_and_HSV](https://en.wikipedia.org/wiki/HSL_and_HSV)
 <a name="hwb"></a>
 
 ## hwb : <code>Array.&lt;number&gt;</code>
@@ -686,6 +690,7 @@ hue, saturation, value. All components in the range 0 <= x <= 1
 hue, whiteness, blackness. All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/HWB_color_model](https://en.wikipedia.org/wiki/HWB_color_model)
 <a name="lab"></a>
 
 ## lab : <code>Array.&lt;number&gt;</code>
@@ -693,6 +698,7 @@ hue, whiteness, blackness. All components in the range 0 <= x <= 1
 CIELAB with D65 standard illuminant. Components range: 0 <= l <= 100; -128 <= a <= 127; -128 <= b <= 127;
 
 **Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/CIELAB_color_space](https://en.wikipedia.org/wiki/CIELAB_color_space)
 <a name="lchuv"></a>
 
 ## lchuv : <code>Array.&lt;number&gt;</code>
@@ -722,6 +728,7 @@ All components in the range 0 <= x <= 255
 Components range: 0 <= x <= 0.95; 0 <= y <= 1; 0 <= z <= 1.08;
 
 **Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/CIE_1931_color_space](https://en.wikipedia.org/wiki/CIE_1931_color_space)
 
 <!-- api-end -->
 
