@@ -67,9 +67,12 @@
         </label>
       </div>
       <table class="Results"></table>
+      <p>Try it in the console: <code>color.getHex([1, 0, 0, 1])</code></p>
     </main>
     <script type="module">
       import * as color from "./index.js";
+
+      window.color = color;
 
       const PRECISION = 3;
 

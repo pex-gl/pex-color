@@ -120,6 +120,18 @@ API naming follows the following rules:
 <dt><a href="#getLCHuv">getLCHuv(color, out)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
 <dd><p>Returns a LCHuv representation of a given color.</p>
 </dd>
+<dt><a href="#fromOkhsl">fromOkhsl(color, h, s, l, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on Okhsl values and alpha.</p>
+</dd>
+<dt><a href="#getOkhsl">getOkhsl(color, out)</a> ⇒ <code><a href="#okhsl">okhsl</a></code></dt>
+<dd><p>Returns an Okhsl representation of a given color.</p>
+</dd>
+<dt><a href="#fromOkhsv">fromOkhsv(color, h, s, v, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on Okhsv values and alpha.</p>
+</dd>
+<dt><a href="#getOkhsv">getOkhsv(color, out)</a> ⇒ <code><a href="#okhsv">okhsv</a></code></dt>
+<dd><p>Returns an Okhsv representation of a given color.</p>
+</dd>
 <dt><a href="#fromOklab">fromOklab(color, l, a, b, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Oklab values and alpha.</p>
 </dd>
@@ -187,6 +199,12 @@ API naming follows the following rules:
 <dt><a href="#lchuv">lchuv</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>CIELChuv Luminance Chroma Hue.</p>
 <p>All components in the range 0 &lt;= x &lt;= 1</p>
+</dd>
+<dt><a href="#okhsl">okhsl</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
+</dd>
+<dt><a href="#okhsv">okhsv</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#oklab">oklab</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>Cartesian form using D65 standard illuminant.</p>
@@ -574,6 +592,64 @@ Returns a LCHuv representation of a given color.
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
 
+<a name="fromOkhsl"></a>
+
+## fromOkhsl(color, h, s, l, [α]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Okhsl values and alpha.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [α]   | <code>number</code>          |
+
+<a name="getOkhsl"></a>
+
+## getOkhsl(color, out) ⇒ [<code>okhsl</code>](#okhsl)
+
+Returns an Okhsl representation of a given color.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="fromOkhsv"></a>
+
+## fromOkhsv(color, h, s, v, [α]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Okhsv values and alpha.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| v     | <code>number</code>          |
+| [α]   | <code>number</code>          |
+
+<a name="getOkhsv"></a>
+
+## getOkhsv(color, out) ⇒ [<code>okhsv</code>](#okhsv)
+
+Returns an Okhsv representation of a given color.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
 <a name="fromOklab"></a>
 
 ## fromOklab(color, l, a, b, [α]) ⇒ [<code>color</code>](#color)
@@ -776,6 +852,22 @@ All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/CIELUV](https://en.wikipedia.org/wiki/CIELUV)
+<a name="okhsl"></a>
+
+## okhsl : <code>Array.&lt;number&gt;</code>
+
+All components in the range 0 <= x <= 1
+
+**Kind**: global typedef
+**See**: [https://bottosson.github.io/posts/colorpicker/#hsv-2](https://bottosson.github.io/posts/colorpicker/#hsv-2)
+<a name="okhsv"></a>
+
+## okhsv : <code>Array.&lt;number&gt;</code>
+
+All components in the range 0 <= x <= 1
+
+**Kind**: global typedef
+**See**: [https://bottosson.github.io/posts/colorpicker/#hsv-2](https://bottosson.github.io/posts/colorpicker/#hsv-2)
 <a name="oklab"></a>
 
 ## oklab : <code>Array.&lt;number&gt;</code>

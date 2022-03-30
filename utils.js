@@ -2,10 +2,28 @@
  * @module utils
  */
 
+import { oklabToLinearSrgb } from "./oklab.js";
+
 export const setAlpha = (color, a) => {
   if (a !== undefined) color[3] = a;
   return color;
 };
+
+/**
+ * Convert component from linear value
+ * @param {number} c
+ * @returns {number}
+ */
+export const fromLinear = (c) =>
+  c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
+
+/**
+ * Convert component to linear value
+ * @param {number} c
+ * @returns {number}
+ */
+export const toLinear = (c) =>
+  c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;
 
 export const floorArray = (color, precision = 5) => {
   const p = 10 ** precision;
@@ -15,9 +33,12 @@ export const floorArray = (color, precision = 5) => {
   return color;
 };
 
+export const TMP = [0, 0, 0];
+
+// HSLuv
+// https://github.com/hsluv/hsluv/tree/master/haxe/src/hsluv
 export const L_EPSILON = 1e-10;
 
-// https://github.com/hsluv/hsluv/tree/master/haxe/src/hsluv
 export const m = [
   [3.240969941904521, -1.537383177570093, -0.498610760293],
   [-0.96924363628087, 1.87596750150772, 0.041555057407175],
@@ -107,18 +128,97 @@ export const getBounds = (L) => {
   return result;
 };
 
-/**
- * Convert component from linear value
- * @param {number} c
- * @returns {number}
- */
-export const fromLinear = (c) =>
-  c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
+// Okhsl/Okhsv
+// https://github.com/bottosson/bottosson.github.io/blob/master/misc/colorpicker/colorconversion.js
+const k1 = 0.206;
+const k2 = 0.03;
+const k3 = (1 + k1) / (1 + k2);
 
-/**
- * Convert component to linear value
- * @param {number} c
- * @returns {number}
- */
-export const toLinear = (c) =>
-  c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;
+export function toe(x) {
+  return (
+    0.5 *
+    (k3 * x - k1 + Math.sqrt((k3 * x - k1) * (k3 * x - k1) + 4 * k2 * k3 * x))
+  );
+}
+
+export function toeInv(x) {
+  return (x * x + k1 * x) / (k3 * (x + k2));
+}
+
+function computeMaxSaturation(a, b) {
+  let k0, k1, k2, k3, k4, wl, wm, ws;
+
+  if (-1.88170328 * a - 0.80936493 * b > 1) {
+    k0 = 1.19086277;
+    k1 = 1.76576728;
+    k2 = 0.59662641;
+    k3 = 0.75515197;
+    k4 = 0.56771245;
+    wl = 4.0767416621;
+    wm = -3.3077115913;
+    ws = 0.2309699292;
+  } else if (1.81444104 * a - 1.19445276 * b > 1) {
+    k0 = 0.73956515;
+    k1 = -0.45954404;
+    k2 = 0.08285427;
+    k3 = 0.1254107;
+    k4 = 0.14503204;
+    wl = -1.2684380046;
+    wm = 2.6097574011;
+    ws = -0.3413193965;
+  } else {
+    k0 = 1.35733652;
+    k1 = -0.00915799;
+    k2 = -1.1513021;
+    k3 = -0.50559606;
+    k4 = 0.00692167;
+    wl = -0.0041960863;
+    wm = -0.7034186147;
+    ws = 1.707614701;
+  }
+
+  let S = k0 + k1 * a + k2 * b + k3 * a * a + k4 * a * b;
+
+  const kl = 0.3963377774 * a + 0.2158037573 * b;
+  const km = -0.1055613458 * a - 0.0638541728 * b;
+  const ks = -0.0894841775 * a - 1.291485548 * b;
+
+  const l_ = 1 + S * kl;
+  const m_ = 1 + S * km;
+  const s_ = 1 + S * ks;
+
+  const l = l_ * l_ * l_;
+  const m = m_ * m_ * m_;
+  const s = s_ * s_ * s_;
+
+  const ldS = 3 * kl * l_ * l_;
+  const mdS = 3 * km * m_ * m_;
+  const sdS = 3 * ks * s_ * s_;
+
+  const ldS2 = 6 * kl * kl * l_;
+  const mdS2 = 6 * km * km * m_;
+  const sdS2 = 6 * ks * ks * s_;
+
+  const f = wl * l + wm * m + ws * s;
+  const f1 = wl * ldS + wm * mdS + ws * sdS;
+  const f2 = wl * ldS2 + wm * mdS2 + ws * sdS2;
+
+  S = S - (f * f1) / (f1 * f1 - 0.5 * f * f2);
+
+  return S;
+}
+
+export function findCusp(a, b) {
+  const sCusp = computeMaxSaturation(a, b);
+
+  oklabToLinearSrgb(TMP, 1, sCusp * a, sCusp * b);
+
+  const lCusp = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2]));
+
+  return [lCusp, lCusp * sCusp];
+}
+
+export function getStMax(a_, b_, cusp = null) {
+  if (!cusp) cusp = findCusp(a_, b_);
+  return [cusp[1] / cusp[0], cusp[1] / (1 - cusp[0])];
+}

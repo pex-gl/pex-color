@@ -9,9 +9,7 @@ import { getHWB } from "./hwb.js";
 import { getLab, D50 } from "./lab.js";
 import { getLCHuv } from "./lchuv.js";
 import { getRGBBytes } from "./rgbbytes.js";
-import { floorArray } from "./utils.js";
-
-const TMP = [0, 0, 0];
+import { TMP, floorArray } from "./utils.js";
 
 /**
  * Returns a rgb CSS string representation of a given color.
