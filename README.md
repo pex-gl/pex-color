@@ -120,6 +120,12 @@ API naming follows the following rules:
 <dt><a href="#getLCHuv">getLCHuv(color, out)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
 <dd><p>Returns a LCHuv representation of a given color.</p>
 </dd>
+<dt><a href="#fromLinear">fromLinear(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on linear values.</p>
+</dd>
+<dt><a href="#getLinear">getLinear(color, out)</a> ⇒ <code><a href="#linear">linear</a></code></dt>
+<dd><p>Returns a linear color representation of a given color.</p>
+</dd>
 <dt><a href="#fromOkhsl">fromOkhsl(color, h, s, l, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Okhsl values and alpha.</p>
 </dd>
@@ -198,6 +204,10 @@ API naming follows the following rules:
 </dd>
 <dt><a href="#lchuv">lchuv</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>CIELChuv Luminance Chroma Hue.</p>
+<p>All components in the range 0 &lt;= x &lt;= 1</p>
+</dd>
+<dt><a href="#linear">linear</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>r g b linear values.</p>
 <p>All components in the range 0 &lt;= x &lt;= 1</p>
 </dd>
 <dt><a href="#okhsl">okhsl</a> : <code>Array.&lt;number&gt;</code></dt>
@@ -592,6 +602,35 @@ Returns a LCHuv representation of a given color.
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
 
+<a name="fromLinear"></a>
+
+## fromLinear(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on linear values.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| r     | <code>number</code>          |
+| g     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="getLinear"></a>
+
+## getLinear(color, out) ⇒ [<code>linear</code>](#linear)
+
+Returns a linear color representation of a given color.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
 <a name="fromOkhsl"></a>
 
 ## fromOkhsl(color, h, s, l, [α]) ⇒ [<code>color</code>](#color)
@@ -852,6 +891,16 @@ All components in the range 0 <= x <= 1
 
 **Kind**: global typedef
 **See**: [https://en.wikipedia.org/wiki/CIELUV](https://en.wikipedia.org/wiki/CIELUV)
+<a name="linear"></a>
+
+## linear : <code>Array.&lt;number&gt;</code>
+
+r g b linear values.
+
+All components in the range 0 <= x <= 1
+
+**Kind**: global typedef
+**See**: [https://en.wikipedia.org/wiki/SRGB](https://en.wikipedia.org/wiki/SRGB)
 <a name="okhsl"></a>
 
 ## okhsl : <code>Array.&lt;number&gt;</code>

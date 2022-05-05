@@ -281,6 +281,7 @@ const BLACK = {
   reference: {
     // RGBBytes: [0, 0, 0],
     RGB: [0, 0, 0],
+    Linear: [0, 0, 0],
     HSL: normalize([0, 0, 0], "hueOnly"),
     HWB: normalize([0, 0, 1], "hueOnly"),
     HSV: normalize([0, 0, 0], "hueOnly"),
@@ -302,6 +303,7 @@ const WHITE = {
   reference: {
     // RGBBytes: [255, 255, 255],
     RGB: [1, 1, 1],
+    Linear: [1, 1, 1],
     HSL: normalize([0, 0, 1], "hueOnly"),
     HWB: normalize([0, 1, 0], "hueOnly"),
     HSV: normalize([0, 0, 1], "hueOnly"),
@@ -323,6 +325,7 @@ const RED = {
   reference: {
     // RGBBytes: [255, 0, 0],
     RGB: [1, 0, 0],
+    Linear: [1, 0, 0],
     HSL: normalize([0, 1, 0.5], "hueOnly"),
     HWB: normalize([0, 0, 0], "hueOnly"),
     HSV: normalize([0, 1, 1], "hueOnly"),
@@ -350,6 +353,7 @@ const GREEN = {
   reference: {
     // RGBBytes: [0, 255, 0],
     RGB: [0, 1, 0],
+    Linear: [0, 1, 0],
     HSL: normalize([120, 1, 0.5], "hueOnly"),
     HWB: normalize([120, 0, 0], "hueOnly"),
     HSV: normalize([120, 1, 1], "hueOnly"),
@@ -377,6 +381,7 @@ const BLUE = {
   reference: {
     // RGBBytes: [0, 0, 255],
     RGB: [0, 0, 1],
+    Linear: [0, 0, 1],
     HSL: normalize([240, 1, 0.5], "hueOnly"),
     HWB: normalize([240, 0, 0], "hueOnly"),
     HSV: normalize([240, 1, 1], "hueOnly"),
@@ -404,6 +409,7 @@ const REDISH = {
   reference: {
     // RGBBytes: [153, 102, 0],
     RGB: [0.6, 0.4, 0],
+    Linear: [0.31855, 0.13287, 0],
     HSL: normalize([40, 1, 0.3], "hueOnly"),
     HWB: normalize([40, 0, 0.4], "hueOnly"),
     HSV: normalize([40, 1, 0.6], "hueOnly"),
@@ -431,6 +437,7 @@ const GREENISH = {
   reference: {
     // RGBBytes: [102, 153, 0],
     RGB: [0.4, 0.6, 0],
+    Linear: [0.13287, 0.31855, 0],
     HSL: normalize([80, 1, 0.3], "hueOnly"),
     HWB: normalize([80, 0, 0.4], "hueOnly"),
     HSV: normalize([80, 1, 0.6], "hueOnly"),
@@ -459,6 +466,7 @@ const BLUEISH = {
   reference: {
     // RGBBytes: [0, 102, 153],
     RGB: [0, 0.4, 0.6],
+    Linear: [0, 0.13287, 0.31855],
     HSL: normalize([200, 1, 0.3], "hueOnly"),
     HWB: normalize([200, 0, 0.4], "hueOnly"),
     HSV: normalize([200, 1, 0.6], "hueOnly"),
@@ -485,6 +493,7 @@ const PINKISH = {
   rgbaDefaultAlpha: [1, 0, 0.4, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [255, 0, 102],
+    Linear: [1, 0, 0.13287],
     RGB: [1, 0, 0.4],
     HSL: normalize([336, 1, 0.5], "hueOnly"),
     HWB: normalize([336, 0, 0], "hueOnly"),
