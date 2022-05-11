@@ -175,7 +175,7 @@ export function fromOkhsl(color, h, s, l, α) {
  * @param {Array} out
  * @return {okhsl}
  */
-export function getOkhsl([r, g, b, a], out = []) {
+export function toOkhsl([r, g, b, a], out = []) {
   linearSrgbToOklab(TMP, toLinear(r), toLinear(g), toLinear(b));
 
   const C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);

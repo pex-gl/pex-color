@@ -34,7 +34,7 @@ The "color" primitive is an array of 3 (RGB) or 4 (A) values in the range 0 < x 
 API naming follows the following rules:
 
 - fromType(color, ...values) = set a color primitive from Type values
-- getType(color, out) = convert a color primitive to an array of Type and optionally set it to out
+- toType(color, out) = convert a color primitive to an array of Type and optionally set it to out
 
 <!-- api-start -->
 
@@ -57,109 +57,109 @@ API naming follows the following rules:
 <dt><a href="#set">set(color, color2, [g], [b], [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Sets a color to another color.</p>
 </dd>
-<dt><a href="#getCSSRGB">getCSSRGB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dt><a href="#toCSSRGB">toCSSRGB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
 <dd><p>Returns a rgb CSS string representation of a given color.</p>
 </dd>
-<dt><a href="#getCSSHSL">getCSSHSL(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dt><a href="#toCSSHSL">toCSSHSL(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
 <dd><p>Returns a hsl CSS string representation of a given color.</p>
 </dd>
-<dt><a href="#getCSSLab">getCSSLab(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dt><a href="#toCSSLab">toCSSLab(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
 <dd><p>Returns a lab CSS string representation of a given color.</p>
 </dd>
-<dt><a href="#getCSSLCH">getCSSLCH(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dt><a href="#toCSSLCH">toCSSLCH(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
 <dd><p>Returns a lch CSS string representation of a given color.</p>
 </dd>
-<dt><a href="#getCSSHWB">getCSSHWB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
+<dt><a href="#toCSSHWB">toCSSHWB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
 <dd><p>Returns a hwb CSS string representation of a given color.</p>
 </dd>
 <dt><a href="#fromHex">fromHex(color, hex)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on a hexadecimal string.</p>
 </dd>
-<dt><a href="#getHex">getHex(color, alpha)</a> ⇒ <code><a href="#hex">hex</a></code></dt>
+<dt><a href="#toHex">toHex(color, alpha)</a> ⇒ <code><a href="#hex">hex</a></code></dt>
 <dd><p>Returns a hexadecimal string representation of a given color.</p>
 </dd>
 <dt><a href="#fromHPLuv">fromHPLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HPLuv values and alpha.</p>
 </dd>
-<dt><a href="#getHPLuv">getHPLuv(color, out)</a> ⇒ <code><a href="#hpluv">hpluv</a></code></dt>
+<dt><a href="#toHPLuv">toHPLuv(color, out)</a> ⇒ <code><a href="#hpluv">hpluv</a></code></dt>
 <dd><p>Returns a HPLuv representation of a given color.</p>
 </dd>
 <dt><a href="#fromHSL">fromHSL(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HSL values and alpha.</p>
 </dd>
-<dt><a href="#getHSL">getHSL(color, out)</a> ⇒ <code><a href="#hsl">hsl</a></code></dt>
+<dt><a href="#toHSL">toHSL(color, out)</a> ⇒ <code><a href="#hsl">hsl</a></code></dt>
 <dd><p>Returns a HSL representation of a given color.</p>
 </dd>
 <dt><a href="#fromHSLuv">fromHSLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HSLuv values and alpha.</p>
 </dd>
-<dt><a href="#getHSLuv">getHSLuv(color, out)</a> ⇒ <code><a href="#hsluv">hsluv</a></code></dt>
+<dt><a href="#toHSLuv">toHSLuv(color, out)</a> ⇒ <code><a href="#hsluv">hsluv</a></code></dt>
 <dd><p>Returns a HSLuv representation of a given color.</p>
 </dd>
 <dt><a href="#fromHSV">fromHSV(color, h, s, v, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HSV values and alpha.</p>
 </dd>
-<dt><a href="#getHSV">getHSV(color, out)</a> ⇒ <code><a href="#hsv">hsv</a></code></dt>
+<dt><a href="#toHSV">toHSV(color, out)</a> ⇒ <code><a href="#hsv">hsv</a></code></dt>
 <dd><p>Returns a HSV representation of a given color.</p>
 </dd>
 <dt><a href="#fromHWB">fromHWB(color, h, w, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on HWB values and alpha.</p>
 </dd>
-<dt><a href="#getHWB">getHWB(color, out)</a> ⇒ <code><a href="#hwb">hwb</a></code></dt>
+<dt><a href="#toHWB">toHWB(color, out)</a> ⇒ <code><a href="#hwb">hwb</a></code></dt>
 <dd><p>Returns a HWB representation of a given color.</p>
 </dd>
 <dt><a href="#fromLab">fromLab(color, l, a, b, α, illuminant)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Lab values and alpha.</p>
 </dd>
-<dt><a href="#getLab">getLab(color, out, illuminant)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
+<dt><a href="#toLab">toLab(color, out, illuminant)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
 <dd><p>Returns a Lab representation of a given color.</p>
 </dd>
 <dt><a href="#fromLCHuv">fromLCHuv(color, l, c, h, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on LCHuv values and alpha.</p>
 </dd>
-<dt><a href="#getLCHuv">getLCHuv(color, out)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
+<dt><a href="#toLCHuv">toLCHuv(color, out)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
 <dd><p>Returns a LCHuv representation of a given color.</p>
 </dd>
 <dt><a href="#fromLinear">fromLinear(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on linear values.</p>
 </dd>
-<dt><a href="#getLinear">getLinear(color, out)</a> ⇒ <code><a href="#linear">linear</a></code></dt>
+<dt><a href="#toLinear">toLinear(color, out)</a> ⇒ <code><a href="#linear">linear</a></code></dt>
 <dd><p>Returns a linear color representation of a given color.</p>
 </dd>
 <dt><a href="#fromOkhsl">fromOkhsl(color, h, s, l, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Okhsl values and alpha.</p>
 </dd>
-<dt><a href="#getOkhsl">getOkhsl(color, out)</a> ⇒ <code><a href="#okhsl">okhsl</a></code></dt>
+<dt><a href="#toOkhsl">toOkhsl(color, out)</a> ⇒ <code><a href="#okhsl">okhsl</a></code></dt>
 <dd><p>Returns an Okhsl representation of a given color.</p>
 </dd>
 <dt><a href="#fromOkhsv">fromOkhsv(color, h, s, v, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Okhsv values and alpha.</p>
 </dd>
-<dt><a href="#getOkhsv">getOkhsv(color, out)</a> ⇒ <code><a href="#okhsv">okhsv</a></code></dt>
+<dt><a href="#toOkhsv">toOkhsv(color, out)</a> ⇒ <code><a href="#okhsv">okhsv</a></code></dt>
 <dd><p>Returns an Okhsv representation of a given color.</p>
 </dd>
 <dt><a href="#fromOklab">fromOklab(color, l, a, b, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on Oklab values and alpha.</p>
 </dd>
-<dt><a href="#getOklab">getOklab(color, out)</a> ⇒ <code><a href="#oklab">oklab</a></code></dt>
+<dt><a href="#toOklab">toOklab(color, out)</a> ⇒ <code><a href="#oklab">oklab</a></code></dt>
 <dd><p>Returns an Oklab representation of a given color.</p>
 </dd>
 <dt><a href="#fromRGB">fromRGB(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on linear r, g, b, a values.</p>
 </dd>
-<dt><a href="#getRGB">getRGB()</a></dt>
+<dt><a href="#toRGB">toRGB()</a></dt>
 <dd><p>Alias for <a href="#copy">copy</a></p>
 </dd>
 <dt><a href="#fromRGBBytes">fromRGBBytes(color, bytes)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on byte values.</p>
 </dd>
-<dt><a href="#getRGBBytes">getRGBBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
+<dt><a href="#toRGBBytes">toRGBBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
 <dd><p>Get RGB[A] color components as bytes array.</p>
 </dd>
 <dt><a href="#fromXYZ">fromXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on XYZ values and alpha.</p>
 </dd>
-<dt><a href="#getXYZ">getXYZ(color, out)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#toXYZ">toXYZ(color, out)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Returns a XYZ representation of a given color.</p>
 </dd>
 </dl>
@@ -306,9 +306,9 @@ Sets a color to another color.
 | [b]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
 | [a]    | <code>number</code>                                 | // Deprecated: use fromRGB(color, r, g, b, a) |
 
-<a name="getCSSRGB"></a>
+<a name="toCSSRGB"></a>
 
-## getCSSRGB(color, [precision]) ⇒ [<code>css</code>](#css)
+## toCSSRGB(color, [precision]) ⇒ [<code>css</code>](#css)
 
 Returns a rgb CSS string representation of a given color.
 
@@ -319,9 +319,9 @@ Returns a rgb CSS string representation of a given color.
 | color       | [<code>color</code>](#color) |                |
 | [precision] | <code>number</code>          | <code>5</code> |
 
-<a name="getCSSHSL"></a>
+<a name="toCSSHSL"></a>
 
-## getCSSHSL(color, [precision]) ⇒ [<code>css</code>](#css)
+## toCSSHSL(color, [precision]) ⇒ [<code>css</code>](#css)
 
 Returns a hsl CSS string representation of a given color.
 
@@ -332,9 +332,9 @@ Returns a hsl CSS string representation of a given color.
 | color       | [<code>color</code>](#color) |                |
 | [precision] | <code>number</code>          | <code>5</code> |
 
-<a name="getCSSLab"></a>
+<a name="toCSSLab"></a>
 
-## getCSSLab(color, [precision]) ⇒ [<code>css</code>](#css)
+## toCSSLab(color, [precision]) ⇒ [<code>css</code>](#css)
 
 Returns a lab CSS string representation of a given color.
 
@@ -345,9 +345,9 @@ Returns a lab CSS string representation of a given color.
 | color       | [<code>color</code>](#color) |                |
 | [precision] | <code>number</code>          | <code>5</code> |
 
-<a name="getCSSLCH"></a>
+<a name="toCSSLCH"></a>
 
-## getCSSLCH(color, [precision]) ⇒ [<code>css</code>](#css)
+## toCSSLCH(color, [precision]) ⇒ [<code>css</code>](#css)
 
 Returns a lch CSS string representation of a given color.
 
@@ -358,9 +358,9 @@ Returns a lch CSS string representation of a given color.
 | color       | [<code>color</code>](#color) |                |
 | [precision] | <code>number</code>          | <code>5</code> |
 
-<a name="getCSSHWB"></a>
+<a name="toCSSHWB"></a>
 
-## getCSSHWB(color, [precision]) ⇒ [<code>css</code>](#css)
+## toCSSHWB(color, [precision]) ⇒ [<code>css</code>](#css)
 
 Returns a hwb CSS string representation of a given color.
 
@@ -384,9 +384,9 @@ Updates a color based on a hexadecimal string.
 | color | [<code>color</code>](#color) |                          |
 | hex   | [<code>hex</code>](#hex)     | Leading '#' is optional. |
 
-<a name="getHex"></a>
+<a name="toHex"></a>
 
-## getHex(color, alpha) ⇒ [<code>hex</code>](#hex)
+## toHex(color, alpha) ⇒ [<code>hex</code>](#hex)
 
 Returns a hexadecimal string representation of a given color.
 
@@ -413,9 +413,9 @@ Updates a color based on HPLuv values and alpha.
 | l     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getHPLuv"></a>
+<a name="toHPLuv"></a>
 
-## getHPLuv(color, out) ⇒ [<code>hpluv</code>](#hpluv)
+## toHPLuv(color, out) ⇒ [<code>hpluv</code>](#hpluv)
 
 Returns a HPLuv representation of a given color.
 
@@ -442,9 +442,9 @@ Updates a color based on HSL values and alpha.
 | l     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getHSL"></a>
+<a name="toHSL"></a>
 
-## getHSL(color, out) ⇒ [<code>hsl</code>](#hsl)
+## toHSL(color, out) ⇒ [<code>hsl</code>](#hsl)
 
 Returns a HSL representation of a given color.
 
@@ -471,9 +471,9 @@ Updates a color based on HSLuv values and alpha.
 | l     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getHSLuv"></a>
+<a name="toHSLuv"></a>
 
-## getHSLuv(color, out) ⇒ [<code>hsluv</code>](#hsluv)
+## toHSLuv(color, out) ⇒ [<code>hsluv</code>](#hsluv)
 
 Returns a HSLuv representation of a given color.
 
@@ -500,9 +500,9 @@ Updates a color based on HSV values and alpha.
 | v     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getHSV"></a>
+<a name="toHSV"></a>
 
-## getHSV(color, out) ⇒ [<code>hsv</code>](#hsv)
+## toHSV(color, out) ⇒ [<code>hsv</code>](#hsv)
 
 Returns a HSV representation of a given color.
 
@@ -529,9 +529,9 @@ Updates a color based on HWB values and alpha.
 | b     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getHWB"></a>
+<a name="toHWB"></a>
 
-## getHWB(color, out) ⇒ [<code>hwb</code>](#hwb)
+## toHWB(color, out) ⇒ [<code>hwb</code>](#hwb)
 
 Returns a HWB representation of a given color.
 
@@ -559,9 +559,9 @@ Updates a color based on Lab values and alpha.
 | α          | <code>number</code>          |
 | illuminant | <code>Array</code>           |
 
-<a name="getLab"></a>
+<a name="toLab"></a>
 
-## getLab(color, out, illuminant) ⇒ [<code>lab</code>](#lab)
+## toLab(color, out, illuminant) ⇒ [<code>lab</code>](#lab)
 
 Returns a Lab representation of a given color.
 
@@ -589,9 +589,9 @@ Updates a color based on LCHuv values and alpha.
 | h     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getLCHuv"></a>
+<a name="toLCHuv"></a>
 
-## getLCHuv(color, out) ⇒ [<code>lchuv</code>](#lchuv)
+## toLCHuv(color, out) ⇒ [<code>lchuv</code>](#lchuv)
 
 Returns a LCHuv representation of a given color.
 
@@ -618,9 +618,9 @@ Updates a color based on linear values.
 | b     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getLinear"></a>
+<a name="toLinear"></a>
 
-## getLinear(color, out) ⇒ [<code>linear</code>](#linear)
+## toLinear(color, out) ⇒ [<code>linear</code>](#linear)
 
 Returns a linear color representation of a given color.
 
@@ -647,9 +647,9 @@ Updates a color based on Okhsl values and alpha.
 | l     | <code>number</code>          |
 | [α]   | <code>number</code>          |
 
-<a name="getOkhsl"></a>
+<a name="toOkhsl"></a>
 
-## getOkhsl(color, out) ⇒ [<code>okhsl</code>](#okhsl)
+## toOkhsl(color, out) ⇒ [<code>okhsl</code>](#okhsl)
 
 Returns an Okhsl representation of a given color.
 
@@ -676,9 +676,9 @@ Updates a color based on Okhsv values and alpha.
 | v     | <code>number</code>          |
 | [α]   | <code>number</code>          |
 
-<a name="getOkhsv"></a>
+<a name="toOkhsv"></a>
 
-## getOkhsv(color, out) ⇒ [<code>okhsv</code>](#okhsv)
+## toOkhsv(color, out) ⇒ [<code>okhsv</code>](#okhsv)
 
 Returns an Okhsv representation of a given color.
 
@@ -705,9 +705,9 @@ Updates a color based on Oklab values and alpha.
 | b     | <code>number</code>          |
 | [α]   | <code>number</code>          |
 
-<a name="getOklab"></a>
+<a name="toOklab"></a>
 
-## getOklab(color, out) ⇒ [<code>oklab</code>](#oklab)
+## toOklab(color, out) ⇒ [<code>oklab</code>](#oklab)
 
 Returns an Oklab representation of a given color.
 
@@ -734,9 +734,9 @@ Updates a color based on linear r, g, b, a values.
 | b     | <code>number</code>          |
 | [a]   | <code>number</code>          |
 
-<a name="getRGB"></a>
+<a name="toRGB"></a>
 
-## getRGB()
+## toRGB()
 
 Alias for [copy](#copy)
 
@@ -754,9 +754,9 @@ Updates a color based on byte values.
 | color | [<code>color</code>](#color) |
 | bytes | [<code>bytes</code>](#bytes) |
 
-<a name="getRGBBytes"></a>
+<a name="toRGBBytes"></a>
 
-## getRGBBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
+## toRGBBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
 
 Get RGB[A] color components as bytes array.
 
@@ -783,9 +783,9 @@ Updates a color based on XYZ values and alpha.
 | z     | <code>number</code>          |
 | a     | <code>number</code>          |
 
-<a name="getXYZ"></a>
+<a name="toXYZ"></a>
 
-## getXYZ(color, out) ⇒ [<code>color</code>](#color)
+## toXYZ(color, out) ⇒ [<code>color</code>](#color)
 
 Returns a XYZ representation of a given color.
 

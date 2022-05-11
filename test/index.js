@@ -105,16 +105,16 @@ describe("RGBBytes", () => {
     });
   });
 
-  describe("get", () => {
+  describe("to", () => {
     it("should return a RGBA Bytes array from a color with supplied alpha", () => {
       deepEqual(
-        color.getRGBBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
+        color.toRGBBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
         [222, 100, 125, 23]
       );
     });
     it("should return a RGB Bytes array from a color", () => {
       deepEqual(
-        color.getRGBBytes([222 / 255, 100 / 255, 125 / 255]),
+        color.toRGBBytes([222 / 255, 100 / 255, 125 / 255]),
         [222, 100, 125]
       );
     });
@@ -208,44 +208,44 @@ describe("HEX", () => {
     });
   });
 
-  describe("get", () => {
+  describe("to", () => {
     it("should return a HEX string for black color without alpha (6 characters)", () => {
-      deepEqual(color.getHex([0, 0, 0]), "#000000");
+      deepEqual(color.toHex([0, 0, 0]), "#000000");
     });
     it("should return a HEX string for black color with alpha 0 (8 characters)", () => {
-      deepEqual(color.getHex([0, 0, 0, 0]), "#00000000");
+      deepEqual(color.toHex([0, 0, 0, 0]), "#00000000");
     });
     it("should return a HEX string for black color with alpha 0.5 (8 characters)", () => {
-      deepEqual(color.getHex([0, 0, 0, 0.5]), "#00000080");
+      deepEqual(color.toHex([0, 0, 0, 0.5]), "#00000080");
     });
     it("should return a HEX string for black color with alpha 1 (6 characters)", () => {
-      deepEqual(color.getHex([0, 0, 0, 1]), "#000000");
+      deepEqual(color.toHex([0, 0, 0, 1]), "#000000");
     });
 
     it("should return a HEX string for white color without alpha (6 characters)", () => {
-      deepEqual(color.getHex([1, 1, 1]), "#FFFFFF");
+      deepEqual(color.toHex([1, 1, 1]), "#FFFFFF");
     });
     it("should return a HEX string for white color with alpha 0 (8 characters)", () => {
-      deepEqual(color.getHex([1, 1, 1, 0]), "#FFFFFF00");
+      deepEqual(color.toHex([1, 1, 1, 0]), "#FFFFFF00");
     });
     it("should return a HEX string for white color with alpha 0.5 (8 characters)", () => {
-      deepEqual(color.getHex([1, 1, 1, 0.5]), "#FFFFFF80");
+      deepEqual(color.toHex([1, 1, 1, 0.5]), "#FFFFFF80");
     });
     it("should return a HEX string for white color with alpha 1 (6 characters)", () => {
-      deepEqual(color.getHex([1, 1, 1, 1]), "#FFFFFF");
+      deepEqual(color.toHex([1, 1, 1, 1]), "#FFFFFF");
     });
 
     it("should return a HEX string for color without alpha (6 characters)", () => {
-      deepEqual(color.getHex([1, 0, 0.4]), "#FF0066");
+      deepEqual(color.toHex([1, 0, 0.4]), "#FF0066");
     });
     it("should return a HEX string for color with alpha 0 (8 characters)", () => {
-      deepEqual(color.getHex([1, 0, 0.4, 0]), "#FF006600");
+      deepEqual(color.toHex([1, 0, 0.4, 0]), "#FF006600");
     });
     it("should return a HEX string for color with alpha 0.4 (8 characters)", () => {
-      deepEqual(color.getHex([1, 0, 0.4, 0.4]), "#FF006666");
+      deepEqual(color.toHex([1, 0, 0.4, 0.4]), "#FF006666");
     });
     it("should return a HEX string for color with alpha 1 (6 characters)", () => {
-      deepEqual(color.getHex([1, 0, 0.4, 1]), "#FF0066");
+      deepEqual(color.toHex([1, 0, 0.4, 1]), "#FF0066");
     });
   });
 });
@@ -552,24 +552,24 @@ Object.entries({
         });
       });
 
-      describe(`get`, () => {
+      describe(`to`, () => {
         it(`should return ${type} values from a color`, () => {
           deepAlmostEqual(
-            color[`get${type}`](rgbaDefaultAlpha),
+            color[`to${type}`](rgbaDefaultAlpha),
             [...c, DEFAULT_ALPHA],
             epsilons[type]
           );
         });
         it(`should return ${type} values from a color with supplied alpha`, () => {
           deepAlmostEqual(
-            color[`get${type}`](rgbaHalfAlpha),
+            color[`to${type}`](rgbaHalfAlpha),
             [...c, 0.5],
             epsilons[type]
           );
         });
         it(`should assign ${type} values to a provided array without reassigning it`, () => {
           const v = [0, 0, 0];
-          deepAlmostEqual(color[`get${type}`](rgb, v), v, epsilons[type]);
+          deepAlmostEqual(color[`to${type}`](rgb, v), v, epsilons[type]);
         });
       });
     });
@@ -577,60 +577,60 @@ Object.entries({
 );
 
 describe("CSS", () => {
-  it("getCSSRGB() should get a rgb(a) CSS string representation", () => {
-    deepEqual(color.getCSSRGB([1, 0, 0]), "rgb(255, 0, 0)");
-    deepEqual(color.getCSSRGB([1, 0, 0, 0]), "rgba(255, 0, 0, 0)");
-    deepEqual(color.getCSSRGB([1, 0, 0, 1]), "rgba(255, 0, 0, 1)");
-    deepEqual(color.getCSSRGB([1, 0, 0, 0.5]), "rgba(255, 0, 0, 0.5)");
+  it("toCSSRGB() should return a rgb(a) CSS string representation", () => {
+    deepEqual(color.toCSSRGB([1, 0, 0]), "rgb(255, 0, 0)");
+    deepEqual(color.toCSSRGB([1, 0, 0, 0]), "rgba(255, 0, 0, 0)");
+    deepEqual(color.toCSSRGB([1, 0, 0, 1]), "rgba(255, 0, 0, 1)");
+    deepEqual(color.toCSSRGB([1, 0, 0, 0.5]), "rgba(255, 0, 0, 0.5)");
   });
-  it("getCSSHSL() should get a hsl(a) CSS string representation", () => {
-    deepEqual(color.getCSSHSL([1, 0, 0]), "hsl(0, 100%, 50%)");
-    deepEqual(color.getCSSHSL([1, 0, 0, 0]), "hsla(0, 100%, 50%, 0)");
-    deepEqual(color.getCSSHSL([1, 0, 0, 1]), "hsla(0, 100%, 50%, 1)");
-    deepEqual(color.getCSSHSL([1, 0, 0, 0.5]), "hsla(0, 100%, 50%, 0.5)");
+  it("toCSSHSL() should return a hsl(a) CSS string representation", () => {
+    deepEqual(color.toCSSHSL([1, 0, 0]), "hsl(0, 100%, 50%)");
+    deepEqual(color.toCSSHSL([1, 0, 0, 0]), "hsla(0, 100%, 50%, 0)");
+    deepEqual(color.toCSSHSL([1, 0, 0, 1]), "hsla(0, 100%, 50%, 1)");
+    deepEqual(color.toCSSHSL([1, 0, 0, 0.5]), "hsla(0, 100%, 50%, 0.5)");
   });
-  it("getCSSLab() should get a lab CSS string representation", () => {
+  it("toCSSLab() should return a lab CSS string representation", () => {
     const redLab50 = [53.23711, 78.27048, 62.14609];
     const redCSSLab = `lab(${redLab50[0]}% ${redLab50[1]} ${redLab50[2]})`;
-    deepEqual(color.getCSSLab([1, 0, 0], 5), redCSSLab);
+    deepEqual(color.toCSSLab([1, 0, 0], 5), redCSSLab);
     deepEqual(
-      color.getCSSLab([1, 0, 0, 0], 5),
+      color.toCSSLab([1, 0, 0, 0], 5),
       redCSSLab.replace(")", " / 0)")
     );
     deepEqual(
-      color.getCSSLab([1, 0, 0, 1], 5),
+      color.toCSSLab([1, 0, 0, 1], 5),
       redCSSLab.replace(")", " / 1)")
     );
     deepEqual(
-      color.getCSSLab([1, 0, 0, 0.5], 5),
+      color.toCSSLab([1, 0, 0, 0.5], 5),
       redCSSLab.replace(")", " / 0.5)")
     );
   });
-  it("getCSSLCH() should get a lch CSS string representation", () => {
+  it("toCSSLCH() should return a lch CSS string representation", () => {
     const c = color.utils.floorArray(RED.reference.LCHuv);
     const redCSSLab = `lch(${c[0]}% ${c[1]} ${c[2]})`;
-    deepEqual(color.getCSSLCH([1, 0, 0], 5), redCSSLab);
+    deepEqual(color.toCSSLCH([1, 0, 0], 5), redCSSLab);
     deepEqual(
-      color.getCSSLCH([1, 0, 0, 0], 5),
+      color.toCSSLCH([1, 0, 0, 0], 5),
       redCSSLab.replace(")", " / 0)")
     );
     deepEqual(
-      color.getCSSLCH([1, 0, 0, 1], 5),
+      color.toCSSLCH([1, 0, 0, 1], 5),
       redCSSLab.replace(")", " / 1)")
     );
     deepEqual(
-      color.getCSSLCH([1, 0, 0, 0.5], 5),
+      color.toCSSLCH([1, 0, 0, 0.5], 5),
       redCSSLab.replace(")", " / 0.5)")
     );
   });
-  it("getCSSHWB() should get a hwb CSS string representation", () => {
+  it("toCSSHWB() should return a hwb CSS string representation", () => {
     const c = color.utils.floorArray(RED.reference.HWB);
     const redCSSHWB = `hwb(${c[0]}% ${c[1]} ${c[2]})`;
-    deepEqual(color.getCSSHWB([1, 0, 0]), redCSSHWB);
-    deepEqual(color.getCSSHWB([1, 0, 0, 0]), redCSSHWB.replace(")", " / 0)"));
-    deepEqual(color.getCSSHWB([1, 0, 0, 1]), redCSSHWB.replace(")", " / 1)"));
+    deepEqual(color.toCSSHWB([1, 0, 0]), redCSSHWB);
+    deepEqual(color.toCSSHWB([1, 0, 0, 0]), redCSSHWB.replace(")", " / 0)"));
+    deepEqual(color.toCSSHWB([1, 0, 0, 1]), redCSSHWB.replace(")", " / 1)"));
     deepEqual(
-      color.getCSSHWB([1, 0, 0, 0.5]),
+      color.toCSSHWB([1, 0, 0, 0.5]),
       redCSSHWB.replace(")", " / 0.5)")
     );
   });

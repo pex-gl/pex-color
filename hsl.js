@@ -45,7 +45,7 @@ export function fromHSL(color, h, s, l, a) {
  * @param {Array} out
  * @return {hsl}
  */
-export function getHSL([r, g, b, a], out = []) {
+export function toHSL([r, g, b, a], out = []) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   out[2] = (max + min) / 2;

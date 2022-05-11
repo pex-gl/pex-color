@@ -4,11 +4,11 @@
  * @see {@link https://www.w3.org/TR/css-color-4/}
  */
 
-import { getHSL } from "./hsl.js";
-import { getHWB } from "./hwb.js";
-import { getLab, D50 } from "./lab.js";
-import { getLCHuv } from "./lchuv.js";
-import { getRGBBytes } from "./rgbbytes.js";
+import { toHSL } from "./hsl.js";
+import { toHWB } from "./hwb.js";
+import { toLab, D50 } from "./lab.js";
+import { toLCHuv } from "./lchuv.js";
+import { toRGBBytes } from "./rgbbytes.js";
 import { TMP, floorArray } from "./utils.js";
 
 /**
@@ -17,8 +17,8 @@ import { TMP, floorArray } from "./utils.js";
  * @param {number} [precision=5]
  * @return {css}
  */
-export function getCSSRGB(color, precision = 5) {
-  getRGBBytes(color, TMP);
+export function toCSSRGB(color, precision = 5) {
+  toRGBBytes(color, TMP);
   if (precision !== undefined) floorArray(TMP, precision);
   const a = color[3] !== undefined ? `, ${color[3]}` : "";
   return `rgb${a ? "a" : ""}(${TMP.slice(0, 3).join(", ")}${a})`;
@@ -30,8 +30,8 @@ export function getCSSRGB(color, precision = 5) {
  * @param {number} [precision=5]
  * @return {css}
  */
-export function getCSSHSL(color, precision = 5) {
-  getHSL(color, TMP);
+export function toCSSHSL(color, precision = 5) {
+  toHSL(color, TMP);
   TMP[0] *= 360;
   TMP[1] *= 100;
   TMP[2] *= 100;
@@ -46,8 +46,8 @@ export function getCSSHSL(color, precision = 5) {
  * @param {number} [precision=5]
  * @return {css}
  */
-export function getCSSLab(color, precision = 5) {
-  getLab(color, TMP, D50);
+export function toCSSLab(color, precision = 5) {
+  toLab(color, TMP, D50);
   TMP[0] *= 100;
   TMP[1] *= 100;
   TMP[2] *= 100;
@@ -63,8 +63,8 @@ export function getCSSLab(color, precision = 5) {
  * @param {number} [precision=5]
  * @return {css}
  */
-export function getCSSLCH(color, precision = 5) {
-  getLCHuv(color, TMP);
+export function toCSSLCH(color, precision = 5) {
+  toLCHuv(color, TMP);
   if (precision !== undefined) floorArray(TMP, precision);
   return `lch(${TMP[0]}% ${TMP[1]} ${TMP[2]}${
     color[3] !== undefined ? ` / ${color[3]}` : ""
@@ -77,8 +77,8 @@ export function getCSSLCH(color, precision = 5) {
  * @param {number} [precision=5]
  * @return {css}
  */
-export function getCSSHWB(color, precision = 5) {
-  getHWB(color, TMP);
+export function toCSSHWB(color, precision = 5) {
+  toHWB(color, TMP);
   if (precision !== undefined) floorArray(TMP, precision);
   return `hwb(${TMP[0]}% ${TMP[1]} ${TMP[2]}${
     color[3] !== undefined ? ` / ${color[3]}` : ""

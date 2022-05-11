@@ -1,4 +1,4 @@
-import { fromLCHuv, getLCHuv } from "./lchuv.js";
+import { fromLCHuv, toLCHuv } from "./lchuv.js";
 import { getBounds, setAlpha, L_EPSILON } from "./utils.js";
 
 /**
@@ -56,7 +56,7 @@ export function fromHSLuv(color, h, s, l, a) {
  * @param {Array} out
  * @return {hsluv}
  */
-export function getHSLuv([r, g, b, a], out = []) {
-  [out[0], out[1], out[2]] = lchToHsluv(getLCHuv([r, g, b]));
+export function toHSLuv([r, g, b, a], out = []) {
+  [out[0], out[1], out[2]] = lchToHsluv(toLCHuv([r, g, b]));
   return setAlpha(out, a);
 }

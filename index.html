@@ -67,7 +67,7 @@
         </label>
       </div>
       <table class="Results"></table>
-      <p>Try it in the console: <code>color.getHex([1, 0, 0, 1])</code></p>
+      <p>Try it in the console: <code>color.toHex([1, 0, 0, 1])</code></p>
     </main>
     <script type="module">
       import * as color from "./index.js";
@@ -83,12 +83,12 @@
       const hexInputElement = document.querySelector(".Hex input");
       const resultsElement = document.querySelector(".Results");
 
-      const gettersKeys = Object.keys(color).filter((m) => m.startsWith("get"));
+      const gettersKeys = Object.keys(color).filter((m) => m.startsWith("to"));
       const getters = gettersKeys.reduce(
         (obj, key) => ({ ...obj, [key]: color[key] }),
         {}
       );
-      const types = gettersKeys.map((m) => m.replace("get", ""));
+      const types = gettersKeys.map((m) => m.replace("to", ""));
 
       types
         .filter(
@@ -122,7 +122,7 @@
           )
           .join("");
 
-        hexInputElement.value = color.getHex(rgb);
+        hexInputElement.value = color.toHex(rgb);
       };
 
       inputElements.forEach((input) => {
@@ -136,7 +136,7 @@
         currentType = target.value;
 
         // Convert previous rgb to update inputs
-        const converted = color[`get${currentType}`](rgb);
+        const converted = color[`to${currentType}`](rgb);
         Array.from(inputElements).forEach((v, i) => (v.value = converted[i]));
       });
       hexInputElement.addEventListener("input", ({ target }) => {

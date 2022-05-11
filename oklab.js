@@ -67,7 +67,7 @@ export function fromOklab(color, L, a, b, α) {
  * @param {Array} out
  * @return {oklab}
  */
-export function getOklab([r, g, b, a], out = []) {
+export function toOklab([r, g, b, a], out = []) {
   linearSrgbToOklab(out, toLinear(r), toLinear(g), toLinear(b));
 
   return setAlpha(out, a);

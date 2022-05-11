@@ -24,7 +24,7 @@ export function fromRGBBytes(color, [r, g, b, a]) {
  * @param {Array} out
  * @return {bytes}
  */
-export function getRGBBytes(color, out = []) {
+export function toRGBBytes(color, out = []) {
   out[0] = Math.round(color[0] * 255);
   out[1] = Math.round(color[1] * 255);
   out[2] = Math.round(color[2] * 255);

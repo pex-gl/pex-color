@@ -34,7 +34,7 @@ export function fromXYZ(color, x, y, z, a) {
  * @param {Array} out
  * @return {color}
  */
-export function getXYZ([r, g, b, a], out = []) {
+export function toXYZ([r, g, b, a], out = []) {
   const lr = toLinear(r);
   const lg = toLinear(g);
   const lb = toLinear(b);

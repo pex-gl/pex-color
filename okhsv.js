@@ -57,7 +57,7 @@ export function fromOkhsv(color, h, s, v, α) {
  * @param {Array} out
  * @return {okhsv}
  */
-export function getOkhsv([r, g, b, a], out = []) {
+export function toOkhsv([r, g, b, a], out = []) {
   linearSrgbToOklab(TMP, toLinear(r), toLinear(g), toLinear(b));
 
   let C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);

@@ -21,4 +21,4 @@ export function fromRGB(color, r, g, b, a) {
  * Alias for {@link copy}
  * @function
  */
-export const getRGB = copy;
+export const toRGB = copy;

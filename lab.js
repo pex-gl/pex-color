@@ -1,4 +1,4 @@
-import { getXYZ, fromXYZ } from "./xyz.js";
+import { toXYZ, fromXYZ } from "./xyz.js";
 import { setAlpha } from "./utils.js";
 
 /**
@@ -57,8 +57,8 @@ export function fromLab(color, l, a, b, α, illuminant = D65) {
  * @param {Array} illuminant
  * @return {lab}
  */
-export function getLab(color, out = [], illuminant = D65) {
-  const xyz = getXYZ(color);
+export function toLab(color, out = [], illuminant = D65) {
+  const xyz = toXYZ(color);
 
   const x = fromXYZValueToLabValue(xyz[0], illuminant[0]);
   const y = fromXYZValueToLabValue(xyz[1], illuminant[1]);

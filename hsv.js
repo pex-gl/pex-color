@@ -65,7 +65,7 @@ export function fromHSV(color, h, s, v, a) {
  * @param {Array} out
  * @return {hsv}
  */
-export function getHSV([r, g, b, a], out = []) {
+export function toHSV([r, g, b, a], out = []) {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   out[2] = max;

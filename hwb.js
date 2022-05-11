@@ -1,4 +1,4 @@
-import { fromHSL, getHSL } from "./hsl.js";
+import { fromHSL, toHSL } from "./hsl.js";
 import { setAlpha } from "./utils.js";
 
 /**
@@ -37,8 +37,8 @@ export function fromHWB(color, h, w, b, a) {
  * @param {Array} out
  * @return {hwb}
  */
-export function getHWB(color, out = []) {
-  getHSL(color, out);
+export function toHWB(color, out = []) {
+  toHSL(color, out);
   out[1] = Math.min(color[0], color[1], color[2]);
   out[2] = 1 - Math.max(color[0], color[1], color[2]);
   return setAlpha(out, color[3]);

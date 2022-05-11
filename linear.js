@@ -1,4 +1,4 @@
-import { fromLinear as from, toLinear, setAlpha } from "./utils.js";
+import { fromLinear as from, toLinear as to, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} linear r g b linear values.
@@ -29,9 +29,9 @@ export function fromLinear(color, r, g, b, a) {
  * @param {Array} out
  * @return {linear}
  */
-export function getLinear([r, g, b, a], out = []) {
-  out[0] = toLinear(r);
-  out[1] = toLinear(g);
-  out[2] = toLinear(b);
+export function toLinear([r, g, b, a], out = []) {
+  out[0] = to(r);
+  out[1] = to(g);
+  out[2] = to(b);
   return setAlpha(out, a);
 }
