@@ -23,7 +23,7 @@ npm install pex-color
 ```js
 import color from "pex-color";
 
-color.getHex([1, 0, 0]);
+color.toHex([1, 0, 0]);
 // => #FF0000
 ```
 
