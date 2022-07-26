@@ -1,0 +1,1323 @@
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>pex-color 1.0.2</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400,500,700' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='container'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+        <div class='px1 py1'>
+          <a href='/' class='h5 button block button-transparent'>pex-color 1.0.2</a>
+          <div class='px2'>
+            <input
+              placeholder='Filter'
+              id='filter-input'
+              class='col12 block field-light'
+              type='text' />
+          </div>
+          <div id='toc' class='px2'>
+              <a
+                href='#color'
+                class='block bold'>
+                Color
+              </a>
+                <a
+                  href='#color/black'
+                  class='regular block'>
+                  .Black
+                </a>
+                <a
+                  href='#color/blue'
+                  class='regular block'>
+                  .Blue
+                </a>
+                <a
+                  href='#color/cyan'
+                  class='regular block'>
+                  .Cyan
+                </a>
+                <a
+                  href='#color/darkgrey'
+                  class='regular block'>
+                  .DarkGrey
+                </a>
+                <a
+                  href='#color/green'
+                  class='regular block'>
+                  .Green
+                </a>
+                <a
+                  href='#color/grey'
+                  class='regular block'>
+                  .Grey
+                </a>
+                <a
+                  href='#color/lightgrey'
+                  class='regular block'>
+                  .LightGrey
+                </a>
+                <a
+                  href='#color/orange'
+                  class='regular block'>
+                  .Orange
+                </a>
+                <a
+                  href='#color/pink'
+                  class='regular block'>
+                  .Pink
+                </a>
+                <a
+                  href='#color/red'
+                  class='regular block'>
+                  .Red
+                </a>
+                <a
+                  href='#color/transparent'
+                  class='regular block'>
+                  .Transparent
+                </a>
+                <a
+                  href='#color/white'
+                  class='regular block'>
+                  .White
+                </a>
+                <a
+                  href='#color/yellow'
+                  class='regular block'>
+                  .Yellow
+                </a>
+              <a
+                href='#copy'
+                class='block bold'>
+                copy
+              </a>
+              <a
+                href='#create'
+                class='block bold'>
+                create
+              </a>
+              <a
+                href='#fromhex'
+                class='block bold'>
+                fromHex
+              </a>
+              <a
+                href='#fromhsl'
+                class='block bold'>
+                fromHSL
+              </a>
+              <a
+                href='#fromhsv'
+                class='block bold'>
+                fromHSV
+              </a>
+              <a
+                href='#fromlab'
+                class='block bold'>
+                fromLab
+              </a>
+              <a
+                href='#fromrgb'
+                class='block bold'>
+                fromRGB
+              </a>
+              <a
+                href='#fromrgbbytes'
+                class='block bold'>
+                fromRGBBytes
+              </a>
+              <a
+                href='#fromxyz'
+                class='block bold'>
+                fromXYZ
+              </a>
+              <a
+                href='#gethex'
+                class='block bold'>
+                getHex
+              </a>
+              <a
+                href='#gethsl'
+                class='block bold'>
+                getHSL
+              </a>
+              <a
+                href='#gethsv'
+                class='block bold'>
+                getHSV
+              </a>
+              <a
+                href='#getlab'
+                class='block bold'>
+                getLab
+              </a>
+              <a
+                href='#getrgbbytes'
+                class='block bold'>
+                getRGBBytes
+              </a>
+              <a
+                href='#getxyz'
+                class='block bold'>
+                getXYZ
+              </a>
+              <a
+                href='#lerp'
+                class='block bold'>
+                lerp
+              </a>
+              <a
+                href='#set'
+                class='block bold'>
+                set
+              </a>
+              <a
+                href='#sethex'
+                class='block bold'>
+                setHex
+              </a>
+              <a
+                href='#sethsl'
+                class='block bold'>
+                setHSL
+              </a>
+              <a
+                href='#sethsv'
+                class='block bold'>
+                setHSV
+              </a>
+              <a
+                href='#setlab'
+                class='block bold'>
+                setLab
+              </a>
+              <a
+                href='#setrgb'
+                class='block bold'>
+                setRGB
+              </a>
+              <a
+                href='#setxyz'
+                class='block bold'>
+                setXYZ
+              </a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2'>
+<div class='py1'><section class='py2 clearfix'>
+  <h2 id='color' class='mt0'>
+    Color<span class='gray'></span>
+  </h2>
+  <p>RGBA color array utility functions</p>
+
+      <h4>Static members</h4>
+        <div class='collapsible' id='color/black'>
+          <a href='#color/black'>
+            <code>
+              .Black<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Black color [0, 0, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/black' class='mt0'>
+                Black<span class='gray'></span>
+              </h2>
+              <p>Black color [0, 0, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/blue'>
+          <a href='#color/blue'>
+            <code>
+              .Blue<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Blue color [0, 0, 1, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/blue' class='mt0'>
+                Blue<span class='gray'></span>
+              </h2>
+              <p>Blue color [0, 0, 1, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/cyan'>
+          <a href='#color/cyan'>
+            <code>
+              .Cyan<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Cyan color [0, 1, 1, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/cyan' class='mt0'>
+                Cyan<span class='gray'></span>
+              </h2>
+              <p>Cyan color [0, 1, 1, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/darkgrey'>
+          <a href='#color/darkgrey'>
+            <code>
+              .DarkGrey<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Dark Grey color [0, 0, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/darkgrey' class='mt0'>
+                DarkGrey<span class='gray'></span>
+              </h2>
+              <p>Dark Grey color [0, 0, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/green'>
+          <a href='#color/green'>
+            <code>
+              .Green<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Green color [0, 1, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/green' class='mt0'>
+                Green<span class='gray'></span>
+              </h2>
+              <p>Green color [0, 1, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/grey'>
+          <a href='#color/grey'>
+            <code>
+              .Grey<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Grey color [0.5, 0.5, 0.5, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/grey' class='mt0'>
+                Grey<span class='gray'></span>
+              </h2>
+              <p>Grey color [0.5, 0.5, 0.5, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/lightgrey'>
+          <a href='#color/lightgrey'>
+            <code>
+              .LightGrey<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Light Grey color [0.75, 0.75, 0.75, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/lightgrey' class='mt0'>
+                LightGrey<span class='gray'></span>
+              </h2>
+              <p>Light Grey color [0.75, 0.75, 0.75, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/orange'>
+          <a href='#color/orange'>
+            <code>
+              .Orange<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Orange color [1, 0.5, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/orange' class='mt0'>
+                Orange<span class='gray'></span>
+              </h2>
+              <p>Orange color [1, 0.5, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/pink'>
+          <a href='#color/pink'>
+            <code>
+              .Pink<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Pink color [1, 0, 1, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/pink' class='mt0'>
+                Pink<span class='gray'></span>
+              </h2>
+              <p>Pink color [1, 0, 1, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/red'>
+          <a href='#color/red'>
+            <code>
+              .Red<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Red color [1, 0, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/red' class='mt0'>
+                Red<span class='gray'></span>
+              </h2>
+              <p>Red color [1, 0, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/transparent'>
+          <a href='#color/transparent'>
+            <code>
+              .Transparent<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Transparent color [0, 0, 0, 0]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/transparent' class='mt0'>
+                Transparent<span class='gray'></span>
+              </h2>
+              <p>Transparent color [0, 0, 0, 0]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/white'>
+          <a href='#color/white'>
+            <code>
+              .White<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>White color [0, 0, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/white' class='mt0'>
+                White<span class='gray'></span>
+              </h2>
+              <p>White color [0, 0, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='color/yellow'>
+          <a href='#color/yellow'>
+            <code>
+              .Yellow<span class='gray'></span>
+            </code>
+            <span class='force-inline'>
+              <p>Yellow color [1, 1, 0, 1]</p>
+
+            </span>
+          </a>
+          <div class='collapser border px2 m2'>
+            <section class='py2 clearfix'>
+              <h2 id='color/yellow' class='mt0'>
+                Yellow<span class='gray'></span>
+              </h2>
+              <p>Yellow color [1, 1, 0, 1]</p>
+            
+            </section>
+          </div>
+        </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='copy' class='mt0'>
+    copy<span class='gray'>(color, [out])</span>
+  </h2>
+  <p>Copies color</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>color to copy</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code>]</code> <strong>out</strong>
+          :
+          <span class='force-inline'>
+            <p>color to copy values into</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>new RGBA color array [r,g,b,a] (0..1) or updated out color</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='create' class='mt0'>
+    create<span class='gray'>([r], [g], [b], [a])</span>
+  </h2>
+  <p>RGBA color constructor function</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>r</strong>
+            (default <code>0</code>)
+          :
+          <span class='force-inline'>
+            <p>red component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>g</strong>
+            (default <code>0</code>)
+          :
+          <span class='force-inline'>
+            <p>green component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>b</strong>
+            (default <code>0</code>)
+          :
+          <span class='force-inline'>
+            <p>blue component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha component (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromhex' class='mt0'>
+    fromHex<span class='gray'>(hex)</span>
+  </h2>
+  <p>Creates new color from html hex string</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>hex</strong>
+          :
+          <span class='force-inline'>
+            <p>html hex string #RRGGBB (# is optional)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromhsl' class='mt0'>
+    fromHSL<span class='gray'>(h, s, l, [a])</span>
+  </h2>
+  <p>Creates new color from hue, saturation, lightness and alpha</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>h</strong>
+          :
+          <span class='force-inline'>
+            <p>hue (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>s</strong>
+          :
+          <span class='force-inline'>
+            <p>saturation (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>l</strong>
+          :
+          <span class='force-inline'>
+            <p>lightness (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromhsv' class='mt0'>
+    fromHSV<span class='gray'>(h, s, v, [a])</span>
+  </h2>
+  <p>Creates new color from hue, saturation and value</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>h</strong>
+          :
+          <span class='force-inline'>
+            <p>hue (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>s</strong>
+          :
+          <span class='force-inline'>
+            <p>saturation (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>v</strong>
+          :
+          <span class='force-inline'>
+            <p>value (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromlab' class='mt0'>
+    fromLab<span class='gray'>(l, a, b)</span>
+  </h2>
+  <p>Creates new color from l,a,b component values</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>l</strong>
+          :
+          <span class='force-inline'>
+            <p>l component (0..100)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>a</strong>
+          :
+          <span class='force-inline'>
+            <p>a component (-128..127)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>b</strong>
+          :
+          <span class='force-inline'>
+            <p>b component (-128..127)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromrgb' class='mt0'>
+    fromRGB<span class='gray'>(r, g, b, [a])</span>
+  </h2>
+  <p>Creates new color from RGBA values. Alias for create(r, g, b, a)</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>r</strong>
+          :
+          <span class='force-inline'>
+            <p>red component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>g</strong>
+          :
+          <span class='force-inline'>
+            <p>green component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>b</strong>
+          :
+          <span class='force-inline'>
+            <p>blue component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha component (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromrgbbytes' class='mt0'>
+    fromRGBBytes<span class='gray'>(bytes)</span>
+  </h2>
+  <p>Creates new color from array of 4 byte (0..255) values [r, g, b, a]</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>bytes</strong>
+          :
+          <span class='force-inline'>
+            <p>RGB color byte array [r,g,b,a] (0..255)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='fromxyz' class='mt0'>
+    fromXYZ<span class='gray'>(x, y, z)</span>
+  </h2>
+  <p>Creates new color from XYZ values</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>x</strong>
+          :
+          <span class='force-inline'>
+            <p>x component (0..95)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>y</strong>
+          :
+          <span class='force-inline'>
+            <p>y component (0..100)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>z</strong>
+          :
+          <span class='force-inline'>
+            <p>z component (0..108)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='gethex' class='mt0'>
+    getHex<span class='gray'>(color)</span>
+  </h2>
+  <p>Returns html hex representation of given color</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a]</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>html hex color including leading hash e.g. #FF0000</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='gethsl' class='mt0'>
+    getHSL<span class='gray'>(color)</span>
+  </h2>
+  <p>Returns hue, saturation, lightness and alpha of given color.</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a]</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>HSLA values array [h,s,l,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='gethsv' class='mt0'>
+    getHSV<span class='gray'>(color)</span>
+  </h2>
+  <p>Get hue, saturation, value and alpha of given color</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a]</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>HSVA values array [h,s,v,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='getlab' class='mt0'>
+    getLab<span class='gray'>(color)</span>
+  </h2>
+  <p>Returns LAB color components</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a]</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>LAB values array [l,a,b] (l:0..100, a:-128..127, b:-128..127)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='getrgbbytes' class='mt0'>
+    getRGBBytes<span class='gray'>(color, out)</span>
+  </h2>
+  <p>Returns RGB color components as bytes (0..255)</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a]</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>out</strong>
+          :
+          <span class='force-inline'>
+            <p>array to copy values into</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>RGB color byte array [r,g,b] (0..255) or updated out array</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='getxyz' class='mt0'>
+    getXYZ<span class='gray'>(color)</span>
+  </h2>
+  <p>Returns XYZ representation of given color</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a]</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>[x,y,z] (x:0..95, y:0..100, z:0..108)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='lerp' class='mt0'>
+    lerp<span class='gray'></span>
+  </h2>
+  <p>Float (0..1) RGBA Color utility class</p>
+
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='set' class='mt0'>
+    set<span class='gray'>(color, r, g, b, [a])</span>
+  </h2>
+  
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>r</strong>
+          :
+          <span class='force-inline'>
+            <p>red component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>g</strong>
+          :
+          <span class='force-inline'>
+            <p>green component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>b</strong>
+          :
+          <span class='force-inline'>
+            <p>blue component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha component (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='sethex' class='mt0'>
+    setHex<span class='gray'>(color, hex)</span>
+  </h2>
+  <p>Updates a color based on html hex string e.g. #FF0000 -&gt; 1,0,0,1</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>hex</strong>
+          :
+          <span class='force-inline'>
+            <p>html hex string #RRGGBB (# is optional)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='sethsl' class='mt0'>
+    setHSL<span class='gray'>(color, h, s, l, [a])</span>
+  </h2>
+  <p>Updates a color based on hue, saturation, lightness and alpha</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>h</strong>
+          :
+          <span class='force-inline'>
+            <p>hue (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>s</strong>
+          :
+          <span class='force-inline'>
+            <p>saturation (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>l</strong>
+          :
+          <span class='force-inline'>
+            <p>lightness (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='sethsv' class='mt0'>
+    setHSV<span class='gray'>(color, h, s, v, [a])</span>
+  </h2>
+  <p>Updates a color based on hue, saturation, value and alpha</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>h</strong>
+          :
+          <span class='force-inline'>
+            <p>hue (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>s</strong>
+          :
+          <span class='force-inline'>
+            <p>saturation (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>v</strong>
+          :
+          <span class='force-inline'>
+            <p>value (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='setlab' class='mt0'>
+    setLab<span class='gray'>(color, l, a, b)</span>
+  </h2>
+  <p>Updates a color based on l, a, b, component values</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>l</strong>
+          :
+          <span class='force-inline'>
+            <p>l component (0..100)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>a</strong>
+          :
+          <span class='force-inline'>
+            <p>a component (-128..127)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>b</strong>
+          :
+          <span class='force-inline'>
+            <p>b component (-128..127)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='setrgb' class='mt0'>
+    setRGB<span class='gray'>(color, r, g, b, [a])</span>
+  </h2>
+  <p>Updates a color based on r, g, b, a component values</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>r</strong>
+          :
+          <span class='force-inline'>
+            <p>red component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>g</strong>
+          :
+          <span class='force-inline'>
+            <p>green component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>b</strong>
+          :
+          <span class='force-inline'>
+            <p>blue component (0..1)</p>
+
+          </span>
+        </li>
+        <li><code>[<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>]</code> <strong>a</strong>
+            (default <code>1</code>)
+          :
+          <span class='force-inline'>
+            <p>alpha component (0..1)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='setxyz' class='mt0'>
+    setXYZ<span class='gray'>(color, x, y, z)</span>
+  </h2>
+  <p>Updates a color based on x, y, z component values</p>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code> <strong>color</strong>
+          :
+          <span class='force-inline'>
+            <p>RGBA color array [r,g,b,a] to update</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>x</strong>
+          :
+          <span class='force-inline'>
+            <p>x component (0..95)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>y</strong>
+          :
+          <span class='force-inline'>
+            <p>y component (0..100)</p>
+
+          </span>
+        </li>
+        <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>z</strong>
+          :
+          <span class='force-inline'>
+            <p>z component (0..108)</p>
+
+          </span>
+        </li>
+    </ul>
+      <h4>Returns</h4>
+      <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+      :
+      <span class='force-inline'>
+        <p>updated RGBA color array [r,g,b,a] (0..1)</p>
+
+      </span>
+</section>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
