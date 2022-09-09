@@ -10,12 +10,12 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on LCHuv values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} l
  * @param {number} c
  * @param {number} h
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromLCHuv(color, l, c, h, a) {
   return fromXYZ(color, ...luvToXyz(lchToLuv([l, c, h])), a);
@@ -23,7 +23,7 @@ export function fromLCHuv(color, l, c, h, a) {
 
 /**
  * Returns a LCHuv representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {lchuv}
  */

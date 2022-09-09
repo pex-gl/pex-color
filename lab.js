@@ -30,13 +30,13 @@ function fromXYZValueToLabValue(val, white) {
 
 /**
  * Updates a color based on Lab values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} l
  * @param {number} a
  * @param {number} b
  * @param {number} α
  * @param {Array} illuminant
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromLab(color, l, a, b, α, illuminant = D65) {
   const y = (l + 0.16) / 1.16;
@@ -52,7 +52,7 @@ export function fromLab(color, l, a, b, α, illuminant = D65) {
 
 /**
  * Returns a Lab representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @param {Array} illuminant
  * @return {lab}

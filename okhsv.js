@@ -12,12 +12,12 @@ const S0 = 0.5;
 
 /**
  * Updates a color based on Okhsv values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
  * @param {number} v
  * @param {number} [α]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromOkhsv(color, h, s, v, α) {
   const a_ = Math.cos(2 * Math.PI * h);
@@ -53,7 +53,7 @@ export function fromOkhsv(color, h, s, v, α) {
 
 /**
  * Returns an Okhsv representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {okhsv}
  */

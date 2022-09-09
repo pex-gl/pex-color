@@ -9,12 +9,12 @@ import { setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on HSV values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
  * @param {number} v
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromHSV(color, h, s, v, a) {
   const i = Math.floor(h * 6);
@@ -61,7 +61,7 @@ export function fromHSV(color, h, s, v, a) {
 
 /**
  * Returns a HSV representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {hsv}
  */

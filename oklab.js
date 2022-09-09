@@ -45,12 +45,12 @@ export function linearSrgbToOklab(color, lr, lg, lb) {
 
 /**
  * Updates a color based on Oklab values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} l
  * @param {number} a
  * @param {number} b
  * @param {number} [α]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromOklab(color, L, a, b, α) {
   oklabToLinearSrgb(color, L, a, b);
@@ -63,7 +63,7 @@ export function fromOklab(color, L, a, b, α) {
 
 /**
  * Returns an Oklab representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {oklab}
  */

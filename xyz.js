@@ -9,12 +9,12 @@ import { fromLinear, toLinear, m, minv, setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on XYZ values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} x
  * @param {number} y
  * @param {number} z
  * @param {number} a
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromXYZ(color, x, y, z, a) {
   const r = x * m[0][0] + y * m[0][1] + z * m[0][2];
@@ -30,9 +30,9 @@ export function fromXYZ(color, x, y, z, a) {
 
 /**
  * Returns a XYZ representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {color}
+ * @return {xyz}
  */
 export function toXYZ([r, g, b, a], out = []) {
   const lr = toLinear(r);

@@ -12,7 +12,7 @@ import { fromRGB } from "./rgb.js";
  * @param {number} [g=0]
  * @param {number} [b=0]
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function create(r = 0, g = 0, b = 0, a = 1) {
   return [r, g, b, a];
@@ -20,9 +20,9 @@ export function create(r = 0, g = 0, b = 0, a = 1) {
 
 /**
  * Returns a copy of a color.
- * @param {color} color
- * @param {color} [out] Deprecated: use set(c, d)
- * @return {color}
+ * @param {import("./color.js").color} color
+ * @param {import("./color.js").color} [out] Deprecated: use set(c, d)
+ * @return {import("./color.js").color}
  */
 export function copy(color, out) {
   if (out) set(out, color); // For backward compatibility.
@@ -31,12 +31,12 @@ export function copy(color, out) {
 
 /**
  * Sets a color to another color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {color|number} color2
  * @param {number} [g] // Deprecated: use fromRGB(color, r, g, b, a)
  * @param {number} [b] // Deprecated: use fromRGB(color, r, g, b, a)
  * @param {number} [a] // Deprecated: use fromRGB(color, r, g, b, a)
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function set(color, color2, g) {
   if (g !== undefined) return fromRGB(...arguments); // For backward compatibility.

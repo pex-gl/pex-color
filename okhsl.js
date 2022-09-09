@@ -129,12 +129,12 @@ function getCs(L, a_, b_) {
 
 /**
  * Updates a color based on Okhsl values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
  * @param {number} l
  * @param {number} [α]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromOkhsl(color, h, s, l, α) {
   if (l == 1) {
@@ -171,7 +171,7 @@ export function fromOkhsl(color, h, s, l, α) {
 
 /**
  * Returns an Okhsl representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {okhsl}
  */

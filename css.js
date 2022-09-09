@@ -13,7 +13,7 @@ import { TMP, floorArray } from "./utils.js";
 
 /**
  * Returns a rgb CSS string representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @return {css}
  */
@@ -26,7 +26,7 @@ export function toCSSRGB(color, precision = 5) {
 
 /**
  * Returns a hsl CSS string representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @return {css}
  */
@@ -42,7 +42,7 @@ export function toCSSHSL(color, precision = 5) {
 
 /**
  * Returns a lab CSS string representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @return {css}
  */
@@ -59,7 +59,7 @@ export function toCSSLab(color, precision = 5) {
 
 /**
  * Returns a lch CSS string representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @return {css}
  */
@@ -73,7 +73,7 @@ export function toCSSLCH(color, precision = 5) {
 
 /**
  * Returns a hwb CSS string representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @return {css}
  */

@@ -37,12 +37,12 @@ const lchToHpluv = ([L, C, H]) => {
 
 /**
  * Updates a color based on HPLuv values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
  * @param {number} l
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromHPLuv(color, h, s, l, a) {
   return fromLCHuv(color, ...hpluvToLch([h, s, l]), a);
@@ -50,7 +50,7 @@ export function fromHPLuv(color, h, s, l, a) {
 
 /**
  * Returns a HPLuv representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {hpluv}
  */

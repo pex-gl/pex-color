@@ -9,12 +9,12 @@ import { fromLinear as from, toLinear as to, setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on linear values.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} r
  * @param {number} g
  * @param {number} b
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromLinear(color, r, g, b, a) {
   color[0] = from(r);
@@ -25,7 +25,7 @@ export function fromLinear(color, r, g, b, a) {
 
 /**
  * Returns a linear color representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {linear}
  */

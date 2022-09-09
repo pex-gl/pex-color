@@ -6,9 +6,9 @@
 
 /**
  * Updates a color based on byte values.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {bytes} bytes
- * @returns {color}
+ * @returns {import("./color.js").color}
  */
 export function fromRGBBytes(color, [r, g, b, a]) {
   color[0] = r / 255;
@@ -20,7 +20,7 @@ export function fromRGBBytes(color, [r, g, b, a]) {
 
 /**
  * Get RGB[A] color components as bytes array.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {bytes}
  */

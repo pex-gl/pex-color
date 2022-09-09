@@ -39,12 +39,12 @@ const lchToHsluv = ([L, C, H]) => {
 
 /**
  * Updates a color based on HSLuv values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
  * @param {number} l
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromHSLuv(color, h, s, l, a) {
   return fromLCHuv(color, ...hsluvToLch([h, s, l]), a);
@@ -52,7 +52,7 @@ export function fromHSLuv(color, h, s, l, a) {
 
 /**
  * Returns a HSLuv representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {hsluv}
  */

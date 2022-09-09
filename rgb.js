@@ -2,12 +2,12 @@ import { copy } from "./color.js";
 
 /**
  * Updates a color based on linear r, g, b, a values.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} r
  * @param {number} g
  * @param {number} b
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromRGB(color, r, g, b, a) {
   color[0] = r;

@@ -10,12 +10,12 @@ import { setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on HWB values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} w
  * @param {number} b
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromHWB(color, h, w, b, a) {
   if (w + b >= 1) {
@@ -33,7 +33,7 @@ export function fromHWB(color, h, w, b, a) {
 
 /**
  * Returns a HWB representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {hwb}
  */

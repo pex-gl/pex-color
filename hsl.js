@@ -18,12 +18,12 @@ function hue2rgb(p, q, t) {
 
 /**
  * Updates a color based on HSL values and alpha.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
  * @param {number} l
  * @param {number} [a]
- * @return {color}
+ * @return {import("./color.js").color}
  */
 export function fromHSL(color, h, s, l, a) {
   if (s === 0) {
@@ -41,7 +41,7 @@ export function fromHSL(color, h, s, l, a) {
 
 /**
  * Returns a HSL representation of a given color.
- * @param {color} color
+ * @param {import("./color.js").color} color
  * @param {Array} out
  * @return {hsl}
  */
