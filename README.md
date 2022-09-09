@@ -159,7 +159,7 @@ API naming follows the following rules:
 <dt><a href="#fromXYZ">fromXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on XYZ values and alpha.</p>
 </dd>
-<dt><a href="#toXYZ">toXYZ(color, out)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dt><a href="#toXYZ">toXYZ(color, out)</a> ⇒ <code><a href="#xyz">xyz</a></code></dt>
 <dd><p>Returns a XYZ representation of a given color.</p>
 </dd>
 </dl>
@@ -785,7 +785,7 @@ Updates a color based on XYZ values and alpha.
 
 <a name="toXYZ"></a>
 
-## toXYZ(color, out) ⇒ [<code>color</code>](#color)
+## toXYZ(color, out) ⇒ [<code>xyz</code>](#xyz)
 
 Returns a XYZ representation of a given color.
 

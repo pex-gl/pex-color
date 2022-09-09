@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.0.0-alpha.2](https://github.com/pex-gl/pex-color/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2022-09-09)
+
+
+### Bug Fixes
+
+* import color types ([9c3db86](https://github.com/pex-gl/pex-color/commit/9c3db865b5522d8994cf6894107f19d6cfcac6e1))
+
+
+
 # [2.0.0-alpha.1](https://github.com/pex-gl/pex-color/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2022-07-26)
 
 
