@@ -1,4 +1,5 @@
-import { deepEqual } from "assert";
+import { describe, it } from "node:test";
+import { deepEqual } from "node:assert";
 import * as color from "../index.js";
 
 // TODO: HSV and HSL switch case
