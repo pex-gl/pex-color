@@ -14,7 +14,7 @@ import { linearToSrgb, srgbToLinear, setAlpha } from "./utils.js";
  * @param {number} g
  * @param {number} b
  * @param {number} [a]
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromLinear(color, r, g, b, a) {
   color[0] = linearToSrgb(r);
@@ -27,7 +27,7 @@ export function fromLinear(color, r, g, b, a) {
  * Returns a linear color representation of a given color.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {linear}
+ * @returns {linear}
  */
 export function toLinear([r, g, b, a], out = []) {
   out[0] = srgbToLinear(r);

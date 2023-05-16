@@ -17,7 +17,7 @@ const S0 = 0.5;
  * @param {number} s
  * @param {number} v
  * @param {number} [α]
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromOkhsv(color, h, s, v, α) {
   const a_ = Math.cos(2 * Math.PI * h);
@@ -55,7 +55,7 @@ export function fromOkhsv(color, h, s, v, α) {
  * Returns an Okhsv representation of a given color.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {okhsv}
+ * @returns {okhsv}
  */
 export function toOkhsv([r, g, b, a], out = []) {
   linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));

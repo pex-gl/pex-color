@@ -7,7 +7,7 @@ import { copy } from "./color.js";
  * @param {number} g
  * @param {number} b
  * @param {number} [a]
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromRGB(color, r, g, b, a) {
   color[0] = r;

@@ -15,7 +15,7 @@ import { TMP, floorArray } from "./utils.js";
  * Returns a rgb CSS string representation of a given color.
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
- * @return {css}
+ * @returns {css}
  */
 export function toCSSRGB(color, precision = 5) {
   toRGBBytes(color, TMP);
@@ -28,7 +28,7 @@ export function toCSSRGB(color, precision = 5) {
  * Returns a hsl CSS string representation of a given color.
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
- * @return {css}
+ * @returns {css}
  */
 export function toCSSHSL(color, precision = 5) {
   toHSL(color, TMP);
@@ -44,7 +44,7 @@ export function toCSSHSL(color, precision = 5) {
  * Returns a lab CSS string representation of a given color.
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
- * @return {css}
+ * @returns {css}
  */
 export function toCSSLab(color, precision = 5) {
   toLab(color, TMP, D50);
@@ -61,7 +61,7 @@ export function toCSSLab(color, precision = 5) {
  * Returns a lch CSS string representation of a given color.
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
- * @return {css}
+ * @returns {css}
  */
 export function toCSSLCH(color, precision = 5) {
   toLCHuv(color, TMP);
@@ -75,7 +75,7 @@ export function toCSSLCH(color, precision = 5) {
  * Returns a hwb CSS string representation of a given color.
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
- * @return {css}
+ * @returns {css}
  */
 export function toCSSHWB(color, precision = 5) {
   toHWB(color, TMP);

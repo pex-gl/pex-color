@@ -6,7 +6,7 @@
  * Updates a color based on a hexadecimal string.
  * @param {import("./color.js").color} color
  * @param {hex} hex Leading '#' is optional.
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromHex(color, hex) {
   hex = hex.replace(/^#/, "");
@@ -39,7 +39,7 @@ export function fromHex(color, hex) {
  * Returns a hexadecimal string representation of a given color.
  * @param {import("./color.js").color} color
  * @param {boolean} alpha Handle alpha
- * @return {hex}
+ * @returns {hex}
  */
 export function toHex(color, alpha = true) {
   const c = color.map((val) => Math.round(val * 255));

@@ -22,7 +22,7 @@ export function fromRGBBytes(color, [r, g, b, a]) {
  * Get RGB[A] color components as bytes array.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {bytes}
+ * @returns {bytes}
  */
 export function toRGBBytes(color, out = []) {
   out[0] = Math.round(color[0] * 255);

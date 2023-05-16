@@ -36,7 +36,7 @@ function fromXYZValueToLabValue(val, white) {
  * @param {number} b
  * @param {number} α
  * @param {Array} illuminant
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromLab(color, l, a, b, α, illuminant = D65) {
   const y = (l + 0.16) / 1.16;
@@ -55,7 +55,7 @@ export function fromLab(color, l, a, b, α, illuminant = D65) {
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @param {Array} illuminant
- * @return {lab}
+ * @returns {lab}
  */
 export function toLab(color, out = [], illuminant = D65) {
   const xyz = toXYZ(color);

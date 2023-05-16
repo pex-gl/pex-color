@@ -14,7 +14,7 @@ import { linearToSrgb, srgbToLinear, m, minv, setAlpha } from "./utils.js";
  * @param {number} y
  * @param {number} z
  * @param {number} a
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromXYZ(color, x, y, z, a) {
   const r = x * m[0][0] + y * m[0][1] + z * m[0][2];
@@ -32,7 +32,7 @@ export function fromXYZ(color, x, y, z, a) {
  * Returns a XYZ representation of a given color.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {xyz}
+ * @returns {xyz}
  */
 export function toXYZ([r, g, b, a], out = []) {
   const lr = srgbToLinear(r);

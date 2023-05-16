@@ -23,7 +23,7 @@ function hue2rgb(p, q, t) {
  * @param {number} s
  * @param {number} l
  * @param {number} [a]
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromHSL(color, h, s, l, a) {
   if (s === 0) {
@@ -43,7 +43,7 @@ export function fromHSL(color, h, s, l, a) {
  * Returns a HSL representation of a given color.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {hsl}
+ * @returns {hsl}
  */
 export function toHSL([r, g, b, a], out = []) {
   const max = Math.max(r, g, b);

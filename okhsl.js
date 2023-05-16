@@ -134,7 +134,7 @@ function getCs(L, a_, b_) {
  * @param {number} s
  * @param {number} l
  * @param {number} [α]
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromOkhsl(color, h, s, l, α) {
   if (l == 1) {
@@ -173,7 +173,7 @@ export function fromOkhsl(color, h, s, l, α) {
  * Returns an Okhsl representation of a given color.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {okhsl}
+ * @returns {okhsl}
  */
 export function toOkhsl([r, g, b, a], out = []) {
   linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));

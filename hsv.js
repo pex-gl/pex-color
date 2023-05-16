@@ -14,7 +14,7 @@ import { setAlpha } from "./utils.js";
  * @param {number} s
  * @param {number} v
  * @param {number} [a]
- * @return {import("./color.js").color}
+ * @returns {import("./color.js").color}
  */
 export function fromHSV(color, h, s, v, a) {
   const i = Math.floor(h * 6);
@@ -63,7 +63,7 @@ export function fromHSV(color, h, s, v, a) {
  * Returns a HSV representation of a given color.
  * @param {import("./color.js").color} color
  * @param {Array} out
- * @return {hsv}
+ * @returns {hsv}
  */
 export function toHSV([r, g, b, a], out = []) {
   const max = Math.max(r, g, b);
