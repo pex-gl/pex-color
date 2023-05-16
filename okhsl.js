@@ -2,7 +2,7 @@ import { fromOklab, linearSrgbToOklab } from "./oklab.js";
 import {
   TMP,
   setAlpha,
-  toLinear,
+  srgbToLinear,
   toe,
   toeInv,
   findCusp,
@@ -176,7 +176,7 @@ export function fromOkhsl(color, h, s, l, α) {
  * @return {okhsl}
  */
 export function toOkhsl([r, g, b, a], out = []) {
-  linearSrgbToOklab(TMP, toLinear(r), toLinear(g), toLinear(b));
+  linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
 
   const C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);
   const a_ = TMP[1] / C;

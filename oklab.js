@@ -1,4 +1,4 @@
-import { fromLinear, setAlpha, toLinear } from "./utils.js";
+import { linearToSrgb, srgbToLinear, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} oklab Cartesian form using D65 standard illuminant.
@@ -15,7 +15,7 @@ export function oklabToLinearSrgb(color, L, a, b) {
   const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
   const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
 
-  color[0] = +4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  color[0] = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
   color[1] = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
   color[2] = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
@@ -54,9 +54,9 @@ export function linearSrgbToOklab(color, lr, lg, lb) {
  */
 export function fromOklab(color, L, a, b, α) {
   oklabToLinearSrgb(color, L, a, b);
-  color[0] = fromLinear(color[0]);
-  color[1] = fromLinear(color[1]);
-  color[2] = fromLinear(color[2]);
+  color[0] = linearToSrgb(color[0]);
+  color[1] = linearToSrgb(color[1]);
+  color[2] = linearToSrgb(color[2]);
 
   return setAlpha(color, α);
 }
@@ -68,7 +68,7 @@ export function fromOklab(color, L, a, b, α) {
  * @return {oklab}
  */
 export function toOklab([r, g, b, a], out = []) {
-  linearSrgbToOklab(out, toLinear(r), toLinear(g), toLinear(b));
+  linearSrgbToOklab(out, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
 
   return setAlpha(out, a);
 }

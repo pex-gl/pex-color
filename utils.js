@@ -14,7 +14,7 @@ export const setAlpha = (color, a) => {
  * @param {number} c
  * @returns {number}
  */
-export const fromLinear = (c) =>
+export const linearToSrgb = (c) =>
   c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
 
 /**
@@ -22,7 +22,7 @@ export const fromLinear = (c) =>
  * @param {number} c
  * @returns {number}
  */
-export const toLinear = (c) =>
+export const srgbToLinear = (c) =>
   c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;
 
 export const floorArray = (color, precision = 5) => {

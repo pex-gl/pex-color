@@ -1,5 +1,5 @@
 import { fromOklab, linearSrgbToOklab, oklabToLinearSrgb } from "./oklab.js";
-import { TMP, setAlpha, toLinear, toe, toeInv, getStMax } from "./utils.js";
+import { TMP, setAlpha, srgbToLinear, toe, toeInv, getStMax } from "./utils.js";
 
 /**
  * @typedef {number[]} okhsv
@@ -58,7 +58,7 @@ export function fromOkhsv(color, h, s, v, α) {
  * @return {okhsv}
  */
 export function toOkhsv([r, g, b, a], out = []) {
-  linearSrgbToOklab(TMP, toLinear(r), toLinear(g), toLinear(b));
+  linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
 
   let C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);
   const a_ = TMP[1] / C;

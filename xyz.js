@@ -1,4 +1,4 @@
-import { fromLinear, toLinear, m, minv, setAlpha } from "./utils.js";
+import { linearToSrgb, srgbToLinear, m, minv, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} xyz CIE XYZ using D65 standard illuminant.
@@ -21,9 +21,9 @@ export function fromXYZ(color, x, y, z, a) {
   const g = x * m[1][0] + y * m[1][1] + z * m[1][2];
   const b = x * m[2][0] + y * m[2][1] + z * m[2][2];
 
-  color[0] = fromLinear(r);
-  color[1] = fromLinear(g);
-  color[2] = fromLinear(b);
+  color[0] = linearToSrgb(r);
+  color[1] = linearToSrgb(g);
+  color[2] = linearToSrgb(b);
 
   return setAlpha(color, a);
 }
@@ -35,9 +35,9 @@ export function fromXYZ(color, x, y, z, a) {
  * @return {xyz}
  */
 export function toXYZ([r, g, b, a], out = []) {
-  const lr = toLinear(r);
-  const lg = toLinear(g);
-  const lb = toLinear(b);
+  const lr = srgbToLinear(r);
+  const lg = srgbToLinear(g);
+  const lb = srgbToLinear(b);
 
   out[0] = lr * minv[0][0] + lg * minv[0][1] + lb * minv[0][2];
   out[1] = lr * minv[1][0] + lg * minv[1][1] + lb * minv[1][2];
