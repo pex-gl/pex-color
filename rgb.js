@@ -1,4 +1,5 @@
-import { copy } from "./color.js";
+import { set } from "./color.js";
+import { setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on linear r, g, b, a values.
@@ -13,12 +14,12 @@ export function fromRGB(color, r, g, b, a) {
   color[0] = r;
   color[1] = g;
   color[2] = b;
-  if (a !== undefined) color[3] = a;
+  setAlpha(color, a);
   return color;
 }
 
 /**
- * Alias for {@link copy}
+ * Alias for {@link set}
  * @function
  */
-export const toRGB = copy;
+export const toRGB = set;

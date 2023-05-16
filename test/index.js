@@ -281,7 +281,6 @@ const BLACK = {
   rgbaDefaultAlpha: [0, 0, 0, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [0, 0, 0],
-    RGB: [0, 0, 0],
     Linear: [0, 0, 0],
     HSL: normalize([0, 0, 0], "hueOnly"),
     HWB: normalize([0, 0, 1], "hueOnly"),
@@ -303,7 +302,6 @@ const WHITE = {
   rgbaDefaultAlpha: [1, 1, 1, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [255, 255, 255],
-    RGB: [1, 1, 1],
     Linear: [1, 1, 1],
     HSL: normalize([0, 0, 1], "hueOnly"),
     HWB: normalize([0, 1, 0], "hueOnly"),
@@ -325,7 +323,6 @@ const RED = {
   rgbaDefaultAlpha: [1, 0, 0, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [255, 0, 0],
-    RGB: [1, 0, 0],
     Linear: [1, 0, 0],
     HSL: normalize([0, 1, 0.5], "hueOnly"),
     HWB: normalize([0, 0, 0], "hueOnly"),
@@ -353,7 +350,6 @@ const GREEN = {
   rgbaDefaultAlpha: [0, 1, 0, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [0, 255, 0],
-    RGB: [0, 1, 0],
     Linear: [0, 1, 0],
     HSL: normalize([120, 1, 0.5], "hueOnly"),
     HWB: normalize([120, 0, 0], "hueOnly"),
@@ -381,7 +377,6 @@ const BLUE = {
   rgbaDefaultAlpha: [0, 0, 1, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [0, 0, 255],
-    RGB: [0, 0, 1],
     Linear: [0, 0, 1],
     HSL: normalize([240, 1, 0.5], "hueOnly"),
     HWB: normalize([240, 0, 0], "hueOnly"),
@@ -409,7 +404,6 @@ const REDISH = {
   rgbaDefaultAlpha: [0.6, 0.4, 0, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [153, 102, 0],
-    RGB: [0.6, 0.4, 0],
     Linear: [0.31855, 0.13287, 0],
     HSL: normalize([40, 1, 0.3], "hueOnly"),
     HWB: normalize([40, 0, 0.4], "hueOnly"),
@@ -437,7 +431,6 @@ const GREENISH = {
   rgbaDefaultAlpha: [0.4, 0.6, 0, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [102, 153, 0],
-    RGB: [0.4, 0.6, 0],
     Linear: [0.13287, 0.31855, 0],
     HSL: normalize([80, 1, 0.3], "hueOnly"),
     HWB: normalize([80, 0, 0.4], "hueOnly"),
@@ -466,7 +459,6 @@ const BLUEISH = {
   rgbaDefaultAlpha: [0, 0.4, 0.6, DEFAULT_ALPHA],
   reference: {
     // RGBBytes: [0, 102, 153],
-    RGB: [0, 0.4, 0.6],
     Linear: [0, 0.13287, 0.31855],
     HSL: normalize([200, 1, 0.3], "hueOnly"),
     HWB: normalize([200, 0, 0.4], "hueOnly"),
@@ -495,7 +487,6 @@ const PINKISH = {
   reference: {
     // RGBBytes: [255, 0, 102],
     Linear: [1, 0, 0.13287],
-    RGB: [1, 0, 0.4],
     HSL: normalize([336, 1, 0.5], "hueOnly"),
     HWB: normalize([336, 0, 0], "hueOnly"),
     HSV: normalize([336, 1, 1], "hueOnly"),
@@ -634,23 +625,5 @@ describe("CSS", () => {
       color.toCSSHWB([1, 0, 0, 0.5]),
       redCSSHWB.replace(")", " / 0.5)")
     );
-  });
-});
-
-describe("Deprecated APIs", () => {
-  it("copy() should act as set", () => {
-    deepEqual(color.copy([0.1, 0.2, 0.3], [0, 0, 0]), [0.1, 0.2, 0.3]);
-  });
-  it("copy() should act as set with supplied alpha", () => {
-    deepEqual(
-      color.copy([0.1, 0.2, 0.3, 0.4], [0, 0, 0]),
-      [0.1, 0.2, 0.3, 0.4]
-    );
-  });
-  it("set() should act as setRGB", () => {
-    deepEqual(color.set([0, 0, 0], 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
-  });
-  it("set() should act as setRGB with supplied alpha", () => {
-    deepEqual(color.set([0, 0, 0], 0.1, 0.2, 0.3, 0.4), [0.1, 0.2, 0.3, 0.4]);
   });
 });

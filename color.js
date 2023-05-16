@@ -1,5 +1,3 @@
-import { fromRGB } from "./rgb.js";
-
 /**
  * @typedef {number[]} color An array of 3 (RGB) or 4 (A) values.
  *
@@ -21,25 +19,19 @@ export function create(r = 0, g = 0, b = 0, a = 1) {
 /**
  * Returns a copy of a color.
  * @param {import("./color.js").color} color
- * @param {import("./color.js").color} [out] Deprecated: use set(c, d)
  * @returns {import("./color.js").color}
  */
-export function copy(color, out) {
-  if (out) set(out, color); // For backward compatibility.
+export function copy(color) {
   return color.slice();
 }
 
 /**
  * Sets a color to another color.
  * @param {import("./color.js").color} color
- * @param {color|number} color2
- * @param {number} [g] // Deprecated: use fromRGB(color, r, g, b, a)
- * @param {number} [b] // Deprecated: use fromRGB(color, r, g, b, a)
- * @param {number} [a] // Deprecated: use fromRGB(color, r, g, b, a)
+ * @param {import("./color.js").color} color2
  * @returns {import("./color.js").color}
  */
-export function set(color, color2, g) {
-  if (g !== undefined) return fromRGB(...arguments); // For backward compatibility.
+export function set(color, color2) {
   color[0] = color2[0];
   color[1] = color2[1];
   color[2] = color2[2];
