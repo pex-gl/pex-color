@@ -1,8 +1,7 @@
-import { set } from "./color.js";
 import { setAlpha } from "./utils.js";
 
 /**
- * Updates a color based on linear r, g, b, a values.
+ * Updates a color based on r, g, b, a values.
  * @param {import("./color.js").color} color
  * @param {number} r
  * @param {number} g
@@ -19,7 +18,14 @@ export function fromRGB(color, r, g, b, a) {
 }
 
 /**
- * Alias for {@link set}
- * @function
+ * Returns a copy of a RGB color.
+ * @param {import("./color.js").color} color
+ * @param {Array} out
+ * @returns {import("./color.js").color}
  */
-export const toRGB = set;
+export function toRGB([r, g, b, a], out = []) {
+  out[0] = r;
+  out[1] = g;
+  out[2] = b;
+  return setAlpha(out, a);
+}
