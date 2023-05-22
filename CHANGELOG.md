@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.0.0](https://github.com/pex-gl/pex-color/compare/v2.0.0-alpha.2...v2.0.0) (2023-05-22)
+
+
+### Bug Fixes
+
+* allow default out in color.toRGB ([d9d20a1](https://github.com/pex-gl/pex-color/commit/d9d20a10481f98e64de6d6f520d6e5a8c918dd66))
+
+
+
 # [2.0.0-alpha.2](https://github.com/pex-gl/pex-color/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2022-09-09)
 
 
