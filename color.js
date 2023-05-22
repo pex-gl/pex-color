@@ -10,7 +10,7 @@
  * @param {number} [g=0]
  * @param {number} [b=0]
  * @param {number} [a]
- * @returns {import("./color.js").color}
+ * @returns {color}
  */
 export function create(r = 0, g = 0, b = 0, a = 1) {
   return [r, g, b, a];
@@ -18,8 +18,8 @@ export function create(r = 0, g = 0, b = 0, a = 1) {
 
 /**
  * Returns a copy of a color.
- * @param {import("./color.js").color} color
- * @returns {import("./color.js").color}
+ * @param {color} color
+ * @returns {color}
  */
 export function copy(color) {
   return color.slice();
@@ -27,9 +27,9 @@ export function copy(color) {
 
 /**
  * Sets a color to another color.
- * @param {import("./color.js").color} color
- * @param {import("./color.js").color} color2
- * @returns {import("./color.js").color}
+ * @param {color} color
+ * @param {color} color2
+ * @returns {color}
  */
 export function set(color, color2) {
   color[0] = color2[0];

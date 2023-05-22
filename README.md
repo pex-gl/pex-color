@@ -24,7 +24,20 @@ npm install pex-color
 import color from "pex-color";
 
 color.toHex([1, 0, 0]);
-// => #FF0000
+// => "#FF0000"
+
+color.toHex([1, 0, 1, 0.5]);
+// => "#FF00FF80"
+
+color.toCSSRGB([1, 0, 0, 1]);
+// => "rgba(255, 0, 0, 1)"
+
+color.toOklab([1, 0, 0, 1]);
+// => [0.62796, 0.22486, 0.12585]
+
+color.utils.linearToSrgb(0.5);
+// => 0.7353569830524495
+
 ```
 
 ## API
