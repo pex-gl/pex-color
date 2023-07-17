@@ -41,15 +41,12 @@
     "build": "snowdev build",
     "dev": "snowdev dev",
     "release": "snowdev release",
-    "test": "c8 node --test",
+    "test": "node --test --experimental-test-coverage test",
     "test:watch": "node --test --watch test"
   },
-  "devDependencies": {
-    "c8": "^7.13.0"
-  },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.6.0"
   },
   "snowdev": {
     "dependencies": []
