@@ -2,8 +2,6 @@
  * @module utils
  */
 
-import { oklabToLinearSrgb } from "./oklab.js";
-
 export const setAlpha = (color, a) => {
   if (a !== undefined) color[3] = a;
   return color;
@@ -130,6 +128,18 @@ export const getBounds = (L) => {
 
 // Okhsl/Okhsv
 // https://github.com/bottosson/bottosson.github.io/blob/master/misc/colorpicker/colorconversion.js
+export function oklabToLinearSrgb(color, L, a, b) {
+  const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+  const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+  const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
+
+  color[0] = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  color[1] = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  color[2] = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
+
+  return color;
+}
+
 const k1 = 0.206;
 const k2 = 0.03;
 const k3 = (1 + k1) / (1 + k2);

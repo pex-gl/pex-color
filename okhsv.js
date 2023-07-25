@@ -1,5 +1,13 @@
-import { fromOklab, linearSrgbToOklab, oklabToLinearSrgb } from "./oklab.js";
-import { TMP, setAlpha, srgbToLinear, toe, toeInv, getStMax } from "./utils.js";
+import { fromOklab, linearSrgbToOklab } from "./oklab.js";
+import {
+  TMP,
+  setAlpha,
+  srgbToLinear,
+  toe,
+  toeInv,
+  getStMax,
+  oklabToLinearSrgb,
+} from "./utils.js";
 
 /**
  * @typedef {number[]} okhsv
