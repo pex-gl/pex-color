@@ -46,7 +46,7 @@ export function fromLab(color, l, a, b, α, illuminant = D65) {
     fromLabValueToXYZValue(a / 5 + y, illuminant[0]),
     fromLabValueToXYZValue(y, illuminant[1]),
     fromLabValueToXYZValue(y - b / 2, illuminant[2]),
-    α
+    α,
   );
 }
 

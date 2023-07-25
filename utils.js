@@ -26,7 +26,7 @@ export const srgbToLinear = (c) =>
 export const floorArray = (color, precision = 5) => {
   const p = 10 ** precision;
   color.forEach(
-    (n, i) => (color[i] = Math.floor((n + Number.EPSILON) * p) / p)
+    (n, i) => (color[i] = Math.floor((n + Number.EPSILON) * p) / p),
   );
   return color;
 };

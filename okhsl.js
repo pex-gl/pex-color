@@ -118,7 +118,7 @@ function getCs(L, a_, b_) {
     0.9 *
     k *
     Math.sqrt(
-      Math.sqrt(1 / (1 / (Ca * Ca * Ca * Ca) + 1 / (Cb * Cb * Cb * Cb)))
+      Math.sqrt(1 / (1 / (Ca * Ca * Ca * Ca) + 1 / (Cb * Cb * Cb * Cb))),
     );
 
   Ca = L * 0.4;
