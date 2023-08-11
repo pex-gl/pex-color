@@ -2,7 +2,7 @@ import { describe, it } from "node:test";
 import { deepEqual } from "node:assert";
 import * as color from "../index.js";
 
-// TODO: HSV and HSL switch case
+// TODO: HSL switch case
 
 const DEFAULT_ALPHA = 1;
 const TEMP_VEC3 = [0, 0, 0];
@@ -58,7 +58,7 @@ describe("set()", () => {
 });
 
 describe("RGB", () => {
-  describe("set", () => {
+  describe("from", () => {
     it("should set a color", () => {
       deepEqual(color.fromRGB(TEMP_VEC3, 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
     });
@@ -77,10 +77,19 @@ describe("RGB", () => {
       ]);
     });
   });
+
+  describe("to", () => {
+    it("should return a color copy with alpha from a color with supplied alpha", () => {
+      deepEqual(color.toRGB([0.1, 0.2, 0.3, 0.4]), [0.1, 0.2, 0.3, 0.4]);
+    });
+    it("should return a color copy from a color", () => {
+      deepEqual(color.toRGB([0.1, 0.2, 0.3]), [0.1, 0.2, 0.3]);
+    });
+  });
 });
 
 describe("RGBBytes", () => {
-  describe("set", () => {
+  describe("from", () => {
     it("should set a color from a RGB Bytes array", () => {
       deepEqual(color.fromRGBBytes(TEMP_VEC3, [222, 100, 125]), [
         222 / 255,
@@ -544,7 +553,7 @@ Object.entries({
         });
       });
 
-      describe(`to`, () => {
+      describe("to", () => {
         it(`should return ${type} values from a color`, () => {
           deepAlmostEqual(
             color[`to${type}`](rgbaDefaultAlpha),
@@ -585,14 +594,8 @@ describe("CSS", () => {
     const redLab50 = [53.23711, 78.27048, 62.14609];
     const redCSSLab = `lab(${redLab50[0]}% ${redLab50[1]} ${redLab50[2]})`;
     deepEqual(color.toCSSLab([1, 0, 0], 5), redCSSLab);
-    deepEqual(
-      color.toCSSLab([1, 0, 0, 0], 5),
-      redCSSLab.replace(")", " / 0)")
-    );
-    deepEqual(
-      color.toCSSLab([1, 0, 0, 1], 5),
-      redCSSLab.replace(")", " / 1)")
-    );
+    deepEqual(color.toCSSLab([1, 0, 0, 0], 5), redCSSLab.replace(")", " / 0)"));
+    deepEqual(color.toCSSLab([1, 0, 0, 1], 5), redCSSLab.replace(")", " / 1)"));
     deepEqual(
       color.toCSSLab([1, 0, 0, 0.5], 5),
       redCSSLab.replace(")", " / 0.5)")
@@ -602,14 +605,8 @@ describe("CSS", () => {
     const c = color.utils.floorArray(RED.reference.LCHuv);
     const redCSSLab = `lch(${c[0]}% ${c[1]} ${c[2]})`;
     deepEqual(color.toCSSLCH([1, 0, 0], 5), redCSSLab);
-    deepEqual(
-      color.toCSSLCH([1, 0, 0, 0], 5),
-      redCSSLab.replace(")", " / 0)")
-    );
-    deepEqual(
-      color.toCSSLCH([1, 0, 0, 1], 5),
-      redCSSLab.replace(")", " / 1)")
-    );
+    deepEqual(color.toCSSLCH([1, 0, 0, 0], 5), redCSSLab.replace(")", " / 0)"));
+    deepEqual(color.toCSSLCH([1, 0, 0, 1], 5), redCSSLab.replace(")", " / 1)"));
     deepEqual(
       color.toCSSLCH([1, 0, 0, 0.5], 5),
       redCSSLab.replace(")", " / 0.5)")
