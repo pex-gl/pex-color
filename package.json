@@ -1,7 +1,7 @@
 {
   "name": "pex-color",
   "version": "2.0.3",
-  "description": "Color utilities for PEX.",
+  "description": "Color utilities (css, hex, hsl, hsv, hwb, lab, xyz, okhsl, okhsv, oklab, hpluv, hsluv, lchuv, bytes) for PEX.",
   "keywords": [
     "pex",
     "color",
@@ -33,6 +33,7 @@
     "Damien Seguin (https://github.com/dmnsgn)",
     "Szymon Kaliski <hi@szymonkaliski.com> (https://szymonkaliski.com)"
   ],
+  "sideEffects": false,
   "type": "module",
   "exports": "./index.js",
   "main": "index.js",
@@ -47,8 +48,5 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.6.0"
-  },
-  "snowdev": {
-    "dependencies": []
   }
 }

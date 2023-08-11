@@ -10,7 +10,7 @@
 [![linted with eslint](https://img.shields.io/badge/linted_with-ES_Lint-4B32C3.svg?logo=eslint)](https://github.com/eslint/eslint)
 [![license](https://img.shields.io/github/license/pex-gl/pex-color)](https://github.com/pex-gl/pex-color/blob/main/LICENSE.md)
 
-Color utilities for [PEX](https://pex.gl).
+Color utilities (css, rgb, hex, hsl, hsv, hwb, lab, xyz, okhsl, okhsv, oklab, hpluv, hsluv, lchuv, bytes) for [PEX](https://pex.gl).
 
 ## Installation
 
