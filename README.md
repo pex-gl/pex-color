@@ -76,6 +76,12 @@ API naming follows the following rules:
 ## Functions
 
 <dl>
+<dt><a href="#fromBytes">fromBytes(color, bytes)</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on byte values.</p>
+</dd>
+<dt><a href="#toBytes">toBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
+<dd><p>Get RGB[A] color components as bytes array.</p>
+</dd>
 <dt><a href="#create">create([r], [g], [b], [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Creates a new color from linear values.</p>
 </dd>
@@ -178,12 +184,6 @@ API naming follows the following rules:
 <dt><a href="#toRGB">toRGB(color, out)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Returns a copy of a RGB color.</p>
 </dd>
-<dt><a href="#fromRGBBytes">fromRGBBytes(color, bytes)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on byte values.</p>
-</dd>
-<dt><a href="#toRGBBytes">toRGBBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
-<dd><p>Get RGB[A] color components as bytes array.</p>
-</dd>
 <dt><a href="#fromXYZ">fromXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on XYZ values and alpha.</p>
 </dd>
@@ -195,6 +195,10 @@ API naming follows the following rules:
 ## Typedefs
 
 <dl>
+<dt><a href="#bytes">bytes</a> : <code>Array.&lt;number&gt;</code></dt>
+<dd><p>An array of 3 (RGB) or 4 (A) values in bytes.</p>
+<p>All components in the range 0 &lt;= x &lt;= 255</p>
+</dd>
 <dt><a href="#color">color</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>An array of 3 (RGB) or 4 (A) values.</p>
 <p>All components in the range 0 &lt;= x &lt;= 1</p>
@@ -248,10 +252,6 @@ API naming follows the following rules:
 <dd><p>Cartesian form using D65 standard illuminant.</p>
 <p>Components range: 0 &lt;= l &lt;= 1; -0.233 &lt;= a &lt;= 0.276; -0.311 &lt;= b &lt;= 0.198;</p>
 </dd>
-<dt><a href="#bytes">bytes</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>An array of 3 (RGB) or 4 (A) values in bytes.</p>
-<p>All components in the range 0 &lt;= x &lt;= 255</p>
-</dd>
 <dt><a href="#xyz">xyz</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>CIE XYZ using D65 standard illuminant.</p>
 <p>Components range: 0 &lt;= x &lt;= 0.95; 0 &lt;= y &lt;= 1; 0 &lt;= z &lt;= 1.08;</p>
@@ -289,6 +289,32 @@ Convert component to linear value
 | Param | Type                |
 | ----- | ------------------- |
 | c     | <code>number</code> |
+
+<a name="fromBytes"></a>
+
+## fromBytes(color, bytes) ⇒ [<code>color</code>](#color)
+
+Updates a color based on byte values.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| bytes | [<code>bytes</code>](#bytes) |
+
+<a name="toBytes"></a>
+
+## toBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
+
+Get RGB[A] color components as bytes array.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
 
 <a name="create"></a>
 
@@ -771,32 +797,6 @@ Returns a copy of a RGB color.
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
 
-<a name="fromRGBBytes"></a>
-
-## fromRGBBytes(color, bytes) ⇒ [<code>color</code>](#color)
-
-Updates a color based on byte values.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| bytes | [<code>bytes</code>](#bytes) |
-
-<a name="toRGBBytes"></a>
-
-## toRGBBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
-
-Get RGB[A] color components as bytes array.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
 <a name="fromXYZ"></a>
 
 ## fromXYZ(color, x, y, z, a) ⇒ [<code>color</code>](#color)
@@ -826,6 +826,15 @@ Returns a XYZ representation of a given color.
 | color | [<code>color</code>](#color) |
 | out   | <code>Array</code>           |
 
+<a name="bytes"></a>
+
+## bytes : <code>Array.&lt;number&gt;</code>
+
+An array of 3 (RGB) or 4 (A) values in bytes.
+
+All components in the range 0 <= x <= 255
+
+**Kind**: global typedef
 <a name="color"></a>
 
 ## color : <code>Array.&lt;number&gt;</code>
@@ -957,15 +966,6 @@ Components range: 0 <= l <= 1; -0.233 <= a <= 0.276; -0.311 <= b <= 0.198;
 
 **Kind**: global typedef
 **See**: [https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab](https://bottosson.github.io/posts/oklab/#converting-from-linear-srgb-to-oklab)
-<a name="bytes"></a>
-
-## bytes : <code>Array.&lt;number&gt;</code>
-
-An array of 3 (RGB) or 4 (A) values in bytes.
-
-All components in the range 0 <= x <= 255
-
-**Kind**: global typedef
 <a name="xyz"></a>
 
 ## xyz : <code>Array.&lt;number&gt;</code>

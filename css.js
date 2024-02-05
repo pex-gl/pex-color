@@ -8,7 +8,7 @@ import { toHSL } from "./hsl.js";
 import { toHWB } from "./hwb.js";
 import { toLab, D50 } from "./lab.js";
 import { toLCHuv } from "./lchuv.js";
-import { toRGBBytes } from "./rgbbytes.js";
+import { toBytes } from "./bytes.js";
 import { TMP, floorArray } from "./utils.js";
 
 /**
@@ -18,7 +18,7 @@ import { TMP, floorArray } from "./utils.js";
  * @returns {css}
  */
 export function toCSSRGB(color, precision = 5) {
-  toRGBBytes(color, TMP);
+  toBytes(color, TMP);
   if (precision !== undefined) floorArray(TMP, precision);
   const a = color[3] !== undefined ? `, ${color[3]}` : "";
   return `rgb${a ? "a" : ""}(${TMP.slice(0, 3).join(", ")}${a})`;

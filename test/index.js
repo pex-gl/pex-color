@@ -15,7 +15,7 @@ function deepAlmostEqual(a, b, epsilon = 0.001) {
     }
     if (Math.abs(a[i] - b[i]) > epsilon) {
       throw new Error(
-        `deepAlmostEqual (at "${i}" diff=${Math.abs(a[i] - b[i])}):\n${a}\n${b}`
+        `deepAlmostEqual (at "${i}" diff=${Math.abs(a[i] - b[i])}):\n${a}\n${b}`,
       );
     }
   }
@@ -44,7 +44,7 @@ describe("set()", () => {
   it("should set a color with supplied alpha", () => {
     deepEqual(
       color.set(color.create(), [0.1, 0.2, 0.3, 0.4]),
-      [0.1, 0.2, 0.3, 0.4]
+      [0.1, 0.2, 0.3, 0.4],
     );
   });
   it("should set a color and keep the color alpha", () => {
@@ -65,7 +65,7 @@ describe("RGB", () => {
     it("should set a color with supplied alpha", () => {
       deepEqual(
         color.fromRGB(color.create(), 0.1, 0.2, 0.3, 0.4),
-        [0.1, 0.2, 0.3, 0.4]
+        [0.1, 0.2, 0.3, 0.4],
       );
     });
     it("should set a color and keep the color alpha", () => {
@@ -88,25 +88,25 @@ describe("RGB", () => {
   });
 });
 
-describe("RGBBytes", () => {
+describe("Bytes", () => {
   describe("from", () => {
-    it("should set a color from a RGB Bytes array", () => {
-      deepEqual(color.fromRGBBytes(TEMP_VEC3, [222, 100, 125]), [
+    it("should set a color from a Bytes array", () => {
+      deepEqual(color.fromBytes(TEMP_VEC3, [222, 100, 125]), [
         222 / 255,
         100 / 255,
         125 / 255,
       ]);
     });
-    it("should set a color from a RGB Bytes array with supplied alpha", () => {
-      deepEqual(color.fromRGBBytes(color.create(), [222, 100, 125, 23]), [
+    it("should set a color from a Bytes array with supplied alpha", () => {
+      deepEqual(color.fromBytes(color.create(), [222, 100, 125, 23]), [
         222 / 255,
         100 / 255,
         125 / 255,
         23 / 255,
       ]);
     });
-    it("should set a color from a RGB Bytes array and keep the color alpha", () => {
-      deepEqual(color.fromRGBBytes(color.create(), [222, 100, 125]), [
+    it("should set a color from a Bytes array and keep the color alpha", () => {
+      deepEqual(color.fromBytes(color.create(), [222, 100, 125]), [
         222 / 255,
         100 / 255,
         125 / 255,
@@ -116,16 +116,16 @@ describe("RGBBytes", () => {
   });
 
   describe("to", () => {
-    it("should return a RGBA Bytes array from a color with supplied alpha", () => {
+    it("should return a Bytes array from a color with supplied alpha", () => {
       deepEqual(
-        color.toRGBBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
-        [222, 100, 125, 23]
+        color.toBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
+        [222, 100, 125, 23],
       );
     });
     it("should return a RGB Bytes array from a color", () => {
       deepEqual(
-        color.toRGBBytes([222 / 255, 100 / 255, 125 / 255]),
-        [222, 100, 125]
+        color.toBytes([222 / 255, 100 / 255, 125 / 255]),
+        [222, 100, 125],
       );
     });
   });
@@ -159,13 +159,13 @@ describe("HEX", () => {
       deepAlmostEqual(
         color.fromHex(color.create(), "#00000080"),
         [0, 0, 0, 0.5],
-        hexEPSILON
+        hexEPSILON,
       );
       deepEqual(color.fromHex(color.create(), "#FFFFFFFF"), [1, 1, 1, 1]);
       deepAlmostEqual(
         color.fromHex(color.create(), "#FFFFFF80"),
         [1, 1, 1, 0.5],
-        hexEPSILON
+        hexEPSILON,
       );
       deepEqual(color.fromHex(color.create(), "#FF006666"), [1, 0, 0.4, 0.4]);
     });
@@ -341,11 +341,11 @@ const RED = {
     Oklab: [0.62796, 0.22486, 0.12585],
     Okhsv: normalize(
       [29.23388519234263, 0.9995219692256989, 1.0000000001685625],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [29.233885192342633, 1.0000000001433997, 0.5680846525040862],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([53.23711, 179.03809, 12.17705], "hueReversed"),
     HSLuv: normalize([12.17705, 100, 53.23711]),
@@ -368,11 +368,11 @@ const GREEN = {
     Oklab: [0.86644, -0.23389, 0.1795],
     Okhsv: normalize(
       [142.49533888780996, 0.9999997210415695, 0.9999999884428648],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [142.49533888780996, 0.9999999700728788, 0.8445289645307816],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([87.73552, 135.78954, 127.71501], "hueReversed"),
     HSLuv: normalize([127.71501, 100.00002, 87.73552]),
@@ -395,11 +395,11 @@ const BLUE = {
     Oklab: [0.45201, -0.03246, -0.31153],
     Okhsv: normalize(
       [264.052020638055, 0.9999910912349018, 0.9999999646150918],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [264.052020638055, 0.9999999948631134, 0.3665653394260194],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([32.30087, 130.68976, 265.87433], "hueReversed"),
     HSLuv: normalize([265.87433, 100.00001, 32.30087]),
@@ -422,11 +422,11 @@ const REDISH = {
     Oklab: [0.55095, 0.0306, 0.11226],
     Okhsv: normalize(
       [74.75379889044393, 1.0000002972354225, 0.6207721901139777],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [74.75379889044393, 1.0000005311213358, 0.4794536971325027],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([47.33437, 63.42409, 48.32603], "hueReversed"),
     HSLuv: normalize([48.32603, 100, 47.33437]),
@@ -449,11 +449,11 @@ const GREENISH = {
     Oklab: [0.62281, -0.1053, 0.12838],
     Okhsv: normalize(
       [129.35912795086736, 1.000000322921449, 0.627184884769579],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [129.35912795086736, 1.000000200575059, 0.5621438986083056],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([57.6619, 71.91135, 111.0721], "hueReversed"),
     HSLuv: normalize([111.0721, 100, 57.6619]),
@@ -477,11 +477,11 @@ const BLUEISH = {
     Oklab: [0.4874, -0.05526, -0.09869],
     Okhsv: normalize(
       [240.75638349884343, 0.9999999385486986, 0.6137786875652734],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [240.75638349884343, 0.999999838986226, 0.4067767796962403],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([40.89967, 56.07965, 242.02414], "hueReversed"),
     HSLuv: normalize([242.02414, 100.00001, 40.89967]),
@@ -504,11 +504,11 @@ const PINKISH = {
     Oklab: [0.63876, 0.2511, 0.04657],
     Okhsv: normalize(
       [10.507816760951473, 0.9999883307982256, 0.9999999990681387],
-      "hueOnly"
+      "hueOnly",
     ),
     Okhsl: normalize(
       [10.507816760951473, 0.9999999983079972, 0.5805502265380329],
-      "hueOnly"
+      "hueOnly",
     ),
     LCHuv: normalize([54.26293, 153.22729, 1.88082], "hueReversed"),
     HSLuv: normalize([1.88082, 99.99999, 54.26293]),
@@ -534,21 +534,21 @@ Object.entries({
           deepAlmostEqual(
             color[`from${type}`](TEMP_VEC3, ...c),
             rgb,
-            epsilons[type]
+            epsilons[type],
           );
         });
         it(`should set a color from ${type} values with supplied alpha`, () => {
           deepAlmostEqual(
             color[`from${type}`](color.create(), ...c, 0.5),
             rgbaHalfAlpha,
-            epsilons[type]
+            epsilons[type],
           );
         });
         it(`should set a color from ${type} values and keep the color alpha`, () => {
           deepAlmostEqual(
             color[`from${type}`](color.create(), ...c),
             rgbaDefaultAlpha,
-            epsilons[type]
+            epsilons[type],
           );
         });
       });
@@ -558,14 +558,14 @@ Object.entries({
           deepAlmostEqual(
             color[`to${type}`](rgbaDefaultAlpha),
             [...c, DEFAULT_ALPHA],
-            epsilons[type]
+            epsilons[type],
           );
         });
         it(`should return ${type} values from a color with supplied alpha`, () => {
           deepAlmostEqual(
             color[`to${type}`](rgbaHalfAlpha),
             [...c, 0.5],
-            epsilons[type]
+            epsilons[type],
           );
         });
         it(`should assign ${type} values to a provided array without reassigning it`, () => {
@@ -574,7 +574,7 @@ Object.entries({
         });
       });
     });
-  })
+  }),
 );
 
 describe("CSS", () => {
@@ -598,7 +598,7 @@ describe("CSS", () => {
     deepEqual(color.toCSSLab([1, 0, 0, 1], 5), redCSSLab.replace(")", " / 1)"));
     deepEqual(
       color.toCSSLab([1, 0, 0, 0.5], 5),
-      redCSSLab.replace(")", " / 0.5)")
+      redCSSLab.replace(")", " / 0.5)"),
     );
   });
   it("toCSSLCH() should return a lch CSS string representation", () => {
@@ -609,7 +609,7 @@ describe("CSS", () => {
     deepEqual(color.toCSSLCH([1, 0, 0, 1], 5), redCSSLab.replace(")", " / 1)"));
     deepEqual(
       color.toCSSLCH([1, 0, 0, 0.5], 5),
-      redCSSLab.replace(")", " / 0.5)")
+      redCSSLab.replace(")", " / 0.5)"),
     );
   });
   it("toCSSHWB() should return a hwb CSS string representation", () => {
@@ -620,7 +620,7 @@ describe("CSS", () => {
     deepEqual(color.toCSSHWB([1, 0, 0, 1]), redCSSHWB.replace(")", " / 1)"));
     deepEqual(
       color.toCSSHWB([1, 0, 0, 0.5]),
-      redCSSHWB.replace(")", " / 0.5)")
+      redCSSHWB.replace(")", " / 0.5)"),
     );
   });
 });
