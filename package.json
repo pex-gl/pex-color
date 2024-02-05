@@ -46,7 +46,7 @@
     "test:watch": "node --test --watch test"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.6.0"
+    "node": ">=20.0.0",
+    "npm": ">=9.6.4"
   }
 }

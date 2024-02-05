@@ -1,3 +1,4 @@
+import { setAlpha } from "./utils.js";
 /**
  * @typedef {number[]} color An array of 3 (RGB) or 4 (A) values.
  *
@@ -35,6 +36,39 @@ export function set(color, color2) {
   color[0] = color2[0];
   color[1] = color2[1];
   color[2] = color2[2];
-  if (color2[3] !== undefined) color[3] = color2[3];
-  return color;
+  return setAlpha(color, color2[3]);
+}
+
+/**
+ * Updates a color based on r, g, b, [a] values.
+ * @param {import("./color.js").color} color
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @param {number} [a]
+ * @returns {import("./color.js").color}
+ */
+export function fromValues(color, r, g, b, a) {
+  color[0] = r;
+  color[1] = g;
+  color[2] = b;
+  return setAlpha(color, a);
+}
+
+/**
+ * @deprecated Use "fromValues()".
+ * @ignore
+ */
+export function fromRGB(color, r, g, b, a) {
+  console.error(`"fromRGB()" deprecated. Use "fromValues()".`);
+  return fromValues(color, r, g, b, a);
+}
+
+/**
+ * @deprecated Use "set()".
+ * @ignore
+ */
+export function toRGB(color, out = []) {
+  console.error(`"toRGB()" deprecated. Use "set()".`);
+  return set(out, color);
 }

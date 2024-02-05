@@ -91,6 +91,9 @@ API naming follows the following rules:
 <dt><a href="#set">set(color, color2)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Sets a color to another color.</p>
 </dd>
+<dt><a href="#fromValues">fromValues(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
+<dd><p>Updates a color based on r, g, b, [a] values.</p>
+</dd>
 <dt><a href="#toCSSRGB">toCSSRGB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
 <dd><p>Returns a rgb CSS string representation of a given color.</p>
 </dd>
@@ -177,12 +180,6 @@ API naming follows the following rules:
 </dd>
 <dt><a href="#toOklab">toOklab(color, out)</a> ⇒ <code><a href="#oklab">oklab</a></code></dt>
 <dd><p>Returns an Oklab representation of a given color.</p>
-</dd>
-<dt><a href="#fromRGB">fromRGB(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on r, g, b, a values.</p>
-</dd>
-<dt><a href="#toRGB">toRGB(color, out)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Returns a copy of a RGB color.</p>
 </dd>
 <dt><a href="#fromXYZ">fromXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
 <dd><p>Updates a color based on XYZ values and alpha.</p>
@@ -355,6 +352,22 @@ Sets a color to another color.
 | ------ | ---------------------------- |
 | color  | [<code>color</code>](#color) |
 | color2 | [<code>color</code>](#color) |
+
+<a name="fromValues"></a>
+
+## fromValues(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on r, g, b, [a] values.
+
+**Kind**: global function
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| r     | <code>number</code>          |
+| g     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [a]   | <code>number</code>          |
 
 <a name="toCSSRGB"></a>
 
@@ -760,35 +773,6 @@ Updates a color based on Oklab values and alpha.
 ## toOklab(color, out) ⇒ [<code>oklab</code>](#oklab)
 
 Returns an Oklab representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromRGB"></a>
-
-## fromRGB(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on r, g, b, a values.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| r     | <code>number</code>          |
-| g     | <code>number</code>          |
-| b     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toRGB"></a>
-
-## toRGB(color, out) ⇒ [<code>color</code>](#color)
-
-Returns a copy of a RGB color.
 
 **Kind**: global function
 

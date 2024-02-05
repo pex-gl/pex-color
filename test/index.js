@@ -40,12 +40,14 @@ describe("copy()", () => {
 describe("set()", () => {
   it("should set a color", () => {
     deepEqual(color.set(TEMP_VEC3, [0.1, 0.2, 0.3]), [0.1, 0.2, 0.3]);
+    deepEqual(color.toRGB([0.1, 0.2, 0.3]), [0.1, 0.2, 0.3]);
   });
   it("should set a color with supplied alpha", () => {
     deepEqual(
       color.set(color.create(), [0.1, 0.2, 0.3, 0.4]),
       [0.1, 0.2, 0.3, 0.4],
     );
+    deepEqual(color.toRGB([0.1, 0.2, 0.3, 0.4]), [0.1, 0.2, 0.3, 0.4]);
   });
   it("should set a color and keep the color alpha", () => {
     deepEqual(color.set(color.create(), [0.1, 0.2, 0.3]), [
@@ -57,34 +59,34 @@ describe("set()", () => {
   });
 });
 
-describe("RGB", () => {
-  describe("from", () => {
-    it("should set a color", () => {
-      deepEqual(color.fromRGB(TEMP_VEC3, 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
-    });
-    it("should set a color with supplied alpha", () => {
-      deepEqual(
-        color.fromRGB(color.create(), 0.1, 0.2, 0.3, 0.4),
-        [0.1, 0.2, 0.3, 0.4],
-      );
-    });
-    it("should set a color and keep the color alpha", () => {
-      deepEqual(color.fromRGB(color.create(), 0.1, 0.2, 0.3), [
-        0.1,
-        0.2,
-        0.3,
-        DEFAULT_ALPHA,
-      ]);
-    });
+describe("fromValues", () => {
+  it("should set a color", () => {
+    deepEqual(color.fromValues(TEMP_VEC3, 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
+    deepEqual(color.fromRGB(TEMP_VEC3, 0.1, 0.2, 0.3), [0.1, 0.2, 0.3]);
   });
-
-  describe("to", () => {
-    it("should return a color copy with alpha from a color with supplied alpha", () => {
-      deepEqual(color.toRGB([0.1, 0.2, 0.3, 0.4]), [0.1, 0.2, 0.3, 0.4]);
-    });
-    it("should return a color copy from a color", () => {
-      deepEqual(color.toRGB([0.1, 0.2, 0.3]), [0.1, 0.2, 0.3]);
-    });
+  it("should set a color with supplied alpha", () => {
+    deepEqual(
+      color.fromValues(color.create(), 0.1, 0.2, 0.3, 0.4),
+      [0.1, 0.2, 0.3, 0.4],
+    );
+    deepEqual(
+      color.fromRGB(color.create(), 0.1, 0.2, 0.3, 0.4),
+      [0.1, 0.2, 0.3, 0.4],
+    );
+  });
+  it("should set a color and keep the color alpha", () => {
+    deepEqual(color.fromValues(color.create(), 0.1, 0.2, 0.3), [
+      0.1,
+      0.2,
+      0.3,
+      DEFAULT_ALPHA,
+    ]);
+    deepEqual(color.fromRGB(color.create(), 0.1, 0.2, 0.3), [
+      0.1,
+      0.2,
+      0.3,
+      DEFAULT_ALPHA,
+    ]);
   });
 });
 
@@ -92,6 +94,11 @@ describe("Bytes", () => {
   describe("from", () => {
     it("should set a color from a Bytes array", () => {
       deepEqual(color.fromBytes(TEMP_VEC3, [222, 100, 125]), [
+        222 / 255,
+        100 / 255,
+        125 / 255,
+      ]);
+      deepEqual(color.fromRGBBytes(TEMP_VEC3, [222, 100, 125]), [
         222 / 255,
         100 / 255,
         125 / 255,
@@ -104,9 +111,21 @@ describe("Bytes", () => {
         125 / 255,
         23 / 255,
       ]);
+      deepEqual(color.fromRGBBytes(color.create(), [222, 100, 125, 23]), [
+        222 / 255,
+        100 / 255,
+        125 / 255,
+        23 / 255,
+      ]);
     });
     it("should set a color from a Bytes array and keep the color alpha", () => {
       deepEqual(color.fromBytes(color.create(), [222, 100, 125]), [
+        222 / 255,
+        100 / 255,
+        125 / 255,
+        DEFAULT_ALPHA,
+      ]);
+      deepEqual(color.fromRGBBytes(color.create(), [222, 100, 125]), [
         222 / 255,
         100 / 255,
         125 / 255,
@@ -121,10 +140,18 @@ describe("Bytes", () => {
         color.toBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
         [222, 100, 125, 23],
       );
+      deepEqual(
+        color.toRGBBytes([222 / 255, 100 / 255, 125 / 255, 23 / 255]),
+        [222, 100, 125, 23],
+      );
     });
     it("should return a RGB Bytes array from a color", () => {
       deepEqual(
         color.toBytes([222 / 255, 100 / 255, 125 / 255]),
+        [222, 100, 125],
+      );
+      deepEqual(
+        color.toRGBBytes([222 / 255, 100 / 255, 125 / 255]),
         [222, 100, 125],
       );
     });

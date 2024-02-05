@@ -1,6 +1,5 @@
 export * from "./color.js";
 
-export * from "./rgb.js";
 export * from "./bytes.js";
 export * from "./linear.js";
 
