@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [2.1.0](https://github.com/pex-gl/pex-color/compare/v2.0.4...v2.1.0) (2024-02-05)
+
+
+### Features
+
+* deprecate toRGB (for set()) and fromRGB (for fromValues) ([06cc1e2](https://github.com/pex-gl/pex-color/commit/06cc1e200ecd6070d4944afba286aefc9b6092fe)), closes [#21](https://github.com/pex-gl/pex-color/issues/21)
+* rename RGBBytes to Bytes ([b71c0b4](https://github.com/pex-gl/pex-color/commit/b71c0b4af3e0e19168d3bc970400529977dbb342)), closes [#22](https://github.com/pex-gl/pex-color/issues/22)
+
+
+
 ## [2.0.4](https://github.com/pex-gl/pex-color/compare/v2.0.3...v2.0.4) (2023-08-11)
 
 
