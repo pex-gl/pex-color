@@ -69,124 +69,10 @@ API naming follows the following rules:
 ## Modules
 
 <dl>
+<dt><a href="#module_pex-color">pex-color</a></dt>
+<dd></dd>
 <dt><a href="#module_utils">utils</a></dt>
 <dd></dd>
-</dl>
-
-## Functions
-
-<dl>
-<dt><a href="#fromBytes">fromBytes(color, bytes)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on byte values.</p>
-</dd>
-<dt><a href="#toBytes">toBytes(color, out)</a> ⇒ <code><a href="#bytes">bytes</a></code></dt>
-<dd><p>Get RGB[A] color components as bytes array.</p>
-</dd>
-<dt><a href="#create">create([r], [g], [b], [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Creates a new color from linear values.</p>
-</dd>
-<dt><a href="#copy">copy(color)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Returns a copy of a color.</p>
-</dd>
-<dt><a href="#set">set(color, color2)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Sets a color to another color.</p>
-</dd>
-<dt><a href="#fromValues">fromValues(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on r, g, b, [a] values.</p>
-</dd>
-<dt><a href="#toCSSRGB">toCSSRGB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
-<dd><p>Returns a rgb CSS string representation of a given color.</p>
-</dd>
-<dt><a href="#toCSSHSL">toCSSHSL(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
-<dd><p>Returns a hsl CSS string representation of a given color.</p>
-</dd>
-<dt><a href="#toCSSLab">toCSSLab(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
-<dd><p>Returns a lab CSS string representation of a given color.</p>
-</dd>
-<dt><a href="#toCSSLCH">toCSSLCH(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
-<dd><p>Returns a lch CSS string representation of a given color.</p>
-</dd>
-<dt><a href="#toCSSHWB">toCSSHWB(color, [precision])</a> ⇒ <code><a href="#css">css</a></code></dt>
-<dd><p>Returns a hwb CSS string representation of a given color.</p>
-</dd>
-<dt><a href="#fromHex">fromHex(color, hex)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on a hexadecimal string.</p>
-</dd>
-<dt><a href="#toHex">toHex(color, alpha)</a> ⇒ <code><a href="#hex">hex</a></code></dt>
-<dd><p>Returns a hexadecimal string representation of a given color.</p>
-</dd>
-<dt><a href="#fromHPLuv">fromHPLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on HPLuv values and alpha.</p>
-</dd>
-<dt><a href="#toHPLuv">toHPLuv(color, out)</a> ⇒ <code><a href="#hpluv">hpluv</a></code></dt>
-<dd><p>Returns a HPLuv representation of a given color.</p>
-</dd>
-<dt><a href="#fromHSL">fromHSL(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on HSL values and alpha.</p>
-</dd>
-<dt><a href="#toHSL">toHSL(color, out)</a> ⇒ <code><a href="#hsl">hsl</a></code></dt>
-<dd><p>Returns a HSL representation of a given color.</p>
-</dd>
-<dt><a href="#fromHSLuv">fromHSLuv(color, h, s, l, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on HSLuv values and alpha.</p>
-</dd>
-<dt><a href="#toHSLuv">toHSLuv(color, out)</a> ⇒ <code><a href="#hsluv">hsluv</a></code></dt>
-<dd><p>Returns a HSLuv representation of a given color.</p>
-</dd>
-<dt><a href="#fromHSV">fromHSV(color, h, s, v, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on HSV values and alpha.</p>
-</dd>
-<dt><a href="#toHSV">toHSV(color, out)</a> ⇒ <code><a href="#hsv">hsv</a></code></dt>
-<dd><p>Returns a HSV representation of a given color.</p>
-</dd>
-<dt><a href="#fromHWB">fromHWB(color, h, w, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on HWB values and alpha.</p>
-</dd>
-<dt><a href="#toHWB">toHWB(color, out)</a> ⇒ <code><a href="#hwb">hwb</a></code></dt>
-<dd><p>Returns a HWB representation of a given color.</p>
-</dd>
-<dt><a href="#fromLab">fromLab(color, l, a, b, α, illuminant)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on Lab values and alpha.</p>
-</dd>
-<dt><a href="#toLab">toLab(color, out, illuminant)</a> ⇒ <code><a href="#lab">lab</a></code></dt>
-<dd><p>Returns a Lab representation of a given color.</p>
-</dd>
-<dt><a href="#fromLCHuv">fromLCHuv(color, l, c, h, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on LCHuv values and alpha.</p>
-</dd>
-<dt><a href="#toLCHuv">toLCHuv(color, out)</a> ⇒ <code><a href="#lchuv">lchuv</a></code></dt>
-<dd><p>Returns a LCHuv representation of a given color.</p>
-</dd>
-<dt><a href="#fromLinear">fromLinear(color, r, g, b, [a])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on linear values.</p>
-</dd>
-<dt><a href="#toLinear">toLinear(color, out)</a> ⇒ <code><a href="#linear">linear</a></code></dt>
-<dd><p>Returns a linear color representation of a given color.</p>
-</dd>
-<dt><a href="#fromOkhsl">fromOkhsl(color, h, s, l, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on Okhsl values and alpha.</p>
-</dd>
-<dt><a href="#toOkhsl">toOkhsl(color, out)</a> ⇒ <code><a href="#okhsl">okhsl</a></code></dt>
-<dd><p>Returns an Okhsl representation of a given color.</p>
-</dd>
-<dt><a href="#fromOkhsv">fromOkhsv(color, h, s, v, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on Okhsv values and alpha.</p>
-</dd>
-<dt><a href="#toOkhsv">toOkhsv(color, out)</a> ⇒ <code><a href="#okhsv">okhsv</a></code></dt>
-<dd><p>Returns an Okhsv representation of a given color.</p>
-</dd>
-<dt><a href="#fromOklab">fromOklab(color, L, a, b, [α])</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on Oklab values and alpha.</p>
-</dd>
-<dt><a href="#toOklab">toOklab(color, out)</a> ⇒ <code><a href="#oklab">oklab</a></code></dt>
-<dd><p>Returns an Oklab representation of a given color.</p>
-</dd>
-<dt><a href="#fromXYZ">fromXYZ(color, x, y, z, a)</a> ⇒ <code><a href="#color">color</a></code></dt>
-<dd><p>Updates a color based on XYZ values and alpha.</p>
-</dd>
-<dt><a href="#toXYZ">toXYZ(color, out)</a> ⇒ <code><a href="#xyz">xyz</a></code></dt>
-<dd><p>Returns a XYZ representation of a given color.</p>
-</dd>
 </dl>
 
 ## Typedefs
@@ -255,6 +141,572 @@ API naming follows the following rules:
 </dd>
 </dl>
 
+<a name="module_pex-color"></a>
+
+## pex-color
+
+- [pex-color](#module_pex-color)
+  - [.fromBytes(color, bytes)](#module_pex-color.fromBytes) ⇒ [<code>color</code>](#color)
+  - [.toBytes(color, out)](#module_pex-color.toBytes) ⇒ [<code>bytes</code>](#bytes)
+  - [.create([r], [g], [b], [a])](#module_pex-color.create) ⇒ [<code>color</code>](#color)
+  - [.copy(color)](#module_pex-color.copy) ⇒ [<code>color</code>](#color)
+  - [.set(color, color2)](#module_pex-color.set) ⇒ [<code>color</code>](#color)
+  - [.fromValues(color, r, g, b, [a])](#module_pex-color.fromValues) ⇒ [<code>color</code>](#color)
+  - [.toCSSRGB(color, [precision])](#module_pex-color.toCSSRGB) ⇒ [<code>css</code>](#css)
+  - [.toCSSHSL(color, [precision])](#module_pex-color.toCSSHSL) ⇒ [<code>css</code>](#css)
+  - [.toCSSLab(color, [precision])](#module_pex-color.toCSSLab) ⇒ [<code>css</code>](#css)
+  - [.toCSSLCH(color, [precision])](#module_pex-color.toCSSLCH) ⇒ [<code>css</code>](#css)
+  - [.toCSSHWB(color, [precision])](#module_pex-color.toCSSHWB) ⇒ [<code>css</code>](#css)
+  - [.fromHex(color, hex)](#module_pex-color.fromHex) ⇒ [<code>color</code>](#color)
+  - [.toHex(color, alpha)](#module_pex-color.toHex) ⇒ [<code>hex</code>](#hex)
+  - [.fromHPLuv(color, h, s, l, [a])](#module_pex-color.fromHPLuv) ⇒ [<code>color</code>](#color)
+  - [.toHPLuv(color, out)](#module_pex-color.toHPLuv) ⇒ [<code>hpluv</code>](#hpluv)
+  - [.fromHSL(color, h, s, l, [a])](#module_pex-color.fromHSL) ⇒ [<code>color</code>](#color)
+  - [.toHSL(color, out)](#module_pex-color.toHSL) ⇒ [<code>hsl</code>](#hsl)
+  - [.fromHSLuv(color, h, s, l, [a])](#module_pex-color.fromHSLuv) ⇒ [<code>color</code>](#color)
+  - [.toHSLuv(color, out)](#module_pex-color.toHSLuv) ⇒ [<code>hsluv</code>](#hsluv)
+  - [.fromHSV(color, h, s, v, [a])](#module_pex-color.fromHSV) ⇒ [<code>color</code>](#color)
+  - [.toHSV(color, out)](#module_pex-color.toHSV) ⇒ [<code>hsv</code>](#hsv)
+  - [.fromHWB(color, h, w, b, [a])](#module_pex-color.fromHWB) ⇒ [<code>color</code>](#color)
+  - [.toHWB(color, out)](#module_pex-color.toHWB) ⇒ [<code>hwb</code>](#hwb)
+  - [.fromLab(color, l, a, b, α, illuminant)](#module_pex-color.fromLab) ⇒ [<code>color</code>](#color)
+  - [.toLab(color, out, illuminant)](#module_pex-color.toLab) ⇒ [<code>lab</code>](#lab)
+  - [.fromLCHuv(color, l, c, h, [a])](#module_pex-color.fromLCHuv) ⇒ [<code>color</code>](#color)
+  - [.toLCHuv(color, out)](#module_pex-color.toLCHuv) ⇒ [<code>lchuv</code>](#lchuv)
+  - [.fromLinear(color, r, g, b, [a])](#module_pex-color.fromLinear) ⇒ [<code>color</code>](#color)
+  - [.toLinear(color, out)](#module_pex-color.toLinear) ⇒ [<code>linear</code>](#linear)
+  - [.fromOkhsl(color, h, s, l, [α])](#module_pex-color.fromOkhsl) ⇒ [<code>color</code>](#color)
+  - [.toOkhsl(color, out)](#module_pex-color.toOkhsl) ⇒ [<code>okhsl</code>](#okhsl)
+  - [.fromOkhsv(color, h, s, v, [α])](#module_pex-color.fromOkhsv) ⇒ [<code>color</code>](#color)
+  - [.toOkhsv(color, out)](#module_pex-color.toOkhsv) ⇒ [<code>okhsv</code>](#okhsv)
+  - [.fromOklab(color, L, a, b, [α])](#module_pex-color.fromOklab) ⇒ [<code>color</code>](#color)
+  - [.toOklab(color, out)](#module_pex-color.toOklab) ⇒ [<code>oklab</code>](#oklab)
+  - [.fromXYZ(color, x, y, z, a)](#module_pex-color.fromXYZ) ⇒ [<code>color</code>](#color)
+  - [.toXYZ(color, out)](#module_pex-color.toXYZ) ⇒ [<code>xyz</code>](#xyz)
+
+<a name="module_pex-color.fromBytes"></a>
+
+### pex-color.fromBytes(color, bytes) ⇒ [<code>color</code>](#color)
+
+Updates a color based on byte values.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| bytes | [<code>bytes</code>](#bytes) |
+
+<a name="module_pex-color.toBytes"></a>
+
+### pex-color.toBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
+
+Get RGB[A] color components as bytes array.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.create"></a>
+
+### pex-color.create([r], [g], [b], [a]) ⇒ [<code>color</code>](#color)
+
+Creates a new color from linear values.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                | Default        |
+| ----- | ------------------- | -------------- |
+| [r]   | <code>number</code> | <code>0</code> |
+| [g]   | <code>number</code> | <code>0</code> |
+| [b]   | <code>number</code> | <code>0</code> |
+| [a]   | <code>number</code> |                |
+
+<a name="module_pex-color.copy"></a>
+
+### pex-color.copy(color) ⇒ [<code>color</code>](#color)
+
+Returns a copy of a color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+
+<a name="module_pex-color.set"></a>
+
+### pex-color.set(color, color2) ⇒ [<code>color</code>](#color)
+
+Sets a color to another color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param  | Type                         |
+| ------ | ---------------------------- |
+| color  | [<code>color</code>](#color) |
+| color2 | [<code>color</code>](#color) |
+
+<a name="module_pex-color.fromValues"></a>
+
+### pex-color.fromValues(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on r, g, b, [a] values.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| r     | <code>number</code>          |
+| g     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toCSSRGB"></a>
+
+### pex-color.toCSSRGB(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a rgb CSS string representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="module_pex-color.toCSSHSL"></a>
+
+### pex-color.toCSSHSL(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a hsl CSS string representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="module_pex-color.toCSSLab"></a>
+
+### pex-color.toCSSLab(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a lab CSS string representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="module_pex-color.toCSSLCH"></a>
+
+### pex-color.toCSSLCH(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a lch CSS string representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="module_pex-color.toCSSHWB"></a>
+
+### pex-color.toCSSHWB(color, [precision]) ⇒ [<code>css</code>](#css)
+
+Returns a hwb CSS string representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param       | Type                         | Default        |
+| ----------- | ---------------------------- | -------------- |
+| color       | [<code>color</code>](#color) |                |
+| [precision] | <code>number</code>          | <code>5</code> |
+
+<a name="module_pex-color.fromHex"></a>
+
+### pex-color.fromHex(color, hex) ⇒ [<code>color</code>](#color)
+
+Updates a color based on a hexadecimal string.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         | Description              |
+| ----- | ---------------------------- | ------------------------ |
+| color | [<code>color</code>](#color) |                          |
+| hex   | [<code>hex</code>](#hex)     | Leading '#' is optional. |
+
+<a name="module_pex-color.toHex"></a>
+
+### pex-color.toHex(color, alpha) ⇒ [<code>hex</code>](#hex)
+
+Returns a hexadecimal string representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         | Description  |
+| ----- | ---------------------------- | ------------ |
+| color | [<code>color</code>](#color) |              |
+| alpha | <code>boolean</code>         | Handle alpha |
+
+<a name="module_pex-color.fromHPLuv"></a>
+
+### pex-color.fromHPLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on HPLuv values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toHPLuv"></a>
+
+### pex-color.toHPLuv(color, out) ⇒ [<code>hpluv</code>](#hpluv)
+
+Returns a HPLuv representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromHSL"></a>
+
+### pex-color.fromHSL(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on HSL values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toHSL"></a>
+
+### pex-color.toHSL(color, out) ⇒ [<code>hsl</code>](#hsl)
+
+Returns a HSL representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromHSLuv"></a>
+
+### pex-color.fromHSLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on HSLuv values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toHSLuv"></a>
+
+### pex-color.toHSLuv(color, out) ⇒ [<code>hsluv</code>](#hsluv)
+
+Returns a HSLuv representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromHSV"></a>
+
+### pex-color.fromHSV(color, h, s, v, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on HSV values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| v     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toHSV"></a>
+
+### pex-color.toHSV(color, out) ⇒ [<code>hsv</code>](#hsv)
+
+Returns a HSV representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromHWB"></a>
+
+### pex-color.fromHWB(color, h, w, b, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on HWB values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| w     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toHWB"></a>
+
+### pex-color.toHWB(color, out) ⇒ [<code>hwb</code>](#hwb)
+
+Returns a HWB representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromLab"></a>
+
+### pex-color.fromLab(color, l, a, b, α, illuminant) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Lab values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param      | Type                         |
+| ---------- | ---------------------------- |
+| color      | [<code>color</code>](#color) |
+| l          | <code>number</code>          |
+| a          | <code>number</code>          |
+| b          | <code>number</code>          |
+| α          | <code>number</code>          |
+| illuminant | <code>Array</code>           |
+
+<a name="module_pex-color.toLab"></a>
+
+### pex-color.toLab(color, out, illuminant) ⇒ [<code>lab</code>](#lab)
+
+Returns a Lab representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param      | Type                         |
+| ---------- | ---------------------------- |
+| color      | [<code>color</code>](#color) |
+| out        | <code>Array</code>           |
+| illuminant | <code>Array</code>           |
+
+<a name="module_pex-color.fromLCHuv"></a>
+
+### pex-color.fromLCHuv(color, l, c, h, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on LCHuv values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| l     | <code>number</code>          |
+| c     | <code>number</code>          |
+| h     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toLCHuv"></a>
+
+### pex-color.toLCHuv(color, out) ⇒ [<code>lchuv</code>](#lchuv)
+
+Returns a LCHuv representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromLinear"></a>
+
+### pex-color.fromLinear(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on linear values.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| r     | <code>number</code>          |
+| g     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [a]   | <code>number</code>          |
+
+<a name="module_pex-color.toLinear"></a>
+
+### pex-color.toLinear(color, out) ⇒ [<code>linear</code>](#linear)
+
+Returns a linear color representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromOkhsl"></a>
+
+### pex-color.fromOkhsl(color, h, s, l, [α]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Okhsl values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| l     | <code>number</code>          |
+| [α]   | <code>number</code>          |
+
+<a name="module_pex-color.toOkhsl"></a>
+
+### pex-color.toOkhsl(color, out) ⇒ [<code>okhsl</code>](#okhsl)
+
+Returns an Okhsl representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromOkhsv"></a>
+
+### pex-color.fromOkhsv(color, h, s, v, [α]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Okhsv values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| h     | <code>number</code>          |
+| s     | <code>number</code>          |
+| v     | <code>number</code>          |
+| [α]   | <code>number</code>          |
+
+<a name="module_pex-color.toOkhsv"></a>
+
+### pex-color.toOkhsv(color, out) ⇒ [<code>okhsv</code>](#okhsv)
+
+Returns an Okhsv representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromOklab"></a>
+
+### pex-color.fromOklab(color, L, a, b, [α]) ⇒ [<code>color</code>](#color)
+
+Updates a color based on Oklab values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| L     | <code>number</code>          |
+| a     | <code>number</code>          |
+| b     | <code>number</code>          |
+| [α]   | <code>number</code>          |
+
+<a name="module_pex-color.toOklab"></a>
+
+### pex-color.toOklab(color, out) ⇒ [<code>oklab</code>](#oklab)
+
+Returns an Oklab representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
+<a name="module_pex-color.fromXYZ"></a>
+
+### pex-color.fromXYZ(color, x, y, z, a) ⇒ [<code>color</code>](#color)
+
+Updates a color based on XYZ values and alpha.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| x     | <code>number</code>          |
+| y     | <code>number</code>          |
+| z     | <code>number</code>          |
+| a     | <code>number</code>          |
+
+<a name="module_pex-color.toXYZ"></a>
+
+### pex-color.toXYZ(color, out) ⇒ [<code>xyz</code>](#xyz)
+
+Returns a XYZ representation of a given color.
+
+**Kind**: static method of [<code>pex-color</code>](#module_pex-color)
+
+| Param | Type                         |
+| ----- | ---------------------------- |
+| color | [<code>color</code>](#color) |
+| out   | <code>Array</code>           |
+
 <a name="module_utils"></a>
 
 ## utils
@@ -286,529 +738,6 @@ Convert component to linear value
 | Param | Type                |
 | ----- | ------------------- |
 | c     | <code>number</code> |
-
-<a name="fromBytes"></a>
-
-## fromBytes(color, bytes) ⇒ [<code>color</code>](#color)
-
-Updates a color based on byte values.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| bytes | [<code>bytes</code>](#bytes) |
-
-<a name="toBytes"></a>
-
-## toBytes(color, out) ⇒ [<code>bytes</code>](#bytes)
-
-Get RGB[A] color components as bytes array.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="create"></a>
-
-## create([r], [g], [b], [a]) ⇒ [<code>color</code>](#color)
-
-Creates a new color from linear values.
-
-**Kind**: global function
-
-| Param | Type                | Default        |
-| ----- | ------------------- | -------------- |
-| [r]   | <code>number</code> | <code>0</code> |
-| [g]   | <code>number</code> | <code>0</code> |
-| [b]   | <code>number</code> | <code>0</code> |
-| [a]   | <code>number</code> |                |
-
-<a name="copy"></a>
-
-## copy(color) ⇒ [<code>color</code>](#color)
-
-Returns a copy of a color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-
-<a name="set"></a>
-
-## set(color, color2) ⇒ [<code>color</code>](#color)
-
-Sets a color to another color.
-
-**Kind**: global function
-
-| Param  | Type                         |
-| ------ | ---------------------------- |
-| color  | [<code>color</code>](#color) |
-| color2 | [<code>color</code>](#color) |
-
-<a name="fromValues"></a>
-
-## fromValues(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on r, g, b, [a] values.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| r     | <code>number</code>          |
-| g     | <code>number</code>          |
-| b     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toCSSRGB"></a>
-
-## toCSSRGB(color, [precision]) ⇒ [<code>css</code>](#css)
-
-Returns a rgb CSS string representation of a given color.
-
-**Kind**: global function
-
-| Param       | Type                         | Default        |
-| ----------- | ---------------------------- | -------------- |
-| color       | [<code>color</code>](#color) |                |
-| [precision] | <code>number</code>          | <code>5</code> |
-
-<a name="toCSSHSL"></a>
-
-## toCSSHSL(color, [precision]) ⇒ [<code>css</code>](#css)
-
-Returns a hsl CSS string representation of a given color.
-
-**Kind**: global function
-
-| Param       | Type                         | Default        |
-| ----------- | ---------------------------- | -------------- |
-| color       | [<code>color</code>](#color) |                |
-| [precision] | <code>number</code>          | <code>5</code> |
-
-<a name="toCSSLab"></a>
-
-## toCSSLab(color, [precision]) ⇒ [<code>css</code>](#css)
-
-Returns a lab CSS string representation of a given color.
-
-**Kind**: global function
-
-| Param       | Type                         | Default        |
-| ----------- | ---------------------------- | -------------- |
-| color       | [<code>color</code>](#color) |                |
-| [precision] | <code>number</code>          | <code>5</code> |
-
-<a name="toCSSLCH"></a>
-
-## toCSSLCH(color, [precision]) ⇒ [<code>css</code>](#css)
-
-Returns a lch CSS string representation of a given color.
-
-**Kind**: global function
-
-| Param       | Type                         | Default        |
-| ----------- | ---------------------------- | -------------- |
-| color       | [<code>color</code>](#color) |                |
-| [precision] | <code>number</code>          | <code>5</code> |
-
-<a name="toCSSHWB"></a>
-
-## toCSSHWB(color, [precision]) ⇒ [<code>css</code>](#css)
-
-Returns a hwb CSS string representation of a given color.
-
-**Kind**: global function
-
-| Param       | Type                         | Default        |
-| ----------- | ---------------------------- | -------------- |
-| color       | [<code>color</code>](#color) |                |
-| [precision] | <code>number</code>          | <code>5</code> |
-
-<a name="fromHex"></a>
-
-## fromHex(color, hex) ⇒ [<code>color</code>](#color)
-
-Updates a color based on a hexadecimal string.
-
-**Kind**: global function
-
-| Param | Type                         | Description              |
-| ----- | ---------------------------- | ------------------------ |
-| color | [<code>color</code>](#color) |                          |
-| hex   | [<code>hex</code>](#hex)     | Leading '#' is optional. |
-
-<a name="toHex"></a>
-
-## toHex(color, alpha) ⇒ [<code>hex</code>](#hex)
-
-Returns a hexadecimal string representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         | Description  |
-| ----- | ---------------------------- | ------------ |
-| color | [<code>color</code>](#color) |              |
-| alpha | <code>boolean</code>         | Handle alpha |
-
-<a name="fromHPLuv"></a>
-
-## fromHPLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on HPLuv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| s     | <code>number</code>          |
-| l     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toHPLuv"></a>
-
-## toHPLuv(color, out) ⇒ [<code>hpluv</code>](#hpluv)
-
-Returns a HPLuv representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromHSL"></a>
-
-## fromHSL(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on HSL values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| s     | <code>number</code>          |
-| l     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toHSL"></a>
-
-## toHSL(color, out) ⇒ [<code>hsl</code>](#hsl)
-
-Returns a HSL representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromHSLuv"></a>
-
-## fromHSLuv(color, h, s, l, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on HSLuv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| s     | <code>number</code>          |
-| l     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toHSLuv"></a>
-
-## toHSLuv(color, out) ⇒ [<code>hsluv</code>](#hsluv)
-
-Returns a HSLuv representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromHSV"></a>
-
-## fromHSV(color, h, s, v, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on HSV values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| s     | <code>number</code>          |
-| v     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toHSV"></a>
-
-## toHSV(color, out) ⇒ [<code>hsv</code>](#hsv)
-
-Returns a HSV representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromHWB"></a>
-
-## fromHWB(color, h, w, b, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on HWB values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| w     | <code>number</code>          |
-| b     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toHWB"></a>
-
-## toHWB(color, out) ⇒ [<code>hwb</code>](#hwb)
-
-Returns a HWB representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromLab"></a>
-
-## fromLab(color, l, a, b, α, illuminant) ⇒ [<code>color</code>](#color)
-
-Updates a color based on Lab values and alpha.
-
-**Kind**: global function
-
-| Param      | Type                         |
-| ---------- | ---------------------------- |
-| color      | [<code>color</code>](#color) |
-| l          | <code>number</code>          |
-| a          | <code>number</code>          |
-| b          | <code>number</code>          |
-| α          | <code>number</code>          |
-| illuminant | <code>Array</code>           |
-
-<a name="toLab"></a>
-
-## toLab(color, out, illuminant) ⇒ [<code>lab</code>](#lab)
-
-Returns a Lab representation of a given color.
-
-**Kind**: global function
-
-| Param      | Type                         |
-| ---------- | ---------------------------- |
-| color      | [<code>color</code>](#color) |
-| out        | <code>Array</code>           |
-| illuminant | <code>Array</code>           |
-
-<a name="fromLCHuv"></a>
-
-## fromLCHuv(color, l, c, h, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on LCHuv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| l     | <code>number</code>          |
-| c     | <code>number</code>          |
-| h     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toLCHuv"></a>
-
-## toLCHuv(color, out) ⇒ [<code>lchuv</code>](#lchuv)
-
-Returns a LCHuv representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromLinear"></a>
-
-## fromLinear(color, r, g, b, [a]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on linear values.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| r     | <code>number</code>          |
-| g     | <code>number</code>          |
-| b     | <code>number</code>          |
-| [a]   | <code>number</code>          |
-
-<a name="toLinear"></a>
-
-## toLinear(color, out) ⇒ [<code>linear</code>](#linear)
-
-Returns a linear color representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromOkhsl"></a>
-
-## fromOkhsl(color, h, s, l, [α]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on Okhsl values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| s     | <code>number</code>          |
-| l     | <code>number</code>          |
-| [α]   | <code>number</code>          |
-
-<a name="toOkhsl"></a>
-
-## toOkhsl(color, out) ⇒ [<code>okhsl</code>](#okhsl)
-
-Returns an Okhsl representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromOkhsv"></a>
-
-## fromOkhsv(color, h, s, v, [α]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on Okhsv values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| h     | <code>number</code>          |
-| s     | <code>number</code>          |
-| v     | <code>number</code>          |
-| [α]   | <code>number</code>          |
-
-<a name="toOkhsv"></a>
-
-## toOkhsv(color, out) ⇒ [<code>okhsv</code>](#okhsv)
-
-Returns an Okhsv representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromOklab"></a>
-
-## fromOklab(color, L, a, b, [α]) ⇒ [<code>color</code>](#color)
-
-Updates a color based on Oklab values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| L     | <code>number</code>          |
-| a     | <code>number</code>          |
-| b     | <code>number</code>          |
-| [α]   | <code>number</code>          |
-
-<a name="toOklab"></a>
-
-## toOklab(color, out) ⇒ [<code>oklab</code>](#oklab)
-
-Returns an Oklab representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
-
-<a name="fromXYZ"></a>
-
-## fromXYZ(color, x, y, z, a) ⇒ [<code>color</code>](#color)
-
-Updates a color based on XYZ values and alpha.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| x     | <code>number</code>          |
-| y     | <code>number</code>          |
-| z     | <code>number</code>          |
-| a     | <code>number</code>          |
-
-<a name="toXYZ"></a>
-
-## toXYZ(color, out) ⇒ [<code>xyz</code>](#xyz)
-
-Returns a XYZ representation of a given color.
-
-**Kind**: global function
-
-| Param | Type                         |
-| ----- | ---------------------------- |
-| color | [<code>color</code>](#color) |
-| out   | <code>Array</code>           |
 
 <a name="bytes"></a>
 

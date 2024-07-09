@@ -1,6 +1,6 @@
 {
   "name": "pex-color",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Color utilities (css, hex, hsl, hsv, hwb, lab, xyz, okhsl, okhsv, oklab, hpluv, hsluv, lchuv, bytes) for PEX.",
   "keywords": [
     "pex",
@@ -26,7 +26,10 @@
   ],
   "homepage": "https://github.com/pex-gl/pex-color",
   "bugs": "https://github.com/pex-gl/pex-color/issues",
-  "repository": "pex-gl/pex-color",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pex-gl/pex-color.git"
+  },
   "license": "MIT",
   "author": "Marcin Ignac <marcin.ignac@gmail.com> (http://marcinignac.com)",
   "contributors": [
