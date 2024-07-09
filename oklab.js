@@ -35,6 +35,7 @@ export function linearSrgbToOklab(color, lr, lg, lb) {
 
 /**
  * Updates a color based on Oklab values and alpha.
+ * @alias module:pex-color.fromOklab
  * @param {import("./color.js").color} color
  * @param {number} L
  * @param {number} a
@@ -53,6 +54,7 @@ export function fromOklab(color, L, a, b, α) {
 
 /**
  * Returns an Oklab representation of a given color.
+ * @alias module:pex-color.toOklab
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {oklab}

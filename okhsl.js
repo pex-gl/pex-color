@@ -129,6 +129,7 @@ function getCs(L, a_, b_) {
 
 /**
  * Updates a color based on Okhsl values and alpha.
+ * @alias module:pex-color.fromOkhsl
  * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
@@ -171,6 +172,7 @@ export function fromOkhsl(color, h, s, l, α) {
 
 /**
  * Returns an Okhsl representation of a given color.
+ * @alias module:pex-color.toOkhsl
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {okhsl}

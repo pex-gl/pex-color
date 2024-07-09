@@ -1,3 +1,5 @@
+/** @module pex-color */
+
 export * from "./color.js";
 
 export * from "./bytes.js";

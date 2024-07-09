@@ -7,6 +7,7 @@ import { setAlpha } from "./utils.js";
 
 /**
  * Creates a new color from linear values.
+ * @alias module:pex-color.create
  * @param {number} [r=0]
  * @param {number} [g=0]
  * @param {number} [b=0]
@@ -19,6 +20,7 @@ export function create(r = 0, g = 0, b = 0, a = 1) {
 
 /**
  * Returns a copy of a color.
+ * @alias module:pex-color.copy
  * @param {color} color
  * @returns {color}
  */
@@ -28,6 +30,7 @@ export function copy(color) {
 
 /**
  * Sets a color to another color.
+ * @alias module:pex-color.set
  * @param {color} color
  * @param {color} color2
  * @returns {color}
@@ -41,6 +44,7 @@ export function set(color, color2) {
 
 /**
  * Updates a color based on r, g, b, [a] values.
+ * @alias module:pex-color.fromValues
  * @param {import("./color.js").color} color
  * @param {number} r
  * @param {number} g

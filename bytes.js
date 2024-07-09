@@ -6,6 +6,7 @@
 
 /**
  * Updates a color based on byte values.
+ * @alias module:pex-color.fromBytes
  * @param {import("./color.js").color} color
  * @param {bytes} bytes
  * @returns {import("./color.js").color}
@@ -20,6 +21,7 @@ export function fromBytes(color, [r, g, b, a]) {
 
 /**
  * Get RGB[A] color components as bytes array.
+ * @alias module:pex-color.toBytes
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {bytes}

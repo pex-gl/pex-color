@@ -21,7 +21,7 @@ npm install pex-color
 ## Usage
 
 ```js
-import color from "pex-color";
+import * as color from "pex-color";
 
 // Hexadecimal
 color.toHex([1, 0, 0]);

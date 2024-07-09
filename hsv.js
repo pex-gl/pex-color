@@ -9,6 +9,7 @@ import { setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on HSV values and alpha.
+ * @alias module:pex-color.fromHSV
  * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
@@ -61,6 +62,7 @@ export function fromHSV(color, h, s, v, a) {
 
 /**
  * Returns a HSV representation of a given color.
+ * @alias module:pex-color.toHSV
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {hsv}

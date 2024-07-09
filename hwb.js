@@ -10,6 +10,7 @@ import { setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on HWB values and alpha.
+ * @alias module:pex-color.fromHWB
  * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} w
@@ -33,6 +34,7 @@ export function fromHWB(color, h, w, b, a) {
 
 /**
  * Returns a HWB representation of a given color.
+ * @alias module:pex-color.toHWB
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {hwb}

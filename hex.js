@@ -4,6 +4,7 @@
 
 /**
  * Updates a color based on a hexadecimal string.
+ * @alias module:pex-color.fromHex
  * @param {import("./color.js").color} color
  * @param {hex} hex Leading '#' is optional.
  * @returns {import("./color.js").color}
@@ -37,6 +38,7 @@ export function fromHex(color, hex) {
 
 /**
  * Returns a hexadecimal string representation of a given color.
+ * @alias module:pex-color.toHex
  * @param {import("./color.js").color} color
  * @param {boolean} alpha Handle alpha
  * @returns {hex}

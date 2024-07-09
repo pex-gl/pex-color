@@ -13,6 +13,7 @@ import { TMP, floorArray } from "./utils.js";
 
 /**
  * Returns a rgb CSS string representation of a given color.
+ * @alias module:pex-color.toCSSRGB
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @returns {css}
@@ -26,6 +27,7 @@ export function toCSSRGB(color, precision = 5) {
 
 /**
  * Returns a hsl CSS string representation of a given color.
+ * @alias module:pex-color.toCSSHSL
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @returns {css}
@@ -42,6 +44,7 @@ export function toCSSHSL(color, precision = 5) {
 
 /**
  * Returns a lab CSS string representation of a given color.
+ * @alias module:pex-color.toCSSLab
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @returns {css}
@@ -59,6 +62,7 @@ export function toCSSLab(color, precision = 5) {
 
 /**
  * Returns a lch CSS string representation of a given color.
+ * @alias module:pex-color.toCSSLCH
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @returns {css}
@@ -73,6 +77,7 @@ export function toCSSLCH(color, precision = 5) {
 
 /**
  * Returns a hwb CSS string representation of a given color.
+ * @alias module:pex-color.toCSSHWB
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @returns {css}

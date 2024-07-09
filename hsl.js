@@ -18,6 +18,7 @@ function hue2rgb(p, q, t) {
 
 /**
  * Updates a color based on HSL values and alpha.
+ * @alias module:pex-color.fromHSL
  * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
@@ -41,6 +42,7 @@ export function fromHSL(color, h, s, l, a) {
 
 /**
  * Returns a HSL representation of a given color.
+ * @alias module:pex-color.toHSL
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {hsl}

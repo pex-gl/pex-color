@@ -10,6 +10,7 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on LCHuv values and alpha.
+ * @alias module:pex-color.fromLCHuv
  * @param {import("./color.js").color} color
  * @param {number} l
  * @param {number} c
@@ -23,6 +24,7 @@ export function fromLCHuv(color, l, c, h, a) {
 
 /**
  * Returns a LCHuv representation of a given color.
+ * @alias module:pex-color.toLCHuv
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {lchuv}

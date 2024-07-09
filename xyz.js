@@ -9,6 +9,7 @@ import { linearToSrgb, srgbToLinear, m, minv, setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on XYZ values and alpha.
+ * @alias module:pex-color.fromXYZ
  * @param {import("./color.js").color} color
  * @param {number} x
  * @param {number} y
@@ -30,6 +31,7 @@ export function fromXYZ(color, x, y, z, a) {
 
 /**
  * Returns a XYZ representation of a given color.
+ * @alias module:pex-color.toXYZ
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {xyz}

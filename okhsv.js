@@ -20,6 +20,7 @@ const S0 = 0.5;
 
 /**
  * Updates a color based on Okhsv values and alpha.
+ * @alias module:pex-color.fromOkhsv
  * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
@@ -61,6 +62,7 @@ export function fromOkhsv(color, h, s, v, α) {
 
 /**
  * Returns an Okhsv representation of a given color.
+ * @alias module:pex-color.toOkhsv
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {okhsv}

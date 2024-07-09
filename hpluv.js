@@ -37,6 +37,7 @@ const lchToHpluv = ([L, C, H]) => {
 
 /**
  * Updates a color based on HPLuv values and alpha.
+ * @alias module:pex-color.fromHPLuv
  * @param {import("./color.js").color} color
  * @param {number} h
  * @param {number} s
@@ -50,6 +51,7 @@ export function fromHPLuv(color, h, s, l, a) {
 
 /**
  * Returns a HPLuv representation of a given color.
+ * @alias module:pex-color.toHPLuv
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {hpluv}

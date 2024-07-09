@@ -30,6 +30,7 @@ function fromXYZValueToLabValue(val, white) {
 
 /**
  * Updates a color based on Lab values and alpha.
+ * @alias module:pex-color.fromLab
  * @param {import("./color.js").color} color
  * @param {number} l
  * @param {number} a
@@ -52,6 +53,7 @@ export function fromLab(color, l, a, b, α, illuminant = D65) {
 
 /**
  * Returns a Lab representation of a given color.
+ * @alias module:pex-color.toLab
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @param {Array} illuminant

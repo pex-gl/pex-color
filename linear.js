@@ -9,6 +9,7 @@ import { linearToSrgb, srgbToLinear, setAlpha } from "./utils.js";
 
 /**
  * Updates a color based on linear values.
+ * @alias module:pex-color.fromLinear
  * @param {import("./color.js").color} color
  * @param {number} r
  * @param {number} g
@@ -25,6 +26,7 @@ export function fromLinear(color, r, g, b, a) {
 
 /**
  * Returns a linear color representation of a given color.
+ * @alias module:pex-color.toLinear
  * @param {import("./color.js").color} color
  * @param {Array} out
  * @returns {linear}

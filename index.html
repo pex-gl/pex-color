@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -86,13 +86,14 @@
       const gettersKeys = Object.keys(color).filter((m) => m.startsWith("to"));
       const getters = gettersKeys.reduce(
         (obj, key) => ({ ...obj, [key]: color[key] }),
-        {}
+        {},
       );
       const types = gettersKeys.map((m) => m.replace("to", ""));
 
       types
         .filter(
-          (type) => !["Hex", "RGBBytes"].includes(type) && !type.includes("CSS")
+          (type) =>
+            !["Hex", "RGBBytes"].includes(type) && !type.includes("CSS"),
         )
         .forEach((type) => {
           const optionElement = document.createElement("option");
@@ -104,7 +105,7 @@
       const getColor = (type) =>
         color[`from${type}`](
           color.create(),
-          ...Array.from(inputElements).map((input) => parseFloat(input.value))
+          ...Array.from(inputElements).map((input) => parseFloat(input.value)),
         );
 
       const update = () => {
@@ -118,7 +119,7 @@
                 Array.isArray(value)
                   ? value.map((v) => +v.toFixed(PRECISION)).join(", ")
                   : value
-              }</code></td></tr>`
+              }</code></td></tr>`,
           )
           .join("");
 
@@ -144,7 +145,7 @@
           .fromHex(color.create(), target.value)
           .map(
             (v, i) =>
-              (Array.from(inputElements)[i].value = +v.toFixed(PRECISION))
+              (Array.from(inputElements)[i].value = +v.toFixed(PRECISION)),
           );
         update();
       });
