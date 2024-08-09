@@ -40,34 +40,77 @@
       input {
         width: 100px;
       }
+
+      .u-flex {
+        display: flex;
+      }
+      .u-flexColumn {
+        flex-direction: column;
+      }
+      .u-gap {
+        gap: 20px;
+      }
     </style>
   </head>
   <body>
     <main>
       <h1>pex-color</h1>
-      <div class="Types">
-        <label>
-          <span>From:</span>
-          <select class="TypesSelect"></select>
-        </label>
+      <div class="Container u-flex u-gap">
+        <section class="Convert u-flex u-flexColumn u-gap">
+          <h2>Convert</h2>
+          <div class="Types">
+            <label>
+              <span>From:</span>
+              <select class="TypesSelect"></select>
+            </label>
+          </div>
+          <div class="Values">
+            <label>
+              <span>Values:</span>
+              <input type="number" placeholder="r" value="0" step="0.001" />
+              <input type="number" placeholder="g" value="0" step="0.001" />
+              <input type="number" placeholder="b" value="1" step="0.001" />
+              <input type="number" placeholder="a" value="1" step="0.001" />
+            </label>
+          </div>
+          <div class="Hex">
+            <label>
+              <span>Picker:</span>
+              <input type="color" value="#0000ff" />
+            </label>
+          </div>
+          <table class="Results"></table>
+          <p>Try it in the console: <code>color.toHex([1, 0, 0, 1])</code></p>
+        </section>
+        <section>
+          <div class="Gradients u-flex u-flexColumn u-gap">
+            <div>
+              <h2>Gradients</h2>
+              <label>
+                <span>Interpolated:</span>
+                <input
+                  class="Gradients-interpolated"
+                  type="color"
+                  value="#ffffff"
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                <span>Quantize:</span>
+                <input
+                  class="Gradients-quantize"
+                  type="range"
+                  min="0"
+                  max="1"
+                  value="0.5"
+                  step="0.01"
+              /></label>
+            </div>
+            <div class="Gradients-canvas u-flex u-flexColumn"></div>
+          </div>
+        </section>
       </div>
-      <div class="Values">
-        <label>
-          <span>Values:</span>
-          <input type="number" placeholder="r" value="1" step="0.001" />
-          <input type="number" placeholder="g" value="1" step="0.001" />
-          <input type="number" placeholder="b" value="1" step="0.001" />
-          <input type="number" placeholder="a" value="1" step="0.001" />
-        </label>
-      </div>
-      <div class="Hex">
-        <label>
-          <span>Picker:</span>
-          <input type="color" value="#ffffff" />
-        </label>
-      </div>
-      <table class="Results"></table>
-      <p>Try it in the console: <code>color.toHex([1, 0, 0, 1])</code></p>
     </main>
     <script type="module">
       import * as color from "./index.js";
@@ -82,6 +125,14 @@
       const inputElements = document.querySelectorAll(".Values input");
       const hexInputElement = document.querySelector(".Hex input");
       const resultsElement = document.querySelector(".Results");
+      const gradientsCanvasElement =
+        document.querySelector(".Gradients-canvas");
+      const gradientsInterpolatedElement = document.querySelector(
+        ".Gradients-interpolated",
+      );
+      const gradientsQuantizeElement = document.querySelector(
+        ".Gradients-quantize",
+      );
 
       const gettersKeys = Object.keys(color).filter((m) => m.startsWith("to"));
       const getters = gettersKeys.reduce(
@@ -90,17 +141,72 @@
       );
       const types = gettersKeys.map((m) => m.replace("to", ""));
 
-      types
-        .filter(
-          (type) =>
-            !["Hex", "RGBBytes"].includes(type) && !type.includes("CSS"),
-        )
-        .forEach((type) => {
-          const optionElement = document.createElement("option");
-          optionElement.innerHTML = optionElement.value = type;
-          typesSelectElement.appendChild(optionElement);
-          typesSelectElement.value = currentType;
-        });
+      // Add elements
+      const filteredTypes = types.filter(
+        (type) =>
+          !["Hex", "RGBBytes", "Lab"].includes(type) && !type.includes("CSS"),
+      );
+      const gradientTypes = [
+        "Linear",
+        "RGB",
+        "LabD50",
+        "LabD65",
+        "Oklab",
+        "XYZD50",
+        "XYZD65",
+      ];
+
+      filteredTypes.forEach((type) => {
+        const optionElement = document.createElement("option");
+        optionElement.innerHTML = optionElement.value = type;
+        typesSelectElement.appendChild(optionElement);
+        typesSelectElement.value = currentType;
+      });
+
+      gradientTypes.forEach((type) => {
+        const canvasElement = document.createElement("canvas");
+        canvasElement.width = 512;
+        canvasElement.height = 32;
+        canvasElement.classList.add(`Gradient-canvas-${type}`);
+        gradientsCanvasElement.appendChild(canvasElement);
+      });
+
+      // Utils
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      const drawGradient = (canvas, type, color1, color2, q) => {
+        const steps = Math.round(2 / (1 - Math.cbrt(q)));
+
+        const c1 = color[`to${type}`](color1);
+        const c2 = color[`to${type}`](color2);
+
+        const w = canvas.width;
+        const h = canvas.height;
+        const ctx = canvas.getContext("2d");
+        const img = ctx.createImageData(w, h);
+        const c = color.create();
+
+        for (let x = 0; x < w; x++) {
+          let t = x / (w - 1);
+          if (q < 1) {
+            t = Math.min(Math.floor(t * (steps + 1)) / steps, 1.0);
+          }
+
+          color[`from${type}`](c, ...c1.map((c, i) => lerp(c, c2[i], t)));
+
+          img.data[x * 4 + 0] = 255 * c[0];
+          img.data[x * 4 + 1] = 255 * c[1];
+          img.data[x * 4 + 2] = 255 * c[2];
+          img.data[x * 4 + 3] = 255;
+        }
+        for (let y = 1; y < h; y++) {
+          img.data.copyWithin(y * w * 4, 0, w * 4);
+        }
+        ctx.putImageData(img, 0, 0);
+        ctx.fillText(type, 2, 20);
+      };
 
       const getColor = (type) =>
         color[`from${type}`](
@@ -124,6 +230,20 @@
           .join("");
 
         hexInputElement.value = color.toHex(rgb);
+
+        const interpolated = color.fromHex(
+          color.create(),
+          gradientsInterpolatedElement.value,
+        );
+        gradientTypes.forEach((type) => {
+          drawGradient(
+            document.querySelector(`.Gradient-canvas-${type}`),
+            type,
+            [...rgb],
+            interpolated,
+            gradientsQuantizeElement.valueAsNumber,
+          );
+        });
       };
 
       inputElements.forEach((input) => {
@@ -149,6 +269,8 @@
           );
         update();
       });
+      gradientsInterpolatedElement.addEventListener("input", update);
+      gradientsQuantizeElement.addEventListener("input", update);
       update();
     </script>
   </body>
