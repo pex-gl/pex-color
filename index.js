@@ -13,10 +13,12 @@ export * from "./hsv.js";
 
 export * from "./xyz.js";
 export * from "./lab.js";
+export * from "./lch.js";
 
 export * from "./oklab.js";
 export * from "./okhsv.js";
 export * from "./okhsl.js";
+export * from "./oklch.js";
 
 export * from "./hsluv.js";
 export * from "./hpluv.js";
