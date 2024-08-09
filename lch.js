@@ -31,14 +31,14 @@ export function LCHToLab(color, l, c, h) {
 export function labToLCH(color, l, a, b) {
   color[0] = l;
 
-  const ε = 250 / 100000 / 100; // Lab is -125, 125. TODO: will be different for Oklab
+  const ε = 250 / 100000 / 100; // Lab is -125, 125. TODO: range is different for Oklab
 
   // If is achromatic
   if (Math.abs(a) < ε && Math.abs(b) < ε) {
     color[1] = color[2] = 0;
   } else {
     const h = Math.atan2(b, a); // [-PI to PI]
-    color[1] = Math.sqrt(a ** 2 + b ** 2); // TODO: c range is [0, 0.37]? How does that work
+    color[1] = Math.sqrt(a ** 2 + b ** 2);
     color[2] = (h >= 0 ? h : h + TAU) / TAU; // [0 to 1)
 
     // Range is [0, 150]
