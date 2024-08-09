@@ -1,6 +1,4 @@
-/**
- * @module utils
- */
+/** @module utils */
 
 export const setAlpha = (color, a) => {
   if (a !== undefined) color[3] = a;
@@ -33,21 +31,36 @@ export const floorArray = (color, precision = 5) => {
 
 export const TMP = [0, 0, 0];
 
-// HSLuv
-// https://github.com/hsluv/hsluv/tree/master/haxe/src/hsluv
-export const L_EPSILON = 1e-10;
-
-export const m = [
+// XYZ
+// https://github.com/hsluv/hsluv-javascript/blob/14b49e6cf9a9137916096b8487a5372626b57ba4/src/hsluv.ts#L8-L16
+export const mXYZToLinearsRGBD65 = [
   [3.240969941904521, -1.537383177570093, -0.498610760293],
   [-0.96924363628087, 1.87596750150772, 0.041555057407175],
   [0.055630079696993, -0.20397695888897, 1.056971514242878],
 ];
 
-export const minv = [
+// https://github.com/hsluv/hsluv-javascript/blob/14b49e6cf9a9137916096b8487a5372626b57ba4/src/hsluv.ts#L152-L154
+export const mLinearsRGBToXYZD65 = [
   [0.41239079926595, 0.35758433938387, 0.18048078840183],
   [0.21263900587151, 0.71516867876775, 0.072192315360733],
   [0.019330818715591, 0.11919477979462, 0.95053215224966],
 ];
+
+// https://github.com/Evercoder/culori/tree/main/src/xyz50
+export const mXYZToLinearsRGBD50 = [
+  [3.1341359569958707, 1.6173863321612538, 0.4906619460083532],
+  [-0.978795502912089, 1.916254567259524, 0.03344273116131949],
+  [0.07195537988411677, 0.2289768264158322, 1.405386058324125],
+];
+export const mLinearsRGBToXYZD50 = [
+  [0.436065742824811, 0.3851514688337912, 0.14307845442264197],
+  [0.22249319175623702, 0.7168870538238823, 0.06061979053616537],
+  [0.013923904500943465, 0.09708128566574634, 0.7140993584005155],
+];
+
+// HSLuv
+// https://github.com/hsluv/hsluv-javascript/blob/main/src/hsluv.ts
+export const L_EPSILON = 1e-10;
 
 const REF_U = 0.19783000664283;
 const REF_V = 0.46831999493879;
@@ -110,9 +123,9 @@ export const getBounds = (L) => {
   let _g = 0;
   while (_g < 3) {
     const c = _g++;
-    const m1 = m[c][0];
-    const m2 = m[c][1];
-    const m3 = m[c][2];
+    const m1 = mXYZToLinearsRGBD65[c][0];
+    const m2 = mXYZToLinearsRGBD65[c][1];
+    const m3 = mXYZToLinearsRGBD65[c][2];
     let _g1 = 0;
     while (_g1 < 2) {
       const t = _g1++;

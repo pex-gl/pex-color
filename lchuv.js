@@ -1,4 +1,4 @@
-import { toXYZ, fromXYZ } from "./xyz.js";
+import { toXYZD65, fromXYZD65 } from "./xyz.js";
 import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
 
 /**
@@ -19,7 +19,7 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
  * @returns {import("./color.js").color}
  */
 export function fromLCHuv(color, l, c, h, a) {
-  return fromXYZ(color, ...luvToXyz(lchToLuv([l, c, h])), a);
+  return fromXYZD65(color, ...luvToXyz(lchToLuv([l, c, h])), a);
 }
 
 /**
@@ -30,6 +30,6 @@ export function fromLCHuv(color, l, c, h, a) {
  * @returns {lchuv}
  */
 export function toLCHuv([r, g, b, a], out = []) {
-  [out[0], out[1], out[2]] = luvToLch(xyzToLuv(toXYZ([r, g, b])));
+  [out[0], out[1], out[2]] = luvToLch(xyzToLuv(toXYZD65([r, g, b])));
   return setAlpha(out, a);
 }

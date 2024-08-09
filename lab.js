@@ -1,8 +1,8 @@
-import { toXYZ, fromXYZ } from "./xyz.js";
+import { toXYZD50, fromXYZD50, fromXYZD65, toXYZD65 } from "./xyz.js";
 import { setAlpha } from "./utils.js";
 
 /**
- * @typedef {number[]} lab CIELAB with D65 standard illuminant as default.
+ * @typedef {number[]} lab CIELAB perceptual Lightness, a* red/green, b* blue/yellow.
  *
  * Components range (D65): 0 <= l <= 1; -0.86183 <= a <= 0.98234; -1.0786 <= b <= 0.94478;
  *
@@ -18,6 +18,9 @@ import { setAlpha } from "./utils.js";
 export const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329];
 export const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
 
+// ε = 6^3 / 29^3 = 0.008856
+// κ = 29^3 / 3^3 = 903.2962963
+// 903.2962963 / 116 = 7.787037
 function fromLabValueToXYZValue(val, white) {
   const pow = val ** 3;
   return (pow > 0.008856 ? pow : (val - 16 / 116) / 7.787037) * white;
@@ -28,18 +31,14 @@ function fromXYZValueToLabValue(val, white) {
   return val > 0.008856 ? Math.cbrt(val) : 7.787037 * val + 16 / 116;
 }
 
-/**
- * Updates a color based on Lab values and alpha.
- * @alias module:pex-color.fromLab
- * @param {import("./color.js").color} color
- * @param {number} l
- * @param {number} a
- * @param {number} b
- * @param {number} α
- * @param {Array} illuminant
- * @returns {import("./color.js").color}
- */
-export function fromLab(color, l, a, b, α, illuminant = D65) {
+export function fromLab(
+  color,
+  l,
+  a,
+  b,
+  α,
+  { illuminant = D50, fromXYZ = fromXYZD50 } = {},
+) {
   const y = (l + 0.16) / 1.16;
 
   return fromXYZ(
@@ -51,15 +50,11 @@ export function fromLab(color, l, a, b, α, illuminant = D65) {
   );
 }
 
-/**
- * Returns a Lab representation of a given color.
- * @alias module:pex-color.toLab
- * @param {import("./color.js").color} color
- * @param {Array} out
- * @param {Array} illuminant
- * @returns {lab}
- */
-export function toLab(color, out = [], illuminant = D65) {
+export function toLab(
+  color,
+  out = [],
+  { illuminant = D50, toXYZ = toXYZD50 } = {},
+) {
   const xyz = toXYZ(color);
 
   const x = fromXYZValueToLabValue(xyz[0], illuminant[0]);
@@ -71,4 +66,52 @@ export function toLab(color, out = [], illuminant = D65) {
   out[2] = 2 * (y - z);
 
   return setAlpha(out, color[3]);
+}
+
+/**
+ * Updates a color based on Lab values and alpha using D50 standard illuminant.
+ * @alias module:pex-color.fromLabD50
+ * @param {import("./color.js").color} color
+ * @param {number} l
+ * @param {number} a
+ * @param {number} b
+ * @param {number} α
+ * @returns {import("./color.js").color}
+ */
+export function fromLabD50(color, l, a, b, α) {
+  return fromLab(color, l, a, b, α, { illuminant: D50, fromXYZ: fromXYZD50 });
+}
+/**
+ * Returns a Lab representation of a given color using D50 standard illuminant.
+ * @alias module:pex-color.toLabD50
+ * @param {import("./color.js").color} color
+ * @param {Array} out
+ * @returns {lab}
+ */
+export function toLabD50(color, out = []) {
+  return toLab(color, out, { illuminant: D50, toXYZ: toXYZD50 });
+}
+
+/**
+ * Updates a color based on Lab values and alpha using D65 standard illuminant.
+ * @alias module:pex-color.fromLabD65
+ * @param {import("./color.js").color} color
+ * @param {number} l
+ * @param {number} a
+ * @param {number} b
+ * @param {number} α
+ * @returns {import("./color.js").color}
+ */
+export function fromLabD65(color, l, a, b, α) {
+  return fromLab(color, l, a, b, α, { illuminant: D65, fromXYZ: fromXYZD65 });
+}
+/**
+ * Returns a Lab representation of a given color using D65 standard illuminant.
+ * @alias module:pex-color.toLabD65
+ * @param {import("./color.js").color} color
+ * @param {Array} out
+ * @returns {lab}
+ */
+export function toLabD65(color, out = []) {
+  return toLab(color, out, { illuminant: D65, toXYZ: toXYZD65 });
 }
