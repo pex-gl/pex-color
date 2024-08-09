@@ -31,6 +31,8 @@ export const floorArray = (color, precision = 5) => {
 
 export const TMP = [0, 0, 0];
 
+export const TAU = 2 * Math.PI;
+
 // XYZ
 // https://github.com/hsluv/hsluv-javascript/blob/14b49e6cf9a9137916096b8487a5372626b57ba4/src/hsluv.ts#L8-L16
 export const mXYZToLinearsRGBD65 = [
@@ -103,14 +105,14 @@ export const luvToLch = ([L, U, V]) => {
   if (C < L_EPSILON) {
     H = 0;
   } else {
-    H = Math.atan2(V, U) / (2 * Math.PI);
+    H = Math.atan2(V, U) / TAU;
     if (H < 0) H = 1 + H;
   }
   return [L, C, H];
 };
 
 export const lchToLuv = ([L, C, H]) => {
-  const Hrad = H * 2 * Math.PI;
+  const Hrad = H * TAU;
   return [L, Math.cos(Hrad) * C, Math.sin(Hrad) * C];
 };
 

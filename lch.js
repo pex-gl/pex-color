@@ -1,5 +1,5 @@
 import { fromLabD50, toLabD50 } from "./lab.js";
-import { TMP } from "./utils.js";
+import { TAU, TMP } from "./utils.js";
 
 /**
  * @typedef {number[]} lch CIELCh Luminance Chroma Hue. Cylindrical form of Lab.
@@ -7,8 +7,6 @@ import { TMP } from "./utils.js";
  * All components in the range 0 <= x <= 1
  * @see {@link https://en.wikipedia.org/wiki/CIELAB_color_space#Cylindrical_model}
  */
-
-const TAU = 2 * Math.PI;
 
 /**
  * @private

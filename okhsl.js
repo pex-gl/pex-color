@@ -7,6 +7,7 @@ import {
   toeInv,
   findCusp,
   getStMax,
+  TAU,
 } from "./utils.js";
 
 /**
@@ -143,8 +144,8 @@ export function fromOkhsl(color, h, s, l, α) {
   } else if (l == 0) {
     color[0] = color[1] = color[2] = 0;
   } else {
-    const a_ = Math.cos(2 * Math.PI * h);
-    const b_ = Math.sin(2 * Math.PI * h);
+    const a_ = Math.cos(TAU * h);
+    const b_ = Math.sin(TAU * h);
     let L = toeInv(l);
 
     const [C0, Cmid, Cmax] = getCs(L, a_, b_);

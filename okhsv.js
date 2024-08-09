@@ -7,6 +7,7 @@ import {
   toeInv,
   getStMax,
   oklabToLinearSrgb,
+  TAU,
 } from "./utils.js";
 
 /**
@@ -29,8 +30,8 @@ const S0 = 0.5;
  * @returns {import("./color.js").color}
  */
 export function fromOkhsv(color, h, s, v, α) {
-  const a_ = Math.cos(2 * Math.PI * h);
-  const b_ = Math.sin(2 * Math.PI * h);
+  const a_ = Math.cos(TAU * h);
+  const b_ = Math.sin(TAU * h);
 
   const [S, T] = getStMax(a_, b_);
   const k = 1 - S0 / S;

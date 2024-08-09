@@ -1,5 +1,5 @@
 import { fromLCHuv, toLCHuv } from "./lchuv.js";
-import { getBounds, setAlpha, L_EPSILON } from "./utils.js";
+import { getBounds, setAlpha, L_EPSILON, TAU } from "./utils.js";
 
 /**
  * @typedef {number[]} hsluv CIELUV hue, saturation, lightness.
@@ -12,7 +12,7 @@ const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
   intercept / (Math.sin(theta) - slope * Math.cos(theta));
 
 const maxChromaForLH = (L, H) => {
-  const hrad = H * Math.PI * 2;
+  const hrad = H * TAU;
   const bounds = getBounds(L * 100);
   let min = Infinity;
   let _g = 0;
