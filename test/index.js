@@ -328,6 +328,7 @@ const getReference = (hex) => {
   // Okhsl: { id: "okhsl", normalize: "hueOnly" }, // TODO: wait for colorjs release
   const spaceMapping = {
     Linear: { id: "srgb-linear" },
+    P3: { id: "p3" },
     HSL: { id: "hsl", normalize: "hue" },
     HWB: { id: "hwb", normalize: "hue" },
     HSV: { id: "hsv", normalize: "hue" },
@@ -498,6 +499,16 @@ describe("CSS", () => {
       deepEqual(
         color.toCSSRGBLinear([1, 0, 0, 0.5]),
         "color(srgb-linear 1 0 0 / 0.5)",
+      );
+    });
+    it("toCSSP3() should return a display-p3 CSS string representation", () => {
+      const REDP3 = `0.91748 0.20028 0.13856`;
+      deepEqual(color.toCSSP3([1, 0, 0]), `color(display-p3 ${REDP3})`);
+      deepEqual(color.toCSSP3([1, 0, 0, 0]), `color(display-p3 ${REDP3} / 0)`);
+      deepEqual(color.toCSSP3([1, 0, 0, 1]), `color(display-p3 ${REDP3})`);
+      deepEqual(
+        color.toCSSP3([1, 0, 0, 0.5]),
+        `color(display-p3 ${REDP3} / 0.5)`,
       );
     });
     it("toCSSXYZD50() should return a xyz-d50 CSS string representation", () => {

@@ -4,16 +4,17 @@
  * @see {@link https://www.w3.org/TR/css-color-4/}
  */
 
+import { set } from "./color.js";
 import { toLinear } from "./linear.js";
+import { toP3 } from "./p3.js";
 import { toHSL } from "./hsl.js";
 import { toHWB } from "./hwb.js";
 import { toLab, toLabD65 } from "./lab.js";
 import { toLCH } from "./lch.js";
-import { TMP, floorArray } from "./utils.js";
-import { toXYZD65, toXYZD50 } from "./xyz.js";
 import { toOklch } from "./oklch.js";
 import { toOklab } from "./oklab.js";
-import { set } from "./color.js";
+import { toXYZD65, toXYZD50 } from "./xyz.js";
+import { TMP, floorArray } from "./utils.js";
 
 // Get the color without alpha
 const getCoords = (color) => color.slice(0, 3);
@@ -26,7 +27,7 @@ const toCSSColorSpace = (colorSpace, color, a) =>
   `color(${colorSpace} ${color.join(" ")}${setCSSAlpha(a)})`;
 
 // sRGB color spaces:
-// TODO: display-p3, a98-rgb, prophoto-rgb, and rec2020
+// TODO: a98-rgb, prophoto-rgb, and rec2020
 /**
  * Returns a rgb CSS string representation of a given color.
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color}
@@ -53,6 +54,20 @@ export function toCSSRGBLinear(color, precision = 5) {
   toLinear(getCoords(color), TMP);
   if (precision !== undefined) floorArray(TMP, precision);
   return toCSSColorSpace("srgb-linear", TMP, color[3]);
+}
+
+/**
+ * Returns a P3 rgb CSS string representation of a given color.
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color}
+ * @alias module:pex-color.toCSSRGBLinear
+ * @param {import("./color.js").color} color
+ * @param {number} [precision=5]
+ * @returns {css}
+ */
+export function toCSSP3(color, precision = 5) {
+  toP3(getCoords(color), TMP);
+  if (precision !== undefined) floorArray(TMP, precision);
+  return toCSSColorSpace("display-p3", TMP, color[3]);
 }
 
 /**

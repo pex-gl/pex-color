@@ -4,6 +4,7 @@ export * from "./color.js";
 
 export * from "./bytes.js";
 export * from "./linear.js";
+export * from "./p3.js";
 
 export * from "./hex.js";
 
