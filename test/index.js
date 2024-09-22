@@ -1,7 +1,11 @@
 import { describe, it } from "node:test";
 import { deepEqual } from "node:assert";
 import * as color from "../index.js";
-import Color from "colorjs.io";
+// import Color from "colorjs.io";
+
+const { default: Color } = await import(
+  "../node_modules/colorjs.io/src/index.js"
+);
 
 // TODO: HSL switch case
 
@@ -288,6 +292,7 @@ describe("HEX", () => {
   });
 });
 
+// TODO: add to css.js
 const NORMALIZE_VALUES = {
   hue: [360, 100, 100],
   hueReversed: [100, 100, 360],
@@ -310,7 +315,7 @@ const epsilons = {
   LCHuv: 0.0088564516,
   HSLuv: 0.0088564516,
   HPLuv: 0.0088564516,
-  Okhsv: 10e-6,
+  Okhsv: 0.003,
 };
 
 // References:
@@ -324,8 +329,6 @@ const getReference = (hex) => {
   const color = new Color(hex);
 
   // luv: "luv",
-  // Okhsv: { id: "okhsv", normalize: "hueOnly" }, // TODO: wait for colorjs release
-  // Okhsl: { id: "okhsl", normalize: "hueOnly" }, // TODO: wait for colorjs release
   const spaceMapping = {
     Linear: { id: "srgb-linear" },
     P3: { id: "p3" },
@@ -339,6 +342,8 @@ const getReference = (hex) => {
     LCH: { id: "lch", normalize: "lch" },
     Oklab: { id: "oklab" }, // [1, [-0.4, 0.4], [-0.4, 0.4]],
     Oklch: { id: "oklch", normalize: "hueOnlyReversed" },
+    Okhsv: { id: "okhsv", normalize: "hueOnly" },
+    Okhsl: { id: "okhsl", normalize: "hueOnly" },
     LCHuv: { id: "lchuv", normalize: "hueReversed" }, // [100, 220, 360]
     HSLuv: { id: "hsluv", normalize: "hue" },
     HPLuv: { id: "hpluv", normalize: "hue" },

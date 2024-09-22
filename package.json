@@ -61,7 +61,7 @@
     "snowdev": ">=2.2.x"
   },
   "devDependencies": {
-    "colorjs.io": "^0.5.2"
+    "colorjs.io": "github:color-js/color.js"
   },
   "snowdev": {
     "dependencies": []

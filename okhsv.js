@@ -30,33 +30,43 @@ const S0 = 0.5;
  * @returns {import("./color.js").color}
  */
 export function fromOkhsv(color, h, s, v, α) {
-  const a_ = Math.cos(TAU * h);
-  const b_ = Math.sin(TAU * h);
+  let L = toeInv(v);
+  let a = 0; // null
+  let b = 0; // null
 
-  const [S, T] = getStMax(a_, b_);
-  const k = 1 - S0 / S;
+  // Avoid processing gray or colors with undefined hues
+  if (L !== 0 && s !== 0) {
+    const a_ = Math.cos(TAU * h);
+    const b_ = Math.sin(TAU * h);
 
-  const Lv = 1 - (s * S0) / (S0 + T - T * k * s);
-  const Cv = (s * T * S0) / (S0 + T - T * k * s);
+    const [S, T] = getStMax(a_, b_);
+    const k = 1 - S0 / S;
 
-  let L = v * Lv;
-  let C = v * Cv;
+    const Lv = 1 - (s * S0) / (S0 + T - T * k * s);
+    const Cv = (s * T * S0) / (S0 + T - T * k * s);
 
-  const Lvt = toeInv(Lv);
-  const Cvt = (Cv * Lvt) / Lv;
+    L = v * Lv;
+    let C = v * Cv;
 
-  const Lnew = toeInv(L);
-  C = (C * Lnew) / L;
-  L = Lnew;
+    const Lvt = toeInv(Lv);
+    const Cvt = (Cv * Lvt) / Lv;
 
-  oklabToLinearSrgb(TMP, Lvt, a_ * Cvt, b_ * Cvt);
+    const Lnew = toeInv(L);
+    C = (C * Lnew) / L;
+    L = Lnew;
 
-  const scaleL = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2], 0));
+    oklabToLinearSrgb(TMP, Lvt, a_ * Cvt, b_ * Cvt);
 
-  L = L * scaleL;
-  C = C * scaleL;
+    const scaleL = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2], 0));
 
-  fromOklab(color, L, C * a_, C * b_);
+    L = L * scaleL;
+    C = C * scaleL;
+
+    a = C * a_;
+    b = C * b_;
+  }
+
+  fromOklab(color, L, a, b);
 
   return setAlpha(color, α);
 }
@@ -72,32 +82,44 @@ export function toOkhsv([r, g, b, a], out = []) {
   linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
 
   let C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);
-  const a_ = TMP[1] / C;
-  const b_ = TMP[2] / C;
 
   let L = TMP[0];
   out[0] = 0.5 + (0.5 * Math.atan2(-TMP[2], -TMP[1])) / Math.PI;
 
-  const [S, T] = getStMax(a_, b_);
+  if (L !== 0 && L !== 1 && C !== 0) {
+    const a_ = TMP[1] / C;
+    const b_ = TMP[2] / C;
+    const [S, T] = getStMax(a_, b_);
 
-  const t = T / (C + L * T);
-  const Lv = t * L;
-  const Cv = t * C;
+    const t = T / (C + L * T);
+    const Lv = t * L;
+    const Cv = t * C;
 
-  const Lvt = toeInv(Lv);
-  const Cvt = (Cv * Lvt) / Lv;
+    const Lvt = toeInv(Lv);
+    const Cvt = (Cv * Lvt) / Lv;
 
-  oklabToLinearSrgb(TMP, Lvt, a_ * Cvt, b_ * Cvt);
+    oklabToLinearSrgb(TMP, Lvt, a_ * Cvt, b_ * Cvt);
 
-  const scaleL = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2], 0));
+    const scaleL = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2], 0));
 
-  L = L / scaleL;
-  C = C / scaleL;
+    L = L / scaleL;
+    C = C / scaleL;
 
-  const toeL = toe(L);
-  C = (C * toeL) / L;
+    const toeL = toe(L);
+    C = (C * toeL) / L;
 
-  out[1] = ((S0 + T) * Cv) / (T * S0 + T * (1 - S0 / S) * Cv);
-  out[2] = toeL / Lv;
+    out[1] = ((S0 + T) * Cv) / (T * S0 + T * (1 - S0 / S) * Cv);
+    out[2] = toeL / Lv;
+  } else {
+    out[1] = 0;
+    out[2] = toe(L);
+  }
+
+  // Epsilon for saturation just needs to be sufficiently close when denoting achromatic
+  let ε = 1e-4;
+  if (Math.abs(out[1]) < ε || out[2] === 0) {
+    out[0] = 0; // null
+  }
+
   return setAlpha(out, a);
 }

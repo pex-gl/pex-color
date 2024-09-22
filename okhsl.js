@@ -190,22 +190,38 @@ export function toOkhsl([r, g, b, a], out = []) {
 
   const [C0, Cmid, Cmax] = getCs(L, a_, b_);
 
-  if (C < Cmid) {
-    const k0 = 0;
-    const k1 = 0.8 * C0;
-    const k2 = 1 - k1 / Cmid;
+  out[2] = toe(L);
 
-    const t = (C - k0) / (k1 + k2 * (C - k0));
-    out[1] = t * 0.8;
+  if (out[2] !== 0 && out[2] !== 1 && C !== 0) {
+    if (C < Cmid) {
+      const k0 = 0;
+      const k1 = 0.8 * C0;
+      const k2 = 1 - k1 / Cmid;
+
+      const t = (C - k0) / (k1 + k2 * (C - k0));
+      out[1] = t * 0.8;
+    } else {
+      const k0 = Cmid;
+      const k1 = (0.2 * Cmid * Cmid * 1.25 * 1.25) / C0;
+      const k2 = 1 - k1 / (Cmax - Cmid);
+
+      const t = (C - k0) / (k1 + k2 * (C - k0));
+      out[1] = 0.8 + 0.2 * t;
+    }
   } else {
-    const k0 = Cmid;
-    const k1 = (0.2 * Cmid * Cmid * 1.25 * 1.25) / C0;
-    const k2 = 1 - k1 / (Cmax - Cmid);
-
-    const t = (C - k0) / (k1 + k2 * (C - k0));
-    out[1] = 0.8 + 0.2 * t;
+    out[1] = 0;
   }
 
-  out[2] = toe(L);
+  // Epsilon for lightness should approach close to 32 bit lightness
+  // Epsilon for saturation just needs to be sufficiently close when denoting achromatic
+  let εL = 1e-7;
+  let εS = 1e-4;
+
+  const achromatic = Math.abs(out[1]) < εS;
+  if (achromatic || Math.abs(1 - out[2]) < εL) {
+    out[0] = 0; // null
+    if (!achromatic) out[1] = 0;
+  }
+
   return setAlpha(out, a);
 }
