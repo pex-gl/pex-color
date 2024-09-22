@@ -1,5 +1,5 @@
 import { fromXYZD65, toXYZD65 } from "./xyz.js";
-import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
+import { luvToXyz, lchToLuv, luvToLch, xyzToLuv } from "./utils.js";
 
 /**
  * @typedef {number[]} lchuv CIELChuv Luminance Chroma Hue.
@@ -19,7 +19,9 @@ import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
  * @returns {import("./color.js").color}
  */
 export function fromLCHuv(color, l, c, h, a) {
-  return fromXYZD65(color, ...luvToXyz(lchToLuv([l, c, h])), a);
+  lchToLuv(l, c, h, color);
+  luvToXyz(color[0], color[1], color[2], color);
+  return fromXYZD65(color, color[0], color[1], color[2], a);
 }
 
 /**
@@ -29,7 +31,8 @@ export function fromLCHuv(color, l, c, h, a) {
  * @param {Array} out
  * @returns {lchuv}
  */
-export function toLCHuv([r, g, b, a], out = []) {
-  [out[0], out[1], out[2]] = luvToLch(xyzToLuv(toXYZD65([r, g, b])));
-  return setAlpha(out, a);
+export function toLCHuv(color, out = []) {
+  toXYZD65(color, out);
+  xyzToLuv(out[0], out[1], out[2], out);
+  return luvToLch(out[0], out[1], out[2], out);
 }

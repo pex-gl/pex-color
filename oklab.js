@@ -1,8 +1,8 @@
 import {
   linearToSrgb,
   srgbToLinear,
-  oklabToLinearSrgb,
-  linearSrgbToOklab,
+  oklabToLinear,
+  linearToOklab,
   setAlpha,
 } from "./utils.js";
 
@@ -24,7 +24,7 @@ import {
  * @returns {import("./color.js").color}
  */
 export function fromOklab(color, L, a, b, α) {
-  oklabToLinearSrgb(color, L, a, b);
+  oklabToLinear(L, a, b, color);
   color[0] = linearToSrgb(color[0]);
   color[1] = linearToSrgb(color[1]);
   color[2] = linearToSrgb(color[2]);
@@ -40,7 +40,7 @@ export function fromOklab(color, L, a, b, α) {
  * @returns {oklab}
  */
 export function toOklab([r, g, b, a], out = []) {
-  linearSrgbToOklab(out, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
+  linearToOklab(srgbToLinear(r), srgbToLinear(g), srgbToLinear(b), out);
 
   return setAlpha(out, a);
 }

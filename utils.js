@@ -103,7 +103,7 @@ const EPSILON = 0.000088564516;
 const yToL = (Y) => (Y <= EPSILON ? Y * KAPPA : 1.16 * Y ** (1 / 3) - 0.16);
 const lToY = (L) => (L <= 0.08 ? L / KAPPA : ((L + 0.16) / 1.16) ** 3);
 
-const xyzToLuv = ([X, Y, Z]) => {
+const xyzToLuv = (X, Y, Z, out) => {
   const divider = X + 15 * Y + 3 * Z;
   let varU = 4 * X;
   let varV = 9 * Y;
@@ -115,21 +115,33 @@ const xyzToLuv = ([X, Y, Z]) => {
     varV = NaN;
   }
   const L = yToL(Y);
-  if (L === 0) return [0, 0, 0];
+  if (L === 0) {
+    out[0] = out[1] = out[2] = 0;
+    return out;
+  }
 
-  return [L, 13 * L * (varU - REF_U), 13 * L * (varV - REF_V)];
+  out[0] = L;
+  out[1] = 13 * L * (varU - REF_U);
+  out[2] = 13 * L * (varV - REF_V);
+  return out;
 };
 
-const luvToXyz = ([L, U, V]) => {
-  if (L === 0) return [0, 0, 0];
+const luvToXyz = (L, U, V, out) => {
+  if (L === 0) {
+    out[0] = out[1] = out[2] = 0;
+    return out;
+  }
   const varU = U / (13 * L) + REF_U;
   const varV = V / (13 * L) + REF_V;
   const Y = lToY(L);
   const X = 0 - (9 * Y * varU) / ((varU - 4) * varV - varU * varV);
-  return [X, Y, (9 * Y - 15 * varV * Y - varV * X) / (3 * varV)];
+  out[0] = X;
+  out[1] = Y;
+  out[2] = (9 * Y - 15 * varV * Y - varV * X) / (3 * varV);
+  return out;
 };
 
-const luvToLch = ([L, U, V]) => {
+const luvToLch = (L, U, V, out) => {
   const C = Math.sqrt(U * U + V * V);
   let H;
   if (C < L_EPSILON) {
@@ -138,12 +150,47 @@ const luvToLch = ([L, U, V]) => {
     H = Math.atan2(V, U) / TAU;
     if (H < 0) H = 1 + H;
   }
-  return [L, C, H];
+  out[0] = L;
+  out[1] = C;
+  out[2] = H;
+  return out;
 };
 
-const lchToLuv = ([L, C, H]) => {
+const lchToLuv = (L, C, H, out) => {
   const Hrad = H * TAU;
-  return [L, Math.cos(Hrad) * C, Math.sin(Hrad) * C];
+  out[0] = L;
+  out[1] = Math.cos(Hrad) * C;
+  out[2] = Math.sin(Hrad) * C;
+  return out;
+};
+
+// HPLuv/HSLuv
+const hpLuvOrHsluvToLch = (H, S, L, getChroma, out) => {
+  if (L > 1 - L_EPSILON) {
+    out[0] = 1;
+    out[1] = 0;
+  } else if (L < L_EPSILON) {
+    out[0] = out[1] = 0;
+  } else {
+    out[0] = L;
+    out[1] = getChroma(L, H) * S;
+  }
+  out[2] = H;
+  return out;
+};
+
+const lchToHpluvOrHsluv = (L, C, H, getChroma, out) => {
+  out[0] = H;
+  if (L > 1 - L_EPSILON) {
+    out[1] = 0;
+    out[2] = 1;
+  } else if (L < L_EPSILON) {
+    out[1] = out[2] = 0;
+  } else {
+    out[1] = C / getChroma(L, H);
+    out[2] = L;
+  }
+  return out;
 };
 
 // TODO: normalize
@@ -171,7 +218,6 @@ const getBounds = (L) => {
   return result;
 };
 
-// HPLuv
 const distanceLineFromOrigin = ({ intercept, slope }) =>
   Math.abs(intercept) / Math.sqrt(slope ** 2 + 1);
 
@@ -188,19 +234,6 @@ const maxSafeChromaForL = (L) => {
   return min / 100;
 };
 
-const hpluvToLch = ([H, S, L]) => {
-  if (L > 1 - L_EPSILON) return [1, 0, H];
-  if (L < L_EPSILON) return [0, 0, H];
-  return [L, maxSafeChromaForL(L) * S, H];
-};
-
-const lchToHpluv = ([L, C, H]) => {
-  if (L > 1 - L_EPSILON) return [H, 0, 1];
-  if (L < L_EPSILON) return [H, 0, 0];
-  return [H, C / maxSafeChromaForL(L), L];
-};
-
-// HSLuv
 const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
   intercept / (Math.sin(theta) - slope * Math.cos(theta));
 
@@ -218,17 +251,17 @@ const maxChromaForLH = (L, H) => {
   return min / 100;
 };
 
-const hsluvToLch = ([H, S, L]) => {
-  if (L > 1 - L_EPSILON) return [1, 0, H];
-  if (L < L_EPSILON) return [0, 0, H];
-  return [L, maxChromaForLH(L, H) * S, H];
-};
+const hpluvToLch = (H, S, L, out) =>
+  hpLuvOrHsluvToLch(H, S, L, maxSafeChromaForL, out);
 
-const lchToHsluv = ([L, C, H]) => {
-  if (L > 1 - L_EPSILON) return [H, 0, 1];
-  if (L < L_EPSILON) return [H, 0, 0];
-  return [H, C / maxChromaForLH(L, H), L];
-};
+const lchToHpluv = (L, C, H, out) =>
+  lchToHpluvOrHsluv(L, C, H, maxSafeChromaForL, out);
+
+const hsluvToLch = (H, S, L, out) =>
+  hpLuvOrHsluvToLch(H, S, L, maxChromaForLH, out);
+
+const lchToHsluv = (L, C, H, out) =>
+  lchToHpluvOrHsluv(L, C, H, maxChromaForLH, out);
 
 // Lab/Lch
 
@@ -236,40 +269,40 @@ const lchToHsluv = ([L, C, H]) => {
  * @private
  * @see {@link https://drafts.csswg.org/css-color/#lch-to-lab}
  */
-function LCHToLab(color, l, c, h) {
-  color[0] = l;
-  color[1] = c * Math.cos(h * TAU);
-  color[2] = c * Math.sin(h * TAU);
+const LCHToLab = (l, c, h, out) => {
+  out[0] = l;
+  out[1] = c * Math.cos(h * TAU);
+  out[2] = c * Math.sin(h * TAU);
 
   // Range is [0, 150]
-  color[1] *= 1.5;
-  color[2] *= 1.5;
+  out[1] *= 1.5;
+  out[2] *= 1.5;
 
-  return color;
-}
+  return out;
+};
 
 /**
  * @private
  * @see {@link https://drafts.csswg.org/css-color/#lab-to-lch}
  */
-function labToLCH(color, l, a, b) {
-  color[0] = l;
+const labToLCH = (l, a, b, out) => {
+  out[0] = l;
 
   const ε = 250 / 100000 / 100; // Lab is -125, 125. TODO: range is different for Oklab
 
   // If is achromatic
   if (Math.abs(a) < ε && Math.abs(b) < ε) {
-    color[1] = color[2] = 0;
+    out[1] = out[2] = 0;
   } else {
     const h = Math.atan2(b, a); // [-PI to PI]
-    color[1] = Math.sqrt(a ** 2 + b ** 2);
-    color[2] = (h >= 0 ? h : h + TAU) / TAU; // [0 to 1)
+    out[1] = Math.sqrt(a ** 2 + b ** 2);
+    out[2] = (h >= 0 ? h : h + TAU) / TAU; // [0 to 1)
 
     // Range is [0, 150]
-    color[1] /= 1.5;
+    out[1] /= 1.5;
   }
-  return color;
-}
+  return out;
+};
 
 // Lab/XYZ
 // ε = 6^3 / 29^3 = 0.008856
@@ -304,21 +337,21 @@ const XYZToLab = (x, y, z, out, illuminant) => {
   return out;
 };
 
-// Okhsl/Okhsv
+// Ok
 // https://github.com/bottosson/bottosson.github.io/blob/master/misc/colorpicker/colorconversion.js
-function oklabToLinearSrgb(color, L, a, b) {
+const oklabToLinear = (L, a, b, out) => {
   const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
   const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
   const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
 
-  color[0] = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
-  color[1] = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
-  color[2] = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
+  out[0] = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s;
+  out[1] = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s;
+  out[2] = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s;
 
-  return color;
-}
+  return out;
+};
 
-function linearSrgbToOklab(color, lr, lg, lb) {
+const linearToOklab = (lr, lg, lb, out) => {
   const l = Math.cbrt(
     0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb,
   );
@@ -329,12 +362,12 @@ function linearSrgbToOklab(color, lr, lg, lb) {
     0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb,
   );
 
-  color[0] = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
-  color[1] = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
-  color[2] = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  out[0] = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  out[1] = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  out[2] = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
 
-  return color;
-}
+  return out;
+};
 
 const k1 = 0.206;
 const k2 = 0.03;
@@ -417,7 +450,7 @@ function computeMaxSaturation(a, b) {
 function findCusp(a, b) {
   const sCusp = computeMaxSaturation(a, b);
 
-  oklabToLinearSrgb(TMP, 1, sCusp * a, sCusp * b);
+  oklabToLinear(1, sCusp * a, sCusp * b, TMP);
 
   const lCusp = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2]));
 
@@ -462,8 +495,8 @@ export {
   labToXYZ,
   XYZToLab,
   // Ok
-  oklabToLinearSrgb,
-  linearSrgbToOklab,
+  oklabToLinear,
+  linearToOklab,
   toe,
   toeInv,
   findCusp,

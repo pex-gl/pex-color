@@ -1,13 +1,11 @@
+import { toLinear } from "./linear.js";
 import { fromOklab } from "./oklab.js";
 import {
-  oklabToLinearSrgb,
-  linearSrgbToOklab,
-  srgbToLinear,
+  oklabToLinear,
+  linearToOklab,
   toe,
   toeInv,
   getStMax,
-  setAlpha,
-  TMP,
   TAU,
 } from "./utils.js";
 
@@ -56,9 +54,9 @@ export function fromOkhsv(color, h, s, v, α) {
     C = (C * Lnew) / L;
     L = Lnew;
 
-    oklabToLinearSrgb(TMP, Lvt, a_ * Cvt, b_ * Cvt);
+    oklabToLinear(Lvt, a_ * Cvt, b_ * Cvt, color);
 
-    const scaleL = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2], 0));
+    const scaleL = Math.cbrt(1 / Math.max(color[0], color[1], color[2], 0));
 
     L = L * scaleL;
     C = C * scaleL;
@@ -67,9 +65,7 @@ export function fromOkhsv(color, h, s, v, α) {
     b = C * b_;
   }
 
-  fromOklab(color, L, a, b);
-
-  return setAlpha(color, α);
+  return fromOklab(color, L, a, b, α);
 }
 
 /**
@@ -79,17 +75,18 @@ export function fromOkhsv(color, h, s, v, α) {
  * @param {Array} out
  * @returns {okhsv}
  */
-export function toOkhsv([r, g, b, a], out = []) {
-  linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
+export function toOkhsv(color, out = []) {
+  toLinear(color, out);
+  linearToOklab(out[0], out[1], out[2], out);
 
-  let C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);
+  const H = 0.5 + (0.5 * Math.atan2(-out[2], -out[1])) / Math.PI;
 
-  let L = TMP[0];
-  out[0] = 0.5 + (0.5 * Math.atan2(-TMP[2], -TMP[1])) / Math.PI;
+  let L = out[0];
+  let C = Math.sqrt(out[1] * out[1] + out[2] * out[2]);
 
   if (L !== 0 && L !== 1 && C !== 0) {
-    const a_ = TMP[1] / C;
-    const b_ = TMP[2] / C;
+    const a_ = out[1] / C;
+    const b_ = out[2] / C;
     const [S, T] = getStMax(a_, b_);
 
     const t = T / (C + L * T);
@@ -99,9 +96,9 @@ export function toOkhsv([r, g, b, a], out = []) {
     const Lvt = toeInv(Lv);
     const Cvt = (Cv * Lvt) / Lv;
 
-    oklabToLinearSrgb(TMP, Lvt, a_ * Cvt, b_ * Cvt);
+    oklabToLinear(Lvt, a_ * Cvt, b_ * Cvt, out);
 
-    const scaleL = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2], 0));
+    const scaleL = Math.cbrt(1 / Math.max(out[0], out[1], out[2], 0));
 
     L = L / scaleL;
     C = C / scaleL;
@@ -117,10 +114,12 @@ export function toOkhsv([r, g, b, a], out = []) {
   }
 
   // Epsilon for saturation just needs to be sufficiently close when denoting achromatic
-  let ε = 1e-4;
+  const ε = 1e-4;
   if (Math.abs(out[1]) < ε || out[2] === 0) {
     out[0] = 0; // null
+  } else {
+    out[0] = H;
   }
 
-  return setAlpha(out, a);
+  return out;
 }

@@ -1,13 +1,12 @@
+import { toLinear } from "./linear.js";
 import { fromOklab } from "./oklab.js";
 import {
-  linearSrgbToOklab,
-  srgbToLinear,
+  linearToOklab,
   toe,
   toeInv,
   findCusp,
   getStMax,
   setAlpha,
-  TMP,
   TAU,
 } from "./utils.js";
 
@@ -166,7 +165,7 @@ export function fromOkhsl(color, h, s, l, α) {
 
     C = k0 + (t * k1) / (1 - k2 * t);
 
-    fromOklab(color, L, C * a_, C * b_);
+    return fromOklab(color, L, C * a_, C * b_, α);
   }
 
   return setAlpha(color, α);
@@ -179,15 +178,16 @@ export function fromOkhsl(color, h, s, l, α) {
  * @param {Array} out
  * @returns {okhsl}
  */
-export function toOkhsl([r, g, b, a], out = []) {
-  linearSrgbToOklab(TMP, srgbToLinear(r), srgbToLinear(g), srgbToLinear(b));
+export function toOkhsl(color, out = []) {
+  toLinear(color, out);
+  linearToOklab(out[0], out[1], out[2], out);
 
-  const C = Math.sqrt(TMP[1] * TMP[1] + TMP[2] * TMP[2]);
-  const a_ = TMP[1] / C;
-  const b_ = TMP[2] / C;
+  const C = Math.sqrt(out[1] * out[1] + out[2] * out[2]);
+  const a_ = out[1] / C;
+  const b_ = out[2] / C;
 
-  const L = TMP[0];
-  out[0] = 0.5 + (0.5 * Math.atan2(-TMP[2], -TMP[1])) / Math.PI;
+  const L = out[0];
+  out[0] = 0.5 + (0.5 * Math.atan2(-out[2], -out[1])) / Math.PI;
 
   const [C0, Cmid, Cmax] = getCs(L, a_, b_);
 
@@ -224,5 +224,5 @@ export function toOkhsl([r, g, b, a], out = []) {
     if (!achromatic) out[1] = 0;
   }
 
-  return setAlpha(out, a);
+  return out;
 }

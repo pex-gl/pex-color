@@ -1,5 +1,5 @@
 import { fromLCHuv, toLCHuv } from "./lchuv.js";
-import { hpluvToLch, lchToHpluv, setAlpha } from "./utils.js";
+import { hpluvToLch, lchToHpluv } from "./utils.js";
 
 /**
  * @typedef {number[]} hpluv CIELUV hue, saturation, lightness.
@@ -18,7 +18,8 @@ import { hpluvToLch, lchToHpluv, setAlpha } from "./utils.js";
  * @returns {import("./color.js").color}
  */
 export function fromHPLuv(color, h, s, l, a) {
-  return fromLCHuv(color, ...hpluvToLch([h, s, l]), a);
+  hpluvToLch(h, s, l, color);
+  return fromLCHuv(color, color[0], color[1], color[2], a);
 }
 
 /**
@@ -28,7 +29,7 @@ export function fromHPLuv(color, h, s, l, a) {
  * @param {Array} out
  * @returns {hpluv}
  */
-export function toHPLuv([r, g, b, a], out = []) {
-  [out[0], out[1], out[2]] = lchToHpluv(toLCHuv([r, g, b]));
-  return setAlpha(out, a);
+export function toHPLuv(color, out = []) {
+  toLCHuv(color, out);
+  return lchToHpluv(out[0], out[1], out[2], out);
 }
