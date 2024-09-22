@@ -1,5 +1,5 @@
 import { fromLabD50, toLabD50 } from "./lab.js";
-import { TAU, TMP } from "./utils.js";
+import { LCHToLab, labToLCH, TMP } from "./utils.js";
 
 /**
  * @typedef {number[]} lch CIELCh Luminance Chroma Hue. Cylindrical form of Lab.
@@ -7,45 +7,6 @@ import { TAU, TMP } from "./utils.js";
  * All components in the range 0 <= x <= 1
  * @see {@link https://en.wikipedia.org/wiki/CIELAB_color_space#Cylindrical_model}
  */
-
-/**
- * @private
- * @see {@link https://drafts.csswg.org/css-color/#lch-to-lab}
- */
-export function LCHToLab(color, l, c, h) {
-  color[0] = l;
-  color[1] = c * Math.cos(h * TAU);
-  color[2] = c * Math.sin(h * TAU);
-
-  // Range is [0, 150]
-  color[1] *= 1.5;
-  color[2] *= 1.5;
-
-  return color;
-}
-
-/**
- * @private
- * @see {@link https://drafts.csswg.org/css-color/#lab-to-lch}
- */
-export function labToLCH(color, l, a, b) {
-  color[0] = l;
-
-  const ε = 250 / 100000 / 100; // Lab is -125, 125. TODO: range is different for Oklab
-
-  // If is achromatic
-  if (Math.abs(a) < ε && Math.abs(b) < ε) {
-    color[1] = color[2] = 0;
-  } else {
-    const h = Math.atan2(b, a); // [-PI to PI]
-    color[1] = Math.sqrt(a ** 2 + b ** 2);
-    color[2] = (h >= 0 ? h : h + TAU) / TAU; // [0 to 1)
-
-    // Range is [0, 150]
-    color[1] /= 1.5;
-  }
-  return color;
-}
 
 /**
  * Updates a color based on LCH values and alpha.

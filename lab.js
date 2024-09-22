@@ -1,5 +1,5 @@
-import { toXYZD50, fromXYZD50, fromXYZD65, toXYZD65 } from "./xyz.js";
-import { setAlpha } from "./utils.js";
+import { fromXYZD50, fromXYZD65, toXYZD50, toXYZD65 } from "./xyz.js";
+import { D50, D65, labToXYZ, XYZToLab } from "./utils.js";
 
 /**
  * @typedef {number[]} lab CIELAB perceptual Lightness, a* red/green, b* blue/yellow.
@@ -10,27 +10,6 @@ import { setAlpha } from "./utils.js";
  * @see {@link https://en.wikipedia.org/wiki/CIELAB_color_space}
  */
 
-/**
- * Illuminant D65: x,y,z tristimulus values
- * @private
- * @see {@link https://en.wikipedia.org/wiki/Illuminant_D65}
- */
-export const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329];
-export const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
-
-// ε = 6^3 / 29^3 = 0.008856
-// κ = 29^3 / 3^3 = 903.2962963
-// 903.2962963 / 116 = 7.787037
-function fromLabValueToXYZValue(val, white) {
-  const pow = val ** 3;
-  return (pow > 0.008856 ? pow : (val - 16 / 116) / 7.787037) * white;
-}
-
-function fromXYZValueToLabValue(val, white) {
-  val /= white;
-  return val > 0.008856 ? Math.cbrt(val) : 7.787037 * val + 16 / 116;
-}
-
 export function fromLab(
   color,
   l,
@@ -39,15 +18,8 @@ export function fromLab(
   α,
   { illuminant = D50, fromXYZ = fromXYZD50 } = {},
 ) {
-  const y = (l + 0.16) / 1.16;
-
-  return fromXYZ(
-    color,
-    fromLabValueToXYZValue(a / 5 + y, illuminant[0]),
-    fromLabValueToXYZValue(y, illuminant[1]),
-    fromLabValueToXYZValue(y - b / 2, illuminant[2]),
-    α,
-  );
+  labToXYZ(l, a, b, color, illuminant);
+  return fromXYZ(color, color[0], color[1], color[2], α);
 }
 
 export function toLab(
@@ -55,17 +27,8 @@ export function toLab(
   out = [],
   { illuminant = D50, toXYZ = toXYZD50 } = {},
 ) {
-  const xyz = toXYZ(color);
-
-  const x = fromXYZValueToLabValue(xyz[0], illuminant[0]);
-  const y = fromXYZValueToLabValue(xyz[1], illuminant[1]);
-  const z = fromXYZValueToLabValue(xyz[2], illuminant[2]);
-
-  out[0] = 1.16 * y - 0.16;
-  out[1] = 5 * (x - y);
-  out[2] = 2 * (y - z);
-
-  return setAlpha(out, color[3]);
+  toXYZ(color, out); // setAlpha
+  return XYZToLab(out[0], out[1], out[2], out, illuminant);
 }
 
 /**

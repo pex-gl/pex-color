@@ -1,5 +1,5 @@
 import { fromLCHuv, toLCHuv } from "./lchuv.js";
-import { getBounds, setAlpha, L_EPSILON, TAU } from "./utils.js";
+import { hsluvToLch, lchToHsluv, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} hsluv CIELUV hue, saturation, lightness.
@@ -7,35 +7,6 @@ import { getBounds, setAlpha, L_EPSILON, TAU } from "./utils.js";
  * All components in the range 0 <= x <= 1
  * @see {@link https://www.hsluv.org/}
  */
-
-const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
-  intercept / (Math.sin(theta) - slope * Math.cos(theta));
-
-const maxChromaForLH = (L, H) => {
-  const hrad = H * TAU;
-  const bounds = getBounds(L * 100);
-  let min = Infinity;
-  let _g = 0;
-  while (_g < bounds.length) {
-    const bound = bounds[_g];
-    ++_g;
-    const length = lengthOfRayUntilIntersect(hrad, bound);
-    if (length >= 0) min = Math.min(min, length);
-  }
-  return min / 100;
-};
-
-const hsluvToLch = ([H, S, L]) => {
-  if (L > 1 - L_EPSILON) return [1, 0, H];
-  if (L < L_EPSILON) return [0, 0, H];
-  return [L, maxChromaForLH(L, H) * S, H];
-};
-
-const lchToHsluv = ([L, C, H]) => {
-  if (L > 1 - L_EPSILON) return [H, 0, 1];
-  if (L < L_EPSILON) return [H, 0, 0];
-  return [H, C / maxChromaForLH(L, H), L];
-};
 
 /**
  * Updates a color based on HSLuv values and alpha.

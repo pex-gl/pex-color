@@ -1,12 +1,13 @@
-import { fromOklab, linearSrgbToOklab } from "./oklab.js";
+import { fromOklab } from "./oklab.js";
 import {
-  TMP,
-  setAlpha,
+  oklabToLinearSrgb,
+  linearSrgbToOklab,
   srgbToLinear,
   toe,
   toeInv,
   getStMax,
-  oklabToLinearSrgb,
+  setAlpha,
+  TMP,
   TAU,
 } from "./utils.js";
 

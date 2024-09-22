@@ -1,6 +1,5 @@
-import { labToLCH, LCHToLab } from "./lch.js";
 import { fromOklab, toOklab } from "./oklab.js";
-import { TMP } from "./utils.js";
+import { LCHToLab, labToLCH, TMP } from "./utils.js";
 
 /**
  * @typedef {number[]} oklch Cylindrical form using D65 standard illuminant.

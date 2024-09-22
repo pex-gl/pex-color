@@ -1,27 +1,15 @@
 /** @module utils */
 
-export const setAlpha = (color, a) => {
+/**
+ * Constants and utilities
+ */
+
+const setAlpha = (color, a) => {
   if (a !== undefined) color[3] = a;
   return color;
 };
 
-/**
- * Convert component from linear value
- * @param {number} c
- * @returns {number}
- */
-export const linearToSrgb = (c) =>
-  c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
-
-/**
- * Convert component to linear value
- * @param {number} c
- * @returns {number}
- */
-export const srgbToLinear = (c) =>
-  c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;
-
-export const floorArray = (color, precision = 5) => {
+const floorArray = (color, precision = 5) => {
   const p = 10 ** precision;
   color.forEach(
     (n, i) => (color[i] = Math.floor((n + Number.EPSILON) * p) / p),
@@ -29,51 +17,93 @@ export const floorArray = (color, precision = 5) => {
   return color;
 };
 
-export const TMP = [0, 0, 0];
+const TMP = [0, 0, 0];
 
-export const TAU = 2 * Math.PI;
+const TAU = 2 * Math.PI;
 
-// XYZ
+/**
+ * Illuminant D65: x,y,z tristimulus values
+ * @see {@link https://en.wikipedia.org/wiki/Standard_illuminant#White_points_of_standard_illuminants}
+ */
+const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329];
+
+/**
+ * Illuminant D50: x,y,z tristimulus values
+ */
+const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
+
+/**
+ * Spaces conversions
+ */
+// Linear/sRGB
+/**
+ * Convert component from linear value
+ * @param {number} c
+ * @returns {number}
+ */
+const linearToSrgb = (c) =>
+  c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055;
+
+/**
+ * Convert component to linear value
+ * @param {number} c
+ * @returns {number}
+ */
+const srgbToLinear = (c) =>
+  c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;
+
+// XYZ/Linear/P3
 // https://github.com/hsluv/hsluv-javascript/blob/14b49e6cf9a9137916096b8487a5372626b57ba4/src/hsluv.ts#L8-L16
-export const mXYZToLinearsRGBD65 = [
+const mXYZToLinearsRGBD65 = [
   [3.240969941904521, -1.537383177570093, -0.498610760293],
   [-0.96924363628087, 1.87596750150772, 0.041555057407175],
   [0.055630079696993, -0.20397695888897, 1.056971514242878],
 ];
 
 // https://github.com/hsluv/hsluv-javascript/blob/14b49e6cf9a9137916096b8487a5372626b57ba4/src/hsluv.ts#L152-L154
-export const mLinearsRGBToXYZD65 = [
+const mLinearsRGBToXYZD65 = [
   [0.41239079926595, 0.35758433938387, 0.18048078840183],
   [0.21263900587151, 0.71516867876775, 0.072192315360733],
   [0.019330818715591, 0.11919477979462, 0.95053215224966],
 ];
 
 // https://github.com/Evercoder/culori/tree/main/src/xyz50
-export const mXYZToLinearsRGBD50 = [
+const mXYZToLinearsRGBD50 = [
   [3.1341359569958707, 1.6173863321612538, 0.4906619460083532],
   [-0.978795502912089, 1.916254567259524, 0.03344273116131949],
   [0.07195537988411677, 0.2289768264158322, 1.405386058324125],
 ];
-export const mLinearsRGBToXYZD50 = [
+const mLinearsRGBToXYZD50 = [
   [0.436065742824811, 0.3851514688337912, 0.14307845442264197],
   [0.22249319175623702, 0.7168870538238823, 0.06061979053616537],
   [0.013923904500943465, 0.09708128566574634, 0.7140993584005155],
 ];
 
-// HSLuv
-// https://github.com/hsluv/hsluv-javascript/blob/main/src/hsluv.ts
-export const L_EPSILON = 1e-10;
+// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+// https://drafts.csswg.org/css-color/#color-conversion-code
+const mLinearP3ToXYZD65 = [
+  [0.4865709486482162, 0.26566769316909306, 0.1982172852343625],
+  [0.2289745640697488, 0.6917385218365064, 0.079286914093745],
+  [0, 0.04511338185890264, 1.043944368900976],
+];
+const mXYZD65ToLinearP3 = [
+  [2.493496911941425, -0.9313836179191239, -0.40271078445071684],
+  [-0.8294889695615747, 1.7626640603183463, 0.023624685841943577],
+  [0.03584583024378447, -0.07617238926804182, 0.9568845240076872],
+];
 
+// Luv
+// https://github.com/hsluv/hsluv-javascript/blob/main/src/hsluv.ts
+const L_EPSILON = 1e-10;
 const REF_U = 0.19783000664283;
 const REF_V = 0.46831999493879;
 const KAPPA = 9.032962962;
 const EPSILON = 0.000088564516;
 
 const yToL = (Y) => (Y <= EPSILON ? Y * KAPPA : 1.16 * Y ** (1 / 3) - 0.16);
-
 const lToY = (L) => (L <= 0.08 ? L / KAPPA : ((L + 0.16) / 1.16) ** 3);
 
-export const xyzToLuv = ([X, Y, Z]) => {
+const xyzToLuv = ([X, Y, Z]) => {
   const divider = X + 15 * Y + 3 * Z;
   let varU = 4 * X;
   let varV = 9 * Y;
@@ -90,7 +120,7 @@ export const xyzToLuv = ([X, Y, Z]) => {
   return [L, 13 * L * (varU - REF_U), 13 * L * (varV - REF_V)];
 };
 
-export const luvToXyz = ([L, U, V]) => {
+const luvToXyz = ([L, U, V]) => {
   if (L === 0) return [0, 0, 0];
   const varU = U / (13 * L) + REF_U;
   const varV = V / (13 * L) + REF_V;
@@ -99,7 +129,7 @@ export const luvToXyz = ([L, U, V]) => {
   return [X, Y, (9 * Y - 15 * varV * Y - varV * X) / (3 * varV)];
 };
 
-export const luvToLch = ([L, U, V]) => {
+const luvToLch = ([L, U, V]) => {
   const C = Math.sqrt(U * U + V * V);
   let H;
   if (C < L_EPSILON) {
@@ -111,13 +141,13 @@ export const luvToLch = ([L, U, V]) => {
   return [L, C, H];
 };
 
-export const lchToLuv = ([L, C, H]) => {
+const lchToLuv = ([L, C, H]) => {
   const Hrad = H * TAU;
   return [L, Math.cos(Hrad) * C, Math.sin(Hrad) * C];
 };
 
 // TODO: normalize
-export const getBounds = (L) => {
+const getBounds = (L) => {
   const result = [];
   const sub1 = (L + 16) ** 3 / 1560896;
   const sub2 = sub1 > EPSILON ? sub1 : L / KAPPA;
@@ -141,9 +171,142 @@ export const getBounds = (L) => {
   return result;
 };
 
+// HPLuv
+const distanceLineFromOrigin = ({ intercept, slope }) =>
+  Math.abs(intercept) / Math.sqrt(slope ** 2 + 1);
+
+const maxSafeChromaForL = (L) => {
+  const bounds = getBounds(L * 100);
+  let min = Infinity;
+  let _g = 0;
+  while (_g < bounds.length) {
+    const bound = bounds[_g];
+    ++_g;
+    const length = distanceLineFromOrigin(bound);
+    min = Math.min(min, length);
+  }
+  return min / 100;
+};
+
+const hpluvToLch = ([H, S, L]) => {
+  if (L > 1 - L_EPSILON) return [1, 0, H];
+  if (L < L_EPSILON) return [0, 0, H];
+  return [L, maxSafeChromaForL(L) * S, H];
+};
+
+const lchToHpluv = ([L, C, H]) => {
+  if (L > 1 - L_EPSILON) return [H, 0, 1];
+  if (L < L_EPSILON) return [H, 0, 0];
+  return [H, C / maxSafeChromaForL(L), L];
+};
+
+// HSLuv
+const lengthOfRayUntilIntersect = (theta, { intercept, slope }) =>
+  intercept / (Math.sin(theta) - slope * Math.cos(theta));
+
+const maxChromaForLH = (L, H) => {
+  const hrad = H * TAU;
+  const bounds = getBounds(L * 100);
+  let min = Infinity;
+  let _g = 0;
+  while (_g < bounds.length) {
+    const bound = bounds[_g];
+    ++_g;
+    const length = lengthOfRayUntilIntersect(hrad, bound);
+    if (length >= 0) min = Math.min(min, length);
+  }
+  return min / 100;
+};
+
+const hsluvToLch = ([H, S, L]) => {
+  if (L > 1 - L_EPSILON) return [1, 0, H];
+  if (L < L_EPSILON) return [0, 0, H];
+  return [L, maxChromaForLH(L, H) * S, H];
+};
+
+const lchToHsluv = ([L, C, H]) => {
+  if (L > 1 - L_EPSILON) return [H, 0, 1];
+  if (L < L_EPSILON) return [H, 0, 0];
+  return [H, C / maxChromaForLH(L, H), L];
+};
+
+// Lab/Lch
+
+/**
+ * @private
+ * @see {@link https://drafts.csswg.org/css-color/#lch-to-lab}
+ */
+function LCHToLab(color, l, c, h) {
+  color[0] = l;
+  color[1] = c * Math.cos(h * TAU);
+  color[2] = c * Math.sin(h * TAU);
+
+  // Range is [0, 150]
+  color[1] *= 1.5;
+  color[2] *= 1.5;
+
+  return color;
+}
+
+/**
+ * @private
+ * @see {@link https://drafts.csswg.org/css-color/#lab-to-lch}
+ */
+function labToLCH(color, l, a, b) {
+  color[0] = l;
+
+  const ε = 250 / 100000 / 100; // Lab is -125, 125. TODO: range is different for Oklab
+
+  // If is achromatic
+  if (Math.abs(a) < ε && Math.abs(b) < ε) {
+    color[1] = color[2] = 0;
+  } else {
+    const h = Math.atan2(b, a); // [-PI to PI]
+    color[1] = Math.sqrt(a ** 2 + b ** 2);
+    color[2] = (h >= 0 ? h : h + TAU) / TAU; // [0 to 1)
+
+    // Range is [0, 150]
+    color[1] /= 1.5;
+  }
+  return color;
+}
+
+// Lab/XYZ
+// ε = 6^3 / 29^3 = 0.008856
+// κ = 29^3 / 3^3 = 903.2962963
+// 903.2962963 / 116 = 7.787037
+const fromLabValueToXYZValue = (val, white) => {
+  const pow = val ** 3;
+  return (pow > 0.008856 ? pow : (val - 16 / 116) / 7.787037) * white;
+};
+
+const fromXYZValueToLabValue = (val, white) => {
+  val /= white;
+  return val > 0.008856 ? Math.cbrt(val) : 7.787037 * val + 16 / 116;
+};
+
+const labToXYZ = (l, a, b, out, illuminant) => {
+  const Y = (l + 0.16) / 1.16;
+
+  out[0] = fromLabValueToXYZValue(a / 5 + Y, illuminant[0]);
+  out[1] = fromLabValueToXYZValue(Y, illuminant[1]);
+  out[2] = fromLabValueToXYZValue(Y - b / 2, illuminant[2]);
+};
+
+const XYZToLab = (x, y, z, out, illuminant) => {
+  const X = fromXYZValueToLabValue(x, illuminant[0]);
+  const Y = fromXYZValueToLabValue(y, illuminant[1]);
+  const Z = fromXYZValueToLabValue(z, illuminant[2]);
+
+  out[0] = 1.16 * Y - 0.16;
+  out[1] = 5 * (X - Y);
+  out[2] = 2 * (Y - Z);
+  return out;
+};
+
 // Okhsl/Okhsv
 // https://github.com/bottosson/bottosson.github.io/blob/master/misc/colorpicker/colorconversion.js
-export function oklabToLinearSrgb(color, L, a, b) {
+function oklabToLinearSrgb(color, L, a, b) {
   const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3;
   const m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3;
   const s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
@@ -155,18 +318,36 @@ export function oklabToLinearSrgb(color, L, a, b) {
   return color;
 }
 
+function linearSrgbToOklab(color, lr, lg, lb) {
+  const l = Math.cbrt(
+    0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb,
+  );
+  const m = Math.cbrt(
+    0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb,
+  );
+  const s = Math.cbrt(
+    0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb,
+  );
+
+  color[0] = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  color[1] = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  color[2] = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+
+  return color;
+}
+
 const k1 = 0.206;
 const k2 = 0.03;
 const k3 = (1 + k1) / (1 + k2);
 
-export function toe(x) {
+function toe(x) {
   return (
     0.5 *
     (k3 * x - k1 + Math.sqrt((k3 * x - k1) * (k3 * x - k1) + 4 * k2 * k3 * x))
   );
 }
 
-export function toeInv(x) {
+function toeInv(x) {
   return (x * x + k1 * x) / (k3 * (x + k2));
 }
 
@@ -233,7 +414,7 @@ function computeMaxSaturation(a, b) {
   return S;
 }
 
-export function findCusp(a, b) {
+function findCusp(a, b) {
   const sCusp = computeMaxSaturation(a, b);
 
   oklabToLinearSrgb(TMP, 1, sCusp * a, sCusp * b);
@@ -243,7 +424,48 @@ export function findCusp(a, b) {
   return [lCusp, lCusp * sCusp];
 }
 
-export function getStMax(a_, b_, cusp = null) {
+function getStMax(a_, b_, cusp = null) {
   if (!cusp) cusp = findCusp(a_, b_);
   return [cusp[1] / cusp[0], cusp[1] / (1 - cusp[0])];
 }
+
+export {
+  setAlpha,
+  floorArray,
+  TMP,
+  TAU,
+  D65,
+  D50,
+  // Spaces conversions
+  linearToSrgb,
+  srgbToLinear,
+  // XYZ/Linear/P3
+  mXYZToLinearsRGBD65,
+  mLinearsRGBToXYZD65,
+  mXYZToLinearsRGBD50,
+  mLinearsRGBToXYZD50,
+  mLinearP3ToXYZD65,
+  mXYZD65ToLinearP3,
+  // Luv/lch/xyz
+  xyzToLuv,
+  luvToXyz,
+  luvToLch,
+  lchToLuv,
+  hpluvToLch,
+  lchToHpluv,
+  hsluvToLch,
+  lchToHsluv,
+  // Lab/Lch
+  LCHToLab,
+  labToLCH,
+  // Lab/XYZ
+  labToXYZ,
+  XYZToLab,
+  // Ok
+  oklabToLinearSrgb,
+  linearSrgbToOklab,
+  toe,
+  toeInv,
+  findCusp,
+  getStMax,
+};

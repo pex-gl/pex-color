@@ -1,6 +1,11 @@
 import { fromXYZD65, toXYZD65 } from "./xyz.js";
 
-import { linearToSrgb, srgbToLinear } from "./utils.js";
+import {
+  linearToSrgb,
+  mLinearP3ToXYZD65,
+  mXYZD65ToLinearP3,
+  srgbToLinear,
+} from "./utils.js";
 
 /**
  * @typedef {number[]} p3 r, g, b values (DCI-P3 color gamut, D65 whitepoint, sRGB gamma curve).
@@ -8,26 +13,6 @@ import { linearToSrgb, srgbToLinear } from "./utils.js";
  * All components in the range 0 <= x <= 1
  * @see {@link https://drafts.csswg.org/css-color/#color-conversion-code}
  */
-
-/**
- * @private
- * @see {@link http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html}
- * @see {@link https://drafts.csswg.org/css-color/#color-conversion-code}
- */
-export const mLinearP3ToXYZD65 = [
-  [0.4865709486482162, 0.26566769316909306, 0.1982172852343625],
-  [0.2289745640697488, 0.6917385218365064, 0.079286914093745],
-  [0, 0.04511338185890264, 1.043944368900976],
-];
-
-/**
- * @private
- */
-export const mXYZD65ToLinearP3 = [
-  [2.493496911941425, -0.9313836179191239, -0.40271078445071684],
-  [-0.8294889695615747, 1.7626640603183463, 0.023624685841943577],
-  [0.03584583024378447, -0.07617238926804182, 0.9568845240076872],
-];
 
 /**
  * Updates a color based on P3 values and alpha using D65 standard illuminant.

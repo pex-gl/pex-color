@@ -1,4 +1,4 @@
-import { toXYZD65, fromXYZD65 } from "./xyz.js";
+import { fromXYZD65, toXYZD65 } from "./xyz.js";
 import { luvToXyz, lchToLuv, luvToLch, xyzToLuv, setAlpha } from "./utils.js";
 
 /**

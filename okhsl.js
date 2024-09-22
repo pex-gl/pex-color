@@ -1,12 +1,13 @@
-import { fromOklab, linearSrgbToOklab } from "./oklab.js";
+import { fromOklab } from "./oklab.js";
 import {
-  TMP,
-  setAlpha,
+  linearSrgbToOklab,
   srgbToLinear,
   toe,
   toeInv,
   findCusp,
   getStMax,
+  setAlpha,
+  TMP,
   TAU,
 } from "./utils.js";
 
@@ -14,10 +15,10 @@ import {
  * @typedef {number[]} okhsl
  *
  * All components in the range 0 <= x <= 1
- * @see {@link https://bottosson.github.io/posts/colorpicker/#hsv-2}
+ * @see {@link https://bottosson.github.io/posts/colorpicker/#hsl-2}
  */
 
-function findGamutIntersection(a, b, L1, C1, L0, cusp = null) {
+const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
   if (!cusp) cusp = findCusp(a, b);
 
   let t;
@@ -85,9 +86,9 @@ function findGamutIntersection(a, b, L1, C1, L0, cusp = null) {
   }
 
   return t;
-}
+};
 
-function getCs(L, a_, b_) {
+const getCs = (L, a_, b_) => {
   const cusp = findCusp(a_, b_);
 
   const Cmax = findGamutIntersection(a_, b_, L, 1, L, cusp);
@@ -126,7 +127,7 @@ function getCs(L, a_, b_) {
   Cb = (1 - L) * 0.8;
 
   return [Math.sqrt(1 / (1 / (Ca * Ca) + 1 / (Cb * Cb))), Cmid, Cmax];
-}
+};
 
 /**
  * Updates a color based on Okhsl values and alpha.
