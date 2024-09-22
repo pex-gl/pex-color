@@ -35,7 +35,7 @@ export const mXYZD65ToLinearP3 = [
  * @param {import("./color.js").color} color
  * @param {number} r
  * @param {number} g
- * @param {number} g
+ * @param {number} b
  * @param {number} a
  * @returns {import("./color.js").color}
  */
