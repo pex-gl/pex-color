@@ -1,5 +1,5 @@
 import { fromXYZD50, fromXYZD65, toXYZD50, toXYZD65 } from "./xyz.js";
-import { D50, D65, labToXYZ, XYZToLab } from "./utils.js";
+import { D50, D65, labToXyz, xyzToLab } from "./utils.js";
 
 /**
  * @typedef {number[]} lab CIELAB perceptual Lightness, a* red/green, b* blue/yellow.
@@ -18,7 +18,7 @@ export function fromLab(
   α,
   { illuminant = D50, fromXYZ = fromXYZD50 } = {},
 ) {
-  labToXYZ(l, a, b, color, illuminant);
+  labToXyz(l, a, b, color, illuminant);
   return fromXYZ(color, color[0], color[1], color[2], α);
 }
 
@@ -27,8 +27,8 @@ export function toLab(
   out = [],
   { illuminant = D50, toXYZ = toXYZD50 } = {},
 ) {
-  toXYZ(color, out); // setAlpha
-  return XYZToLab(out[0], out[1], out[2], out, illuminant);
+  toXYZ(color, out);
+  return xyzToLab(out[0], out[1], out[2], out, illuminant);
 }
 
 /**

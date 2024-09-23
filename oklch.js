@@ -1,5 +1,5 @@
 import { fromOklab, toOklab } from "./oklab.js";
-import { LCHToLab, labToLCH } from "./utils.js";
+import { lchToLab, labToLch } from "./utils.js";
 
 /**
  * @typedef {number[]} oklch Cylindrical form using D65 standard illuminant.
@@ -19,7 +19,7 @@ import { LCHToLab, labToLCH } from "./utils.js";
  * @returns {import("./color.js").color}
  */
 export function fromOklch(color, l, c, h, a) {
-  LCHToLab(l, c, h, color);
+  lchToLab(l, c, h, color);
 
   // Range is [0, 150]
   color[1] /= 1.5;
@@ -42,5 +42,5 @@ export function toOklch(color, out = []) {
   out[1] *= 1.5;
   out[2] *= 1.5;
 
-  return labToLCH(out[0], out[1], out[2], out);
+  return labToLch(out[0], out[1], out[2], out);
 }

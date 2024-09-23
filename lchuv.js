@@ -1,5 +1,5 @@
 import { fromXYZD65, toXYZD65 } from "./xyz.js";
-import { luvToXyz, lchToLuv, luvToLch, xyzToLuv } from "./utils.js";
+import { lchToLuv, luvToXyz, xyzToLuv, luvToLch } from "./utils.js";
 
 /**
  * @typedef {number[]} lchuv CIELChuv Luminance Chroma Hue.

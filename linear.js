@@ -1,4 +1,4 @@
-import { linearToSrgb, srgbToLinear, setAlpha } from "./utils.js";
+import { linearToRgb, rgbToLinear, setAlpha } from "./utils.js";
 
 /**
  * @typedef {number[]} linear r g b linear values.
@@ -18,9 +18,7 @@ import { linearToSrgb, srgbToLinear, setAlpha } from "./utils.js";
  * @returns {import("./color.js").color}
  */
 export function fromLinear(color, r, g, b, a) {
-  color[0] = linearToSrgb(r);
-  color[1] = linearToSrgb(g);
-  color[2] = linearToSrgb(b);
+  linearToRgb(r, g, b, color);
   return setAlpha(color, a);
 }
 
@@ -32,8 +30,6 @@ export function fromLinear(color, r, g, b, a) {
  * @returns {linear}
  */
 export function toLinear([r, g, b, a], out = []) {
-  out[0] = srgbToLinear(r);
-  out[1] = srgbToLinear(g);
-  out[2] = srgbToLinear(b);
+  rgbToLinear(r, g, b, out);
   return setAlpha(out, a);
 }

@@ -1,10 +1,10 @@
 import { fromXYZD65, toXYZD65 } from "./xyz.js";
 
 import {
-  linearToSrgb,
-  mLinearP3ToXYZD65,
-  mXYZD65ToLinearP3,
-  srgbToLinear,
+  rgbToLinear,
+  linearToRgb,
+  linearP3ToXyzD65,
+  xyzD65ToLinearP3,
 } from "./utils.js";
 
 /**
@@ -25,24 +25,9 @@ import {
  * @returns {import("./color.js").color}
  */
 export function fromP3(color, r, g, b, a) {
-  const lr = srgbToLinear(r);
-  const lg = srgbToLinear(g);
-  const lb = srgbToLinear(b);
-
-  const x =
-    lr * mLinearP3ToXYZD65[0][0] +
-    lg * mLinearP3ToXYZD65[0][1] +
-    lb * mLinearP3ToXYZD65[0][2];
-  const y =
-    lr * mLinearP3ToXYZD65[1][0] +
-    lg * mLinearP3ToXYZD65[1][1] +
-    lb * mLinearP3ToXYZD65[1][2];
-  const z =
-    lr * mLinearP3ToXYZD65[2][0] +
-    lg * mLinearP3ToXYZD65[2][1] +
-    lb * mLinearP3ToXYZD65[2][2];
-
-  return fromXYZD65(color, x, y, z, a);
+  rgbToLinear(r, g, b, color);
+  linearP3ToXyzD65(color[0], color[1], color[2], color);
+  return fromXYZD65(color, color[0], color[1], color[2], a);
 }
 
 /**
@@ -53,23 +38,7 @@ export function fromP3(color, r, g, b, a) {
  * @returns {p3}
  */
 export function toP3(color, out = []) {
-  const [x, y, z] = toXYZD65(color, out); // Sets alpha
-
-  out[0] = linearToSrgb(
-    x * mXYZD65ToLinearP3[0][0] +
-      y * mXYZD65ToLinearP3[0][1] +
-      z * mXYZD65ToLinearP3[0][2],
-  );
-  out[1] = linearToSrgb(
-    x * mXYZD65ToLinearP3[1][0] +
-      y * mXYZD65ToLinearP3[1][1] +
-      z * mXYZD65ToLinearP3[1][2],
-  );
-  out[2] = linearToSrgb(
-    x * mXYZD65ToLinearP3[2][0] +
-      y * mXYZD65ToLinearP3[2][1] +
-      z * mXYZD65ToLinearP3[2][2],
-  );
-
-  return out;
+  toXYZD65(color, out);
+  xyzD65ToLinearP3(out[0], out[1], out[2], out);
+  return linearToRgb(out[0], out[1], out[2], out);
 }

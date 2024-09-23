@@ -1,5 +1,5 @@
 import { fromLabD50, toLabD50 } from "./lab.js";
-import { LCHToLab, labToLCH } from "./utils.js";
+import { lchToLab, labToLch } from "./utils.js";
 
 /**
  * @typedef {number[]} lch CIELCh Luminance Chroma Hue. Cylindrical form of Lab.
@@ -19,7 +19,7 @@ import { LCHToLab, labToLCH } from "./utils.js";
  * @returns {import("./color.js").color}
  */
 export function fromLCH(color, l, c, h, a) {
-  LCHToLab(l, c, h, color);
+  lchToLab(l, c, h, color);
   return fromLabD50(color, color[0], color[1], color[2], a);
 }
 
@@ -32,5 +32,5 @@ export function fromLCH(color, l, c, h, a) {
  */
 export function toLCH(color, out = []) {
   toLabD50(color, out);
-  return labToLCH(out[0], out[1], out[2], out);
+  return labToLch(out[0], out[1], out[2], out);
 }

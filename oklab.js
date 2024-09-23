@@ -1,6 +1,6 @@
 import {
-  linearToSrgb,
-  srgbToLinear,
+  linearToRgb,
+  rgbToLinear,
   oklabToLinear,
   linearToOklab,
   setAlpha,
@@ -25,10 +25,7 @@ import {
  */
 export function fromOklab(color, L, a, b, α) {
   oklabToLinear(L, a, b, color);
-  color[0] = linearToSrgb(color[0]);
-  color[1] = linearToSrgb(color[1]);
-  color[2] = linearToSrgb(color[2]);
-
+  linearToRgb(color[0], color[1], color[2], color);
   return setAlpha(color, α);
 }
 
@@ -40,7 +37,7 @@ export function fromOklab(color, L, a, b, α) {
  * @returns {oklab}
  */
 export function toOklab([r, g, b, a], out = []) {
-  linearToOklab(srgbToLinear(r), srgbToLinear(g), srgbToLinear(b), out);
-
+  rgbToLinear(r, g, b, out);
+  linearToOklab(out[0], out[1], out[2], out);
   return setAlpha(out, a);
 }
