@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [2.2.0](https://github.com/pex-gl/pex-color/compare/v2.1.1...v2.2.0) (2024-10-08)
+
+
+### Bug Fixes
+
+* handle okhsl/okhsv lightness and saturation epsilon (ie. achromatic and close to white edge cases) ([5c39853](https://github.com/pex-gl/pex-color/commit/5c39853e3a3ee5654f544668b34b0a187f97ff84))
+
+
+### Features
+
+* add lch/oklch ([0e0e437](https://github.com/pex-gl/pex-color/commit/0e0e437ca5fb9961a87f1d0a38ca0fbbf73d2150))
+* add P3 ([386302a](https://github.com/pex-gl/pex-color/commit/386302a828704bcad8ec79b4f7364f6d4ddf1f1a))
+* add XYZ D50 and split with D65 + split lab50/65 ([0cdc911](https://github.com/pex-gl/pex-color/commit/0cdc911fb397e65bb5eb1648f36aa365d116f83e))
+* update css ([8aec1bf](https://github.com/pex-gl/pex-color/commit/8aec1bf2f845cc36b5b5f7aaed2970c647ea508a))
+
+
+### Performance Improvements
+
+* GC enhancement ([e9a79e3](https://github.com/pex-gl/pex-color/commit/e9a79e3320f577e1d3b5578ba26dc15b859705eb))
+* optimise ok methods ([5985cd9](https://github.com/pex-gl/pex-color/commit/5985cd9e4a19de3b0da200ca5907c5cea221e208))
+
+
+
 ## [2.1.1](https://github.com/pex-gl/pex-color/compare/v2.1.0...v2.1.1) (2024-07-09)
 
 

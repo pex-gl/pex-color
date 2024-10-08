@@ -1,6 +1,6 @@
 {
   "name": "pex-color",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Color utilities (css, p3, hex, hsl, hsv, hwb, lab, lch, xyz, okhsl, okhsv, oklab, oklch, hpluv, hsluv, lchuv, bytes) for PEX.",
   "keywords": [
     "pex",
@@ -58,13 +58,13 @@
     "test": "node --test --experimental-test-coverage test",
     "test:watch": "node --test --watch test"
   },
+  "devDependencies": {
+    "colorjs.io": "github:color-js/color.js"
+  },
   "engines": {
     "node": ">=22.0.0",
     "npm": ">=10.5.1",
     "snowdev": ">=2.2.x"
-  },
-  "devDependencies": {
-    "colorjs.io": "github:color-js/color.js"
   },
   "snowdev": {
     "dependencies": []
