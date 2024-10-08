@@ -10,7 +10,7 @@
 [![linted with eslint](https://img.shields.io/badge/linted_with-ES_Lint-4B32C3.svg?logo=eslint)](https://github.com/eslint/eslint)
 [![license](https://img.shields.io/github/license/pex-gl/pex-color)](https://github.com/pex-gl/pex-color/blob/main/LICENSE.md)
 
-Color utilities (css, hex, hsl, hsv, hwb, lab, lch, xyz, okhsl, okhsv, oklab, oklch, hpluv, hsluv, lchuv, bytes) for [PEX](https://pex.gl).
+Color utilities (css, p3, hex, hsl, hsv, hwb, lab, lch, xyz, okhsl, okhsv, oklab, oklch, hpluv, hsluv, lchuv, bytes) for [PEX](https://pex.gl).
 
 ## Installation
 
@@ -43,8 +43,11 @@ color.fromHex(new Array(3), "#FF0000");
 color.toCSSRGB([1, 0, 0, 1]);
 // => "rgba(255, 0, 0, 1)"
 
-color.toCSSLab([1, 0, 0, 1]);
-// => "lab(53.23711% 78.27048 62.14609 / 1)"
+color.toCSSP3([1, 0, 0, 1]);
+// => "color(display-p3 0.91748 0.20028 0.13856)"
+
+color.toCSSP3([1, 0, 0, 0.5]);
+// => "color(display-p3 0.91748 0.20028 0.13856 / 0.5)"
 
 // Various color spaces
 color.toOklab([1, 0, 0, 1]);
@@ -53,6 +56,8 @@ color.toOklab([1, 0, 0, 1]);
 // Utils
 color.utils.linearToSrgb(0.5);
 // => 0.7353569830524495
+color.utils.D50;
+// => [0.9642956764295677, 1, 0.8251046025104602]
 ```
 
 ## API

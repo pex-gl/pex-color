@@ -1,7 +1,7 @@
 {
   "name": "pex-color",
   "version": "2.1.1",
-  "description": "Color utilities (css, hex, hsl, hsv, hwb, lab, lch, xyz, okhsl, okhsv, oklab, oklch, hpluv, hsluv, lchuv, bytes) for PEX.",
+  "description": "Color utilities (css, p3, hex, hsl, hsv, hwb, lab, lch, xyz, okhsl, okhsv, oklab, oklch, hpluv, hsluv, lchuv, bytes) for PEX.",
   "keywords": [
     "pex",
     "color",
@@ -9,6 +9,7 @@
     "3d",
     "rgb",
     "rgba",
+    "p3",
     "rgbbytes",
     "hsv",
     "hsl",
@@ -20,6 +21,8 @@
     "cielab",
     "oklab",
     "oklch",
+    "okhsl",
+    "okhsv",
     "hsluv",
     "hpluv",
     "cieluv",

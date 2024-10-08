@@ -2,10 +2,6 @@
 
 import { fromValues } from "./color.js";
 
-/**
- * Constants and utilities
- */
-
 const setAlpha = (color, a) => {
   if (a !== undefined) color[3] = a;
   return color;
@@ -56,9 +52,6 @@ const D65 = [0.3127 / 0.329, 1, (1 - 0.3127 - 0.329) / 0.329];
  */
 const D50 = [0.3457 / 0.3585, 1, (1 - 0.3457 - 0.3585) / 0.3585];
 
-/**
- * Spaces conversions
- */
 // Linear/sRGB
 /**
  * Convert component from linear value
@@ -76,13 +69,29 @@ const linearToSrgb = (c) =>
 const srgbToLinear = (c) =>
   c > 0.04045 ? ((c + 0.055) / 1.055) ** 2.4 : c / 12.92;
 
-const linearToRgb = (r, g, b, out) => {
-  out[0] = linearToSrgb(r);
-  out[1] = linearToSrgb(g);
-  out[2] = linearToSrgb(b);
+/**
+ * Return a RGB representation from Linear values.
+ * @param {number} lr
+ * @param {number} lg
+ * @param {number} lb
+ * @param {Array} out
+ * @returns {import("./color.js").color}
+ */
+const linearToRgb = (lr, lg, lb, out) => {
+  out[0] = linearToSrgb(lr);
+  out[1] = linearToSrgb(lg);
+  out[2] = linearToSrgb(lb);
   return out;
 };
 
+/**
+ * Return a Linear representation from RGB values.
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @param {Array} out
+ * @returns {import("./linear.js").linear}
+ */
 const rgbToLinear = (r, g, b, out) => {
   out[0] = srgbToLinear(r);
   out[1] = srgbToLinear(g);
@@ -134,26 +143,74 @@ const mXYZD65ToLinearP3 = [
   -0.40271078445071684, 0.023624685841943577, 0.9568845240076872,
 ];
 
+/**
+ * Return a Linear representation from XYZ values with D65 illuminant.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @param {Array} out
+ * @returns {import("./linear.js").linear}
+ */
 const xyzD65ToLinear = (x, y, z, out) => {
   fromValues(out, x, y, z);
   return transformMat3(out, mXYZD65ToLinearsRGB);
 };
+/**
+ * Return a XYZ representation with D65 illuminant from Linear values.
+ * @param {number} lr
+ * @param {number} lg
+ * @param {number} lb
+ * @param {Array} out
+ * @returns {import("./xyz.js").xyz}
+ */
 const linearToXyzD65 = (lr, lg, lb, out) => {
   fromValues(out, lr, lg, lb);
   return transformMat3(out, mLinearsRGBToXYZD65);
 };
+/**
+ * Return a Linear representation from XYZ values with D50 illuminant.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @param {Array} out
+ * @returns {import("./linear.js").linear}
+ */
 const xyzD50ToLinear = (x, y, z, out) => {
   fromValues(out, x, y, z);
   return transformMat3(out, mXYZD50ToLinearsRGB);
 };
+/**
+ * Return a XYZ representation with D50 illuminant from Linear values.
+ * @param {number} lr
+ * @param {number} lg
+ * @param {number} lb
+ * @param {Array} out
+ * @returns {import("./xyz.js").xyz}
+ */
 const linearToXyzD50 = (lr, lg, lb, out) => {
   fromValues(out, lr, lg, lb);
   return transformMat3(out, mLinearsRGBToXYZD50);
 };
+/**
+ * Return a XYZ representation with D65 illuminant from Linear P3 values.
+ * @param {number} lr
+ * @param {number} lg
+ * @param {number} lb
+ * @param {Array} out
+ * @returns {import("./xyz.js").xyz}
+ */
 const linearP3ToXyzD65 = (lr, lg, lb, out) => {
   fromValues(out, lr, lg, lb);
   return transformMat3(out, mLinearP3ToXYZD65);
 };
+/**
+ * Return a Linear P3 representation from XYZ values with D65 illuminant.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @param {Array} out
+ * @returns {Array} P3 Linear
+ */
 const xyzD65ToLinearP3 = (x, y, z, out) => {
   fromValues(out, x, y, z);
   return transformMat3(out, mXYZD65ToLinearP3);
@@ -232,7 +289,7 @@ const lchToLuv = (L, C, H, out) => {
 };
 
 // HPLuv/HSLuv
-const hpLuvOrHsluvToLch = (H, S, L, getChroma, out) => {
+const hpLuvOrHsluvToLch = (H, S, L, out, getChroma) => {
   if (L > 1 - L_EPSILON) {
     out[0] = 1;
     out[1] = 0;
@@ -246,7 +303,7 @@ const hpLuvOrHsluvToLch = (H, S, L, getChroma, out) => {
   return out;
 };
 
-const lchToHpluvOrHsluv = (L, C, H, getChroma, out) => {
+const lchToHpluvOrHsluv = (L, C, H, out, getChroma) => {
   out[0] = H;
   if (L > 1 - L_EPSILON) {
     out[1] = 0;
@@ -319,19 +376,28 @@ const maxChromaForLH = (L, H) => {
 };
 
 const hpluvToLch = (H, S, L, out) =>
-  hpLuvOrHsluvToLch(H, S, L, maxSafeChromaForL, out);
+  hpLuvOrHsluvToLch(H, S, L, out, maxSafeChromaForL);
 
 const lchToHpluv = (L, C, H, out) =>
-  lchToHpluvOrHsluv(L, C, H, maxSafeChromaForL, out);
+  lchToHpluvOrHsluv(L, C, H, out, maxSafeChromaForL);
 
 const hsluvToLch = (H, S, L, out) =>
-  hpLuvOrHsluvToLch(H, S, L, maxChromaForLH, out);
+  hpLuvOrHsluvToLch(H, S, L, out, maxChromaForLH);
 
 const lchToHsluv = (L, C, H, out) =>
-  lchToHpluvOrHsluv(L, C, H, maxChromaForLH, out);
+  lchToHpluvOrHsluv(L, C, H, out, maxChromaForLH);
 
-// Lab/Lch
+// Lch/Lab
 // https://drafts.csswg.org/css-color/#lch-to-lab}
+// https://drafts.csswg.org/css-color/#lab-to-lch}
+/**
+ * Return a Lab representation from LCH values.
+ * @param {number} l
+ * @param {number} c
+ * @param {number} h
+ * @param {Array} out
+ * @returns {import("./lab.js").lab}
+ */
 const lchToLab = (l, c, h, out) => {
   out[0] = l;
   out[1] = c * Math.cos(h * TAU);
@@ -344,7 +410,14 @@ const lchToLab = (l, c, h, out) => {
   return out;
 };
 
-// https://drafts.csswg.org/css-color/#lab-to-lch}
+/**
+ * Return a Lch representation from Lab values.
+ * @param {number} l
+ * @param {number} a
+ * @param {number} b
+ * @param {Array} out
+ * @returns {import("./lch.js").lch}
+ */
 const labToLch = (l, a, b, out) => {
   out[0] = l;
 
@@ -378,14 +451,33 @@ const fromXYZValueToLabValue = (val, white) => {
   return val > 0.008856 ? Math.cbrt(val) : 7.787037 * val + 16 / 116;
 };
 
+/**
+ * Return a XYZ representation from Lab values with provided illuminant.
+ * @param {number} l
+ * @param {number} a
+ * @param {number} b
+ * @param {Array} out
+ * @param {Array} illuminant
+ * @returns {import("./xyz.js").xyz}
+ */
 const labToXyz = (l, a, b, out, illuminant) => {
   const Y = (l + 0.16) / 1.16;
 
   out[0] = fromLabValueToXYZValue(a / 5 + Y, illuminant[0]);
   out[1] = fromLabValueToXYZValue(Y, illuminant[1]);
   out[2] = fromLabValueToXYZValue(Y - b / 2, illuminant[2]);
+  return out;
 };
 
+/**
+ * Return a lab representation from XYZ values with provided illuminant.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ * @param {Array} out
+ * @param {Array} illuminant
+ * @returns {import("./lab.js").lab}
+ */
 const xyzToLab = (x, y, z, out, illuminant) => {
   const X = fromXYZValueToLabValue(x, illuminant[0]);
   const Y = fromXYZValueToLabValue(y, illuminant[1]);
@@ -398,6 +490,7 @@ const xyzToLab = (x, y, z, out, illuminant) => {
 };
 
 // Ok
+// https://github.com/bottosson/bottosson.github.io/blob/master/misc/colorpicker/colorconversion.js
 // prettier-ignore
 const mOklabToLMS = [
   1, 1, 1,
@@ -425,14 +518,28 @@ const mLMSToOklab = [
   -0.0040720468, 0.4505937099, -0.808675766,
 ];
 
-// https://github.com/bottosson/bottosson.github.io/blob/master/misc/colorpicker/colorconversion.js
+/**
+ * Return a Linear representation from Oklab values.
+ * @param {number} L
+ * @param {number} a
+ * @param {number} b
+ * @param {Array} out
+ * @returns {import("./linear.js").linear}
+ */
 const oklabToLinear = (L, a, b, out) => {
   fromValues(out, L, a, b);
   transformMat3(out, mOklabToLMS);
   cubed3(out);
   return transformMat3(out, mLMSToLinear);
 };
-
+/**
+ * Return a Oklab representation from Linear values.
+ * @param {number} lr
+ * @param {number} lg
+ * @param {number} lb
+ * @param {Array} out
+ * @returns {import("./oklab.js").oklab}
+ */
 const linearToOklab = (lr, lg, lb, out) => {
   fromValues(out, lr, lg, lb);
   transformMat3(out, mLinearToLMS);
@@ -444,18 +551,13 @@ const k1 = 0.206;
 const k2 = 0.03;
 const k3 = (1 + k1) / (1 + k2);
 
-function toe(x) {
-  return (
-    0.5 *
-    (k3 * x - k1 + Math.sqrt((k3 * x - k1) * (k3 * x - k1) + 4 * k2 * k3 * x))
-  );
-}
+const toe = (x) =>
+  0.5 *
+  (k3 * x - k1 + Math.sqrt((k3 * x - k1) * (k3 * x - k1) + 4 * k2 * k3 * x));
 
-function toeInv(x) {
-  return (x * x + k1 * x) / (k3 * (x + k2));
-}
+const toeInv = (x) => (x * x + k1 * x) / (k3 * (x + k2));
 
-function computeMaxSaturation(a, b) {
+const computeMaxSaturation = (a, b) => {
   let k0, k1, k2, k3, k4, wl, wm, ws;
 
   if (-1.88170328 * a - 0.80936493 * b > 1) {
@@ -514,22 +616,19 @@ function computeMaxSaturation(a, b) {
   const f2 = wl * ldS2 + wm * mdS2 + ws * sdS2;
 
   return S - (f * f1) / (f1 * f1 - 0.5 * f * f2);
-}
+};
 
-function findCusp(a, b) {
+const findCusp = (a, b) => {
   const sCusp = computeMaxSaturation(a, b);
-
   oklabToLinear(1, sCusp * a, sCusp * b, TMP);
-
   const lCusp = Math.cbrt(1 / Math.max(TMP[0], TMP[1], TMP[2]));
-
   return [lCusp, lCusp * sCusp];
-}
+};
 
-function getStMax(a_, b_, cusp = null) {
+const getStMax = (a_, b_, cusp = null) => {
   if (!cusp) cusp = findCusp(a_, b_);
   return [cusp[1] / cusp[0], cusp[1] / (1 - cusp[0])];
-}
+};
 
 const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
   if (!cusp) cusp = findCusp(a, b);
@@ -656,13 +755,17 @@ export {
   floorArray,
   TMP,
   TAU,
+
+  // Constants
   D65,
   D50,
-  // Spaces conversions
+
+  // Linear/sRGB
   linearToSrgb,
   srgbToLinear,
   linearToRgb,
   rgbToLinear,
+
   // XYZ/Linear/P3
   xyzD65ToLinear,
   linearToXyzD65,
@@ -670,6 +773,7 @@ export {
   linearToXyzD50,
   linearP3ToXyzD65,
   xyzD65ToLinearP3,
+
   // Luv/lch/xyz
   xyzToLuv,
   luvToXyz,
@@ -679,15 +783,20 @@ export {
   lchToHpluv,
   hsluvToLch,
   lchToHsluv,
-  // Lab/Lch
+
+  // Lch/Lab
   lchToLab,
   labToLch,
+
   // Lab/XYZ
   labToXyz,
   xyzToLab,
-  // Ok
+
+  // Oklab/Linear
   oklabToLinear,
   linearToOklab,
+
+  // Ok
   toe,
   toeInv,
   findCusp,
