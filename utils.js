@@ -547,15 +547,15 @@ const linearToOklab = (lr, lg, lb, out) => {
   return transformMat3(out, mLMSToOklab);
 };
 
-const k1 = 0.206;
-const k2 = 0.03;
-const k3 = (1 + k1) / (1 + k2);
+const K1 = 0.206;
+const K2 = 0.03;
+const K3 = (1 + K1) / (1 + K2);
 
 const toe = (x) =>
   0.5 *
-  (k3 * x - k1 + Math.sqrt((k3 * x - k1) * (k3 * x - k1) + 4 * k2 * k3 * x));
+  (K3 * x - K1 + Math.sqrt((K3 * x - K1) * (K3 * x - K1) + 4 * K2 * K3 * x));
 
-const toeInv = (x) => (x * x + k1 * x) / (k3 * (x + k2));
+const toeInv = (x) => (x ** 2 + K1 * x) / (K3 * (x + K2));
 
 const computeMaxSaturation = (a, b) => {
   let k0, k1, k2, k3, k4, wl, wm, ws;
@@ -589,7 +589,7 @@ const computeMaxSaturation = (a, b) => {
     ws = mLMSToLinear[8];
   }
 
-  let S = k0 + k1 * a + k2 * b + k3 * a * a + k4 * a * b;
+  const S = k0 + k1 * a + k2 * b + k3 * a ** 2 + k4 * a * b;
 
   const kl = mOklabToLMS[3] * a + mOklabToLMS[6] * b;
   const km = mOklabToLMS[4] * a + mOklabToLMS[7] * b;
@@ -599,23 +599,23 @@ const computeMaxSaturation = (a, b) => {
   const m_ = 1 + S * km;
   const s_ = 1 + S * ks;
 
-  const l = l_ * l_ * l_;
-  const m = m_ * m_ * m_;
-  const s = s_ * s_ * s_;
+  const l = l_ ** 3;
+  const m = m_ ** 3;
+  const s = s_ ** 3;
 
-  const ldS = 3 * kl * l_ * l_;
-  const mdS = 3 * km * m_ * m_;
-  const sdS = 3 * ks * s_ * s_;
+  const ldS = 3 * kl * l_ ** 2;
+  const mdS = 3 * km * m_ ** 2;
+  const sdS = 3 * ks * s_ ** 2;
 
-  const ldS2 = 6 * kl * kl * l_;
-  const mdS2 = 6 * km * km * m_;
-  const sdS2 = 6 * ks * ks * s_;
+  const ldS2 = 6 * kl ** 2 * l_;
+  const mdS2 = 6 * km ** 2 * m_;
+  const sdS2 = 6 * ks ** 2 * s_;
 
   const f = wl * l + wm * m + ws * s;
   const f1 = wl * ldS + wm * mdS + ws * sdS;
   const f2 = wl * ldS2 + wm * mdS2 + ws * sdS2;
 
-  return S - (f * f1) / (f1 * f1 - 0.5 * f * f2);
+  return S - (f * f1) / (f1 ** 2 - 0.5 * f * f2);
 };
 
 const findCusp = (a, b) => {
@@ -657,17 +657,17 @@ const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
     const m_ = L + C * km;
     const s_ = L + C * ks;
 
-    const l = l_ * l_ * l_;
-    const m = m_ * m_ * m_;
-    const s = s_ * s_ * s_;
+    const l = l_ ** 3;
+    const m = m_ ** 3;
+    const s = s_ ** 3;
 
-    const ldt = 3 * l_dt * l_ * l_;
-    const mdt = 3 * m_dt * m_ * m_;
-    const sdt = 3 * s_dt * s_ * s_;
+    const ldt = 3 * l_dt * l_ ** 2;
+    const mdt = 3 * m_dt * m_ ** 2;
+    const sdt = 3 * s_dt * s_ ** 2;
 
-    const ldt2 = 6 * l_dt * l_dt * l_;
-    const mdt2 = 6 * m_dt * m_dt * m_;
-    const sdt2 = 6 * s_dt * s_dt * s_;
+    const ldt2 = 6 * l_dt ** 2 * l_;
+    const mdt2 = 6 * m_dt ** 2 * m_;
+    const sdt2 = 6 * s_dt ** 2 * s_;
 
     const r =
       mLMSToLinear[0] * l + mLMSToLinear[3] * m + mLMSToLinear[6] * s - 1;
@@ -676,7 +676,7 @@ const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
     const r2 =
       mLMSToLinear[0] * ldt2 + mLMSToLinear[3] * mdt2 + mLMSToLinear[6] * sdt2;
 
-    const ur = r1 / (r1 * r1 - 0.5 * r * r2);
+    const ur = r1 / (r1 ** 2 - 0.5 * r * r2);
     let tr = -r * ur;
 
     const g =
@@ -686,7 +686,7 @@ const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
     const g2 =
       mLMSToLinear[1] * ldt2 + mLMSToLinear[4] * mdt2 + mLMSToLinear[7] * sdt2;
 
-    const ug = g1 / (g1 * g1 - 0.5 * g * g2);
+    const ug = g1 / (g1 ** 2 - 0.5 * g * g2);
     let tg = -g * ug;
 
     const b0 =
@@ -696,12 +696,12 @@ const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
     const b2 =
       mLMSToLinear[2] * ldt2 + mLMSToLinear[5] * mdt2 + mLMSToLinear[8] * sdt2;
 
-    const ub = b1 / (b1 * b1 - 0.5 * b0 * b2);
+    const ub = b1 / (b1 ** 2 - 0.5 * b0 * b2);
     let tb = -b0 * ub;
 
-    tr = ur >= 0 ? tr : 10e5;
-    tg = ug >= 0 ? tg : 10e5;
-    tb = ub >= 0 ? tb : 10e5;
+    tr = ur >= 0 ? tr : Number.MAX_VALUE; // 10e5
+    tg = ug >= 0 ? tg : Number.MAX_VALUE; // 10e5
+    tb = ub >= 0 ? tb : Number.MAX_VALUE; // 10e5
 
     t += Math.min(tr, tg, tb);
   }
@@ -709,45 +709,43 @@ const findGamutIntersection = (a, b, L1, C1, L0, cusp = null) => {
   return t;
 };
 
-const getCs = (L, a_, b_) => {
-  const cusp = findCusp(a_, b_);
-
-  const Cmax = findGamutIntersection(a_, b_, L, 1, L, cusp);
-  const STmax = getStMax(a_, b_, cusp);
-
+const getStMid = (a, b) => {
   // prettier-ignore
   const Smid = 0.11516993 + 1 / (
-      7.44778970 + 4.15901240 * b_
-      + a_ * (- 2.19557347 + 1.75198401 * b_
-      + a_ * (- 2.13704948 -10.02301043 * b_
-      + a_ * (- 4.24894561 + 5.38770819 * b_ + 4.69891013 * a_
+      7.44778970 + 4.15901240 * b
+      + a * (- 2.19557347 + 1.75198401 * b
+      + a * (- 2.13704948 -10.02301043 * b
+      + a * (- 4.24894561 + 5.38770819 * b + 4.69891013 * a
     )))
   );
   // prettier-ignore
   const Tmid = 0.11239642 + 1 / (
-      1.61320320 - 0.68124379 * b_
-      + a_ * (+ 0.40370612 + 0.90148123 * b_
-      + a_ * (- 0.27087943 + 0.61223990 * b_
-      + a_ * (+ 0.00299215 - 0.45399568 * b_ - 0.14661872 * a_
+      1.61320320 - 0.68124379 * b
+      + a * (+ 0.40370612 + 0.90148123 * b
+      + a * (- 0.27087943 + 0.61223990 * b
+      + a * (+ 0.00299215 - 0.45399568 * b - 0.14661872 * a
     )))
   );
+  return [Smid, Tmid];
+};
+
+const getCs = (L, a_, b_) => {
+  const cusp = findCusp(a_, b_);
+  const Cmax = findGamutIntersection(a_, b_, L, 1, L, cusp);
+  const STmax = getStMax(a_, b_, cusp);
+  const STmid = getStMid(a_, b_);
 
   const k = Cmax / Math.min(L * STmax[0], (1 - L) * STmax[1]);
 
-  let Ca = L * Smid;
-  let Cb = (1 - L) * Tmid;
+  let Ca = L * STmid[0];
+  let Cb = (1 - L) * STmid[1];
 
-  const Cmid =
-    0.9 *
-    k *
-    Math.sqrt(
-      Math.sqrt(1 / (1 / (Ca * Ca * Ca * Ca) + 1 / (Cb * Cb * Cb * Cb))),
-    );
+  const Cmid = 0.9 * k * Math.sqrt(Math.sqrt(1 / (1 / Ca ** 4 + 1 / Cb ** 4)));
 
   Ca = L * 0.4;
   Cb = (1 - L) * 0.8;
 
-  return [Math.sqrt(1 / (1 / (Ca * Ca) + 1 / (Cb * Cb))), Cmid, Cmax];
+  return [Math.sqrt(1 / (1 / Ca ** 2 + 1 / Cb ** 2)), Cmid, Cmax];
 };
 
 export {
