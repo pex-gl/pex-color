@@ -177,7 +177,7 @@ API naming follows the following rules:
   - [.toCSSLab(color, [precision])](#module_pex-color.toCSSLab) ⇒ [<code>css</code>](#css)
   - [.toCSSLab(color, [precision])](#module_pex-color.toCSSLab) ⇒ [<code>css</code>](#css)
   - [.toCSSLCH(color, [precision])](#module_pex-color.toCSSLCH) ⇒ [<code>css</code>](#css)
-  - [.toCSSOkLab(color, [precision])](#module_pex-color.toCSSOkLab) ⇒ [<code>css</code>](#css)
+  - [.toCSSOklab(color, [precision])](#module_pex-color.toCSSOklab) ⇒ [<code>css</code>](#css)
   - [.toCSSOklch(color, [precision])](#module_pex-color.toCSSOklch) ⇒ [<code>css</code>](#css)
   - [.toCSSXYZD50(color, [precision])](#module_pex-color.toCSSXYZD50) ⇒ [<code>css</code>](#css)
   - [.toCSSXYZ(color, [precision])](#module_pex-color.toCSSXYZ) ⇒ [<code>css</code>](#css)
@@ -411,9 +411,9 @@ Returns a lch CSS string representation of a given color.
 | color       | [<code>color</code>](#color) |                |
 | [precision] | <code>number</code>          | <code>5</code> |
 
-<a name="module_pex-color.toCSSOkLab"></a>
+<a name="module_pex-color.toCSSOklab"></a>
 
-### pex-color.toCSSOkLab(color, [precision]) ⇒ [<code>css</code>](#css)
+### pex-color.toCSSOklab(color, [precision]) ⇒ [<code>css</code>](#css)
 
 Returns a lab CSS string representation of a given color.
 

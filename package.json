@@ -1,6 +1,6 @@
 {
   "name": "pex-color",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Color utilities (css, p3, hex, hsl, hsv, hwb, lab, lch, xyz, okhsl, okhsv, oklab, oklch, hpluv, hsluv, lchuv, bytes) for PEX.",
   "keywords": [
     "pex",

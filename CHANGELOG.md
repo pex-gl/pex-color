@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [2.3.0](https://github.com/pex-gl/pex-color/compare/v2.2.0...v2.3.0) (2025-08-27)
+
+
+### Bug Fixes
+
+* toHex may return invalid hex value ([f5796d2](https://github.com/pex-gl/pex-color/commit/f5796d289160ff8d436e9de17836711f19b29bfb))
+
+
+### Features
+
+* rename toCSSOkLab to toCSSOklab ([2186223](https://github.com/pex-gl/pex-color/commit/21862236ec1c86b9fd37f8dac2da9f52adc7bfdb)), closes [#28](https://github.com/pex-gl/pex-color/issues/28)
+
+
+
 # [2.2.0](https://github.com/pex-gl/pex-color/compare/v2.1.1...v2.2.0) (2024-10-08)
 
 
