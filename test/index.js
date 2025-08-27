@@ -630,7 +630,7 @@ describe("CSS", () => {
         redCSSLab.replace(")", " / 0.5)"),
       );
     });
-    it("toCSSOkLab() should return a lab CSS string representation", () => {
+    it("toCSSOklab() should return a lab CSS string representation", () => {
       const c = color.utils.floorArray(
         color.utils
           .floorArray(RED.reference.Oklab)
@@ -638,14 +638,14 @@ describe("CSS", () => {
         2,
       );
       const redCSSLab = `oklab(${c[0]}% ${c[1]} ${c[2]})`;
-      deepEqual(color.toCSSOkLab([1, 0, 0], 2), redCSSLab);
+      deepEqual(color.toCSSOklab([1, 0, 0], 2), redCSSLab);
       deepEqual(
-        color.toCSSOkLab([1, 0, 0, 0], 2),
+        color.toCSSOklab([1, 0, 0, 0], 2),
         redCSSLab.replace(")", " / 0)"),
       );
-      deepEqual(color.toCSSOkLab([1, 0, 0, 1], 2), redCSSLab);
+      deepEqual(color.toCSSOklab([1, 0, 0, 1], 2), redCSSLab);
       deepEqual(
-        color.toCSSOkLab([1, 0, 0, 0.5], 2),
+        color.toCSSOklab([1, 0, 0, 0.5], 2),
         redCSSLab.replace(")", " / 0.5)"),
       );
     });

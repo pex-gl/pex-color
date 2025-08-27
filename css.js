@@ -154,12 +154,12 @@ export function toCSSLCH(color, precision = 5) {
 
 /**
  * Returns a lab CSS string representation of a given color.
- * @alias module:pex-color.toCSSOkLab
+ * @alias module:pex-color.toCSSOklab
  * @param {import("./color.js").color} color
  * @param {number} [precision=5]
  * @returns {css}
  */
-export function toCSSOkLab(color, precision = 5) {
+export function toCSSOklab(color, precision = 5) {
   toOklab(getCoords(color), TMP);
   TMP[0] *= 100;
   if (precision !== undefined) floorArray(TMP, precision);
